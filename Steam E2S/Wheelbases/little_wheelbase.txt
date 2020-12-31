@@ -1,0 +1,166 @@
+@name Little Wheelbase
+@inputs Screen:wirelink Brake Active W S ResetThrottle Throttle_OVR Wheels1:entity Wheels2:entity
+@outputs MPH KPH V Throttle NegativeThrottle OPS
+@persist Turn MaxSpeed Mul [E O Weld]:entity [Diesel_Sound Steamer_Ambient_Sound Steamer_Chuff_Sound Wheel_Sound Brake_Sound]:string EngineMin EngineMax Mode AccelTo AccelQ Throttle Braking Spd Braketext:string Throttletext:string
+@trigger 
+@model models/bobsters_trains/uk/bogies/bt10.mdl
+#Computer part
+Throttletext="Throttle: "+Throttle
+    #Force multiplier
+            if(ResetThrottle==0){Mul = 1000}
+    if(ResetThrottle==1){Throttle=0
+    Mul=0}
+    if(Brake==0){entity():propPhysicalMaterial("slipperyslime")
+        Wheels1:propPhysicalMaterial("slipperyslime")
+Wheels2:propPhysicalMaterial("slipperyslime")}
+if(Brake==1){entity():propPhysicalMaterial("solidmetal")
+    Wheels1:propPhysicalMaterial("solidmetal")
+    Wheels2:propPhysicalMaterial("solidmetal")}
+if(first()|duped()){
+    MaxSpeed = 1000 #Top Speed in hammer units per second
+    
+    Mode = 1 #1 for Steamers, 0 for Diesels/Electric/Other
+    
+    #The Engine idle sound that will be used for Diesel/Electric/Other locomotives
+    Diesel_Sound = "_jazzlok/diesel_engines/misc/v8_600rpm.wav"   
+    
+    #The Ambient and Chuff loop sounds that will be used for Steam locomotives
+    Steamer_Ambient_Sound = "moztrainsounds/steam/14xx/14xx_idle.wav"
+    Steamer_Chuff_Sound = "moztrainsounds/steam/14xx/chuffs/chuffloop1.wav"
+    
+    #The wheel and brake sound that will be used on all locomotives
+    Wheel_Sound = "ambient/machines/train_freight_loop2.wav"
+    Brake_Sound = "gsgtrainsounds/wheels/brake_2.wav"
+    
+    EngineMin = 80 #Minimum engine pitch. If the locomotive is a steamer, the Ambient sound will be clamped to this value.
+    EngineMax = 120 #Maximum engine pitch, only used on Diesels/Electrics/Other when you put that hammer down.
+    
+    
+    Throttle = 0
+    AccelTo = 0
+    E = entity()
+    O = owner()
+    
+    
+}
+interval(20)
+if(Active){
+    Screen:egpColor(1,vec(255,191,0))
+    #Ignition
+    if(~Active){
+        #Weld = E:isWeldedTo()
+        Weld=entity()
+        E:soundPlay(0,0,Mode ? Steamer_Ambient_Sound : Diesel_Sound)
+        E:soundPlay(1,0,Wheel_Sound)
+        if(Mode){
+            E:soundPlay(2,0,Steamer_Chuff_Sound)
+            soundPitch(0,EngineMin)
+        }
+    }
+    
+    
+    #Throttle Controlling
+    
+    if((W|S) & !->Throttle_OVR){
+        if(AccelQ){AccelQ=0}
+        
+        Throttle += (W - S)*0.125
+    }elseif(->Throttle_OVR){
+        Throttle = Throttle_OVR
+    }
+    if(!->Throttle_OVR & AccelQ){
+        Throttle += sign(AccelTo - Throttle)/64
+        if(Throttle==AccelTo){
+            AccelQ = 0
+        }
+    }
+    
+    Throttle = clamp(Throttle,-10,10)
+    NegativeThrottle = -Throttle
+    
+    
+    #Velocity Info Gathering
+    V = -E:velL():x()
+    Spd = abs(V)
+    MPH = toUnit("mph",Spd)
+    KPH = toUnit("km/h",Spd)
+    
+    #Sound Pitch Adjustment
+    
+    if(!Mode){
+        soundPitch(0,EngineMin + (EngineMax - EngineMin)*abs(Throttle)/10)
+    }
+    soundPitch(1,Spd > 15 ? Spd/12 : 0)
+    soundPitch(2,Spd > 15 ? Spd/4 : 0)
+    
+    if(Spd<15 & Braking){
+        Braking = 0
+        soundStop(3)
+    }
+    
+    #Force Application
+    Dir = -E:forward()
+    TargetSpeed = MaxSpeed*Throttle/10
+    Weld:applyForce(Dir*(TargetSpeed - V)*Mul)
+}else{
+    if(~Active){
+        Screen:egpColor(1,vec(255,0,0))
+        Throttle = NegativeThrottle = V = Spd = MPH = KPH = AccelTo = AccelQ = Braking = 0
+        soundStop(0)
+        soundStop(1)
+        soundStop(2)
+        soundStop(3)
+        
+    }
+}
+
+OPS = ops()
+if(first() | duped()){entity():setAlpha(0)
+#models/bobsters_trains/wheels/standard/wheel_48_double.mdl
+#models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl
+
+#Invisible Wheel
+holoCreate(0)
+holoModel(0, "models/bobsters_trains/wheels/standard/wheel_30_double.mdl")
+holoPos(0,entity():toWorld(vec(0,0,-34)))
+holoAng(0, entity():toWorld(ang(0,0,0)) )
+holoAlpha(0,0)
+holoParent(0, entity())
+
+holoCreate(1)
+holoModel(1, "models/bobsters_trains/wheels/standard/wheel_30_double.mdl")
+holoPos(1,entity():toWorld(vec(-54,0,-34)))
+holoAng(1, entity():toWorld(ang(0,0,0)) )
+holoSkin(1,1)
+holoParent(1, entity())
+holoEntity(1):setBodygroup(1,4)
+
+holoCreate(2)
+holoModel(2, "models/bobsters_trains/wheels/standard/wheel_30_double.mdl")
+holoPos(2,entity():toWorld(vec(54,0,-34)))
+holoAng(2, entity():toWorld(ang(0,0,0)) )
+holoSkin(2,1)
+holoParent(2, entity())
+holoEntity(2):setBodygroup(1,4)
+
+holoCreate(3)
+holoModel(3, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+holoPos(3,entity():toWorld(vec(0,-48,-26)))
+holoAng(3, entity():toWorld(ang(0,0,0)) )
+#holoMaterial(3,"phoenix_storms/black_brushes")
+holoParent(3, holoEntity(0))
+
+holoCreate(4)
+holoModel(4, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+holoPos(4,entity():toWorld(vec(0,48,-41)))
+holoAng(4, entity():toWorld(ang(0,0,0)) )
+#holoMaterial(4,"phoenix_storms/black_brushes")
+holoParent(4, holoEntity(0))}
+
+
+if(ResetThrottle==0){Turn+=((entity():velL():x())*0.1)}
+holoAng(0, entity():toWorld(ang(Turn,0,0)) )
+holoAng(1, entity():toWorld(ang(Turn,0,0)) )
+holoAng(2, entity():toWorld(ang(Turn,0,0)) )
+holoAng(3, entity():toWorld(ang(0,0,0)) )
+holoAng(4, entity():toWorld(ang(0,0,0)) )

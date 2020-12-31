@@ -1,0 +1,21 @@
+@name Steam real Reverser
+@inputs Reverser
+@persist Maxang
+
+if( first() | duped() ){
+    
+Maxang=13 #maximum angle of the lever    
+    #models/props_wasteland/tram_lever01.mdl
+holoCreate(1)
+holoModel(1, "models/props_bennjo/throttle_uk_1.mdl")
+holoScale(1,vec(1))
+holoPos(1,entity():toWorld(vec(0,0,0)))
+holoColor(1,vec(35))
+holoParent(1, entity())
+holoMaterial(1,"wtp/metal_2")
+
+}
+
+A=Reverser*Maxang
+
+holoAng(1, entity():toWorld(ang(A,0,180)))

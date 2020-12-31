@@ -1,0 +1,114 @@
+@name SP-2 4-10-2 Frame
+@inputs Frame:entity Pilot:entity
+
+Metal1 = "WTP/metal_2"
+
+X=1
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(0,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-77,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-154,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(154,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(77,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41)) holoClipEnabled(X,1) holoClip(X, 1, vec(11,0,0), vec(1,0,0), 0) 
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(77,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wheelholder_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41)) holoClipEnabled(X,1) holoClip(X, 1, vec(-11,0,0), vec(-1,0,0), 0) 
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(154,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_whold_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(77,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_whold_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(0,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_whold_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-77,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_whold_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-154,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_whold_1.mdl") holoScale(X,vec(0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(38,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdconnector_3.mdl") holoScale(X,vec(0.6,1.4,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-38,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdconnector_3.mdl") holoScale(X,vec(0.6,1.4,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-58*2,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdconnector_3.mdl") holoScale(X,vec(0.6,1.4,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(58*2,0,-19))) holoAng(X,Frame:toWorld(ang(0,90,0)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdconnector_3.mdl") holoScale(X,vec(0.6,1.4,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(140,0,-13))) holoAng(X,Frame:toWorld(ang(0,90,180)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_frontconnector_1.mdl") holoScale(X,vec(0.6,1,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-141,0,-13))) holoAng(X,Frame:toWorld(ang(0,90,180)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_backconnector_1.mdl") holoScale(X,vec(0.6,1,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(26,0,-13))) holoAng(X,Frame:toWorld(ang(0,90,180)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdcenter_1.mdl") holoScale(X,vec(0.6,1,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(160,0,-13))) holoAng(X,Frame:toWorld(ang(0,90,180)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdcenter_1.mdl") holoScale(X,vec(0.6,1,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(-160,0,-13))) holoAng(X,Frame:toWorld(ang(0,90,180)))
+holoParent(X,Frame)   holoModel(X,"models/unionsparts/frame_wholdcenter_1.mdl") holoScale(X,vec(0.6,1,0.6))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Pilot:toWorld(vec(40,0,0))) holoAng(X,Pilot:toWorld(ang(0,90,0)))
+holoParent(X,Pilot)   holoModel(X,"models/unionsparts/pilot_truck_2.mdl") holoScale(X,vec(1,0.8,1))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))
+
+X++
+holoCreate(X)   holoPos(X,Frame:toWorld(vec(250,60,-19))) holoAng(X,Frame:toWorld(ang(0,90,90)))
+holoParent(X,Frame)   holoModel(X,"models/sprops/cylinders/size_5/cylinder_12x24.mdl") holoScale(X,vec(2,2,2))
+holoMaterial(X,Metal1)   holoColor(X,vec(41))

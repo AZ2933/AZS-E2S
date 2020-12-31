@@ -1,0 +1,516 @@
+@name 4-10-2 SP-2
+@inputs Reverser Base:entity LeadFWheel:entity LeadBWheel:entity
+@persist Base:entity Holo HolosSpawned RodRadius Speed WheelRotation
+
+@persist DistFromWheel LiftingArm Wheel_1 Wheel_2 Wheel_3 Wheel_4 Wheel_5 CenterRod CenterPiston
+
+@persist SideRod_L MainRod_L Crosshead_L EccentricCrank_L EccentricRod_L ExpansionPlate_L EccentricRodEnd_L 
+@persist UnionLink_L Combination_L CombinationEnd_L ValveStem_L ExpansionLink_L LiftingLink_L LiftingLinkEnd_L
+
+@persist SideRod_R MainRod_R Crosshead_R EccentricCrank_R EccentricRod_R ExpansionPlate_R EccentricRodEnd_R
+@persist UnionLink_R Combination_R CombinationEnd_R ValveStem_R ExpansionLink_R LiftingLink_R LiftingLinkEnd_R
+
+if(dupefinished()){reset()}
+if(first() | duped()) {
+    
+    RodMaterial = "sprops/textures/sprops_metal4"
+    RodColor = vec(218)
+    RodRadius = 18
+    DistFromWheel = 40
+    ParentScale = 0.4
+    
+    #Driving Wheels
+    Holo = 1
+    holoCreate(Holo, Base:toWorld(vec(154,0,-19)), vec(1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/unionsparts/wheel_63_5_double.mdl")
+    holoColor(Holo, vec(31)) holoSkin(Holo, 3) 
+    holoEntity(Holo):setSubMaterial(1, "WTP/metal_2")
+    holoEntity(Holo):setSubMaterial(2, "models/unionslocos/train_metal3")
+    holoParent(Holo, Base)
+    Wheel_1 = Holo
+	   Holo++
+    holoCreate(Holo, Base:toWorld(vec(77,0,-19)), vec(1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/unionsparts/wheel_63_5_double.mdl")
+    holoColor(Holo, vec(31)) holoSkin(Holo, 3) holoBodygroup(Holo, 1, 1) 
+    holoEntity(Holo):setSubMaterial(1, "WTP/metal_2")
+    holoEntity(Holo):setSubMaterial(2, "models/unionslocos/train_metal3")
+    holoParent(Holo, Base)
+    Wheel_2 = Holo
+	   Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,0,-19)), vec(1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/unionsparts/wheel_63_5_double.mdl")
+    holoBodygroup(Holo, 2, 1) holoColor(Holo, vec(31)) holoSkin(Holo, 3) 
+    holoEntity(Holo):setSubMaterial(1, "WTP/metal_2")
+    holoEntity(Holo):setSubMaterial(2, "models/unionslocos/train_metal3")
+    holoParent(Holo, Base)
+    Wheel_3 = Holo    
+	   Holo++
+    holoCreate(Holo, Base:toWorld(vec(-77,0,-19)), vec(1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/unionsparts/wheel_63_5_double.mdl")
+    holoBodygroup(Holo, 1, 8) holoColor(Holo, vec(31)) holoSkin(Holo, 3) 
+    holoEntity(Holo):setSubMaterial(1, "WTP/metal_2")
+    holoEntity(Holo):setSubMaterial(2, "models/unionslocos/train_metal3")
+    holoParent(Holo, Base)
+    Wheel_4 = Holo
+	   Holo++
+    holoCreate(Holo, Base:toWorld(vec(-154,0,-19)), vec(1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/unionsparts/wheel_63_5_double.mdl")
+    holoBodygroup(Holo, 1, 8) holoColor(Holo, vec(31)) holoSkin(Holo, 3) 
+    holoEntity(Holo):setSubMaterial(1, "WTP/metal_2")
+    holoEntity(Holo):setSubMaterial(2, "models/unionslocos/train_metal3")
+    holoParent(Holo, Base)
+    Wheel_5 = Holo
+
+    #Side Rod Left
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base) 
+    SideRod_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,2,0)), vec(1.2,1,1.2), Base:toWorld(ang(0,180,180)))
+    holoModel(Holo, "models/bobsters_trains/uk/class07/coupling_rod_l.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_L)
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-154,3.5,0)), vec(1.3,1,1), Base:toWorld(ang(180,180,180)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank_rod_r.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_L)    
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(154,3.5,0)), vec(1.3,1,1), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank_rod_l.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_L)  
+                
+    #Side Rod Right
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    SideRod_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,-2,0)), vec(1.2,1,1.2), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class07/coupling_rod_l.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_R)
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(154,-3.5,0)), vec(1.3,1,1), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank_rod_r.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_R)    
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-154,-3.5,0)), vec(1.3,1,1), Base:toWorld(ang(180,180,180)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank_rod_l.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, SideRod_R)  
+    
+    #Center Rod 
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    CenterRod = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-65,0,0)), vec(1.2,1,1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, CenterRod)      
+    
+    #Center Piston
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    CenterPiston = Holo    
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(1.2,1,1), Base:toWorld(ang(-14,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/peckett/w6/piston.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, CenterPiston)       
+    
+    #Main Rod Left
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    MainRod_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-92,0,0)), vec(1.7,1,1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, MainRod_L)     
+
+    #Main Rod Right
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    MainRod_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-92,0,0)), vec(1.7,1,1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, MainRod_R)  
+
+    #Crosshead Left
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    Crosshead_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-5,0,0)), vec(1.5,2,1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/peckett/w6/piston.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, Crosshead_L)   
+                
+    #Crosshead Right
+    Holo++ 
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    Crosshead_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-5,0,0)), vec(1.5,2,1), Base:toWorld(ang(0,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/peckett/w6/piston.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, Crosshead_R)   
+                                                    
+    Holo++
+    #Left Eccentric crank
+    holoCreate(Holo, Base:toWorld(vec(0,-65,-36)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Wheel_3)
+    EccentricCrank_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-8,65,-22)), vec(0.8), Base:toWorld(ang(-90+26,0,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, EccentricCrank_L)
+    
+    Holo++
+    #Right Eccentric crank
+    holoCreate(Holo, Base:toWorld(vec(0,-65,-36)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Wheel_3)
+    EccentricCrank_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(4,-65,-30)), vec(0.8), Base:toWorld(ang(26,0,180)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, EccentricCrank_R)
+    
+    
+    #Left Eccentric Rod
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,70,-26)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, EccentricCrank_L)
+    EccentricRod_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-58,70,-26)), vec(1.1,1,0.5), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, EccentricRod_L)   
+    
+    #Right Eccentric Rod
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(8.5,-70,-22)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, EccentricCrank_R)
+    EccentricRod_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-50,-70,-22)), vec(1.1,1,0.5), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/gwr_14xx/coupling_rod.mdl")
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, EccentricRod_R)    
+        
+    #Left Expansion Plate
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(120,68,32.5-25)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    ExpansionPlate_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(120,68,0)), vec(1,1,1), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/unionsparts/expansionlink_1.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionPlate_L)
+    holoClipEnabled(Holo,1)
+    holoClip(Holo, 1, vec(0,0,-8), vec(0,0,-1), 0)
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(122,68,32.5-25)), vec(0.5,1,1.2), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionPlate_L)   
+    
+    #Right Expansion Plate
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(120,-68,32.5-25)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Base)
+    ExpansionPlate_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(120,-68,0)), vec(1,1,1), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/unionsparts/expansionlink_1.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionPlate_R)
+    holoClipEnabled(Holo,1)
+    holoClip(Holo, 1, vec(0,0,-8), vec(0,0,-1), 0)
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(122,-68,32.5-25)), vec(0.5,1,1.2), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionPlate_R)    
+    
+    #Left Eccentric End
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(117,68,13-25)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, "") holoColor(Holo, RodColor)
+    holoParent(Holo, ExpansionPlate_L)
+    EccentricRodEnd_L = Holo
+    
+    #Right Eccentric End
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(117,-68,13-25)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, "") holoColor(Holo, RodColor)
+    holoParent(Holo, ExpansionPlate_R)
+    EccentricRodEnd_R = Holo
+    
+    #Left Expansion Link
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(3,0,13)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, ExpansionPlate_L) 
+    ExpansionLink_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-35,0,13)), vec(1.1,1,0.8), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/sprops/rectangles/size_1/rect_3x108x3.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionLink_L)   
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-90,0,13)), vec(0.5,1.2,5), Base:toWorld(ang(180,90,90)))
+    holoModel(Holo, "models/sprops/geometry/hring_12.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionLink_L)    
+    
+    #Right Expansion Link
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(3,0,13)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, ExpansionPlate_R)    
+    ExpansionLink_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-40,0,13)), vec(1.1,1,0.8), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/sprops/rectangles/size_1/rect_3x108x3.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ExpansionLink_R)   
+  
+    #Left Valve Stem
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,5,5)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, "") holoColor(Holo, vec4(0,0,0,255))
+    holoParent(Holo, Base) 
+    ValveStem_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(25,10,10)), vec(1.1,1,0.8), Base:toWorld(ang(0,90,90)))
+    holoModel(Holo, "models/sprops/cylinders/size_2/cylinder_3x60.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ValveStem_L)     
+    
+    #Right Valve Stem
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,5,-5)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, Base) 
+    ValveStem_R = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(25,0,0)), vec(1.1,1,0.8), Base:toWorld(ang(0,90,90)))
+    holoModel(Holo, "models/sprops/cylinders/size_2/cylinder_3x60.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, ValveStem_R)     
+      
+    #Left Combination Lever
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,10,10)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, ValveStem_L)
+    Combination_L = Holo  
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,10,-6)), vec(1,1,1), Base:toWorld(ang(90,0,0)))
+    holoModel(Holo, "models/sprops/rectangles/size_1/rect_3x36x3.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, Combination_L)                   
+
+    #Right Combination Lever
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, ValveStem_R)
+    Combination_R = Holo       
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,10,-6)), vec(1,1,1), Base:toWorld(ang(90,0,0)))
+    holoModel(Holo, "models/sprops/rectangles/size_1/rect_3x36x3.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, Combination_R)  
+        
+    #Left Combination End 
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,10,-20)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, Combination_L)
+    CombinationEnd_L = Holo
+    
+    #Right Combination End 
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(0,0,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoMaterial(Holo, RodMaterial) holoColor(Holo, RodColor)
+    holoParent(Holo, Combination_R)
+    CombinationEnd_R = Holo
+            
+    #Left Union link
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-5,10,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Crosshead_L) 
+    UnionLink_L = Holo
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-5,10,0)), vec(0.7), Base:toWorld(ang(0,180,0)))
+    holoModel(Holo, "models/bobsters_trains/uk/class03/crank_rod_l.mdl") 
+    holoColor(Holo, RodColor) holoMaterial(Holo,RodMaterial)
+    holoParent(Holo, UnionLink_L)        
+                                            
+    #Right Union link
+    Holo++
+    holoCreate(Holo, Base:toWorld(vec(-5,-10,0)), vec(ParentScale), Base:toWorld(ang(0,0,0)))
+    holoParent(Holo, Crosshead_R) 
+    UnionLink_R = Holo
+    
+    
+    
+    
+    
+                                                            
+    WheelRotation = -90
+    function void updateRods(Speed:number) {
+        if(Speed != 0) {
+            WheelRotation += Speed * 1
+            if(WheelRotation > 360) {
+                WheelRotation = WheelRotation - 360
+            }elseif(WheelRotation < -360) {
+                WheelRotation = WheelRotation + 360
+            }
+            holoAng(Wheel_1, Base:toWorld(ang(WheelRotation,0,0)))
+            holoAng(Wheel_2, Base:toWorld(ang(WheelRotation,0,0)))
+            holoAng(Wheel_3, Base:toWorld(ang(WheelRotation,0,0)))
+            holoAng(Wheel_4, Base:toWorld(ang(WheelRotation,0,0)))
+            holoAng(Wheel_5, Base:toWorld(ang(WheelRotation,0,0)))
+            
+        
+            if(Reverser>=0.1){Noot=-1}elseif(Reverser<=-0.1){Noot=1}
+            
+            #Center Rod
+            MainRodCos = cos(WheelRotation+320)*RodRadius
+            UpDownCos = cos(WheelRotation+320)*4
+            MainRodSin = sin(WheelRotation+320)*RodRadius
+            holoPos(CenterRod, Base:toWorld(vec(77,0,-19) + vec(MainRodCos,0,-MainRodSin)))  
+            local CenterPiston_Ang = (holoEntity(CenterRod):pos() - holoEntity(CenterPiston):pos()):toAngle()
+            holoAng(CenterRod, CenterPiston_Ang)
+                        
+            #Center Piston
+            holoPos(CenterPiston, Base:toWorld(vec(200,0,5) + vec(MainRodCos,0,UpDownCos)))     
+            holoAng(CenterPiston, Base:toWorld(ang(0,0,0)))
+            
+            #Side Rods Left
+            MainRodCos = cos(WheelRotation+180)*RodRadius
+            MainRodSin = sin(WheelRotation+180)*RodRadius
+            holoPos(SideRod_L, Base:toWorld(vec(0,48,-19) + vec(MainRodCos,0,-MainRodSin)))
+            
+            #Main Rod Left
+            holoPos(MainRod_L, Base:toWorld(vec(0,60,-18.5) + vec(MainRodCos,0,-MainRodSin)))           
+            
+            #Crosshead Left
+            holoPos(Crosshead_L, Base:toWorld(vec(188,60,-18.5) + vec(MainRodCos,0,0)))
+            local Crosshead_Ang = (holoEntity(MainRod_L):pos() - holoEntity(Crosshead_L):pos()):toAngle()
+            holoAng(MainRod_L, Crosshead_Ang)
+            
+            #Side Rods Right
+            local MainRodCos = cos(WheelRotation+90)*RodRadius
+            local MainRodSin = sin(WheelRotation+90)*RodRadius
+            holoPos(SideRod_R, Base:toWorld(vec(0,-48,-19) + vec(MainRodCos,0,-MainRodSin)))
+            
+            #Main Rod Right
+            holoPos(MainRod_R, Base:toWorld(vec(0,-60,-18.5) + vec(MainRodCos,0,-MainRodSin)))           
+            
+            #Crosshead Right
+            holoPos(Crosshead_R, Base:toWorld(vec(188,-60,-18.5) + vec(MainRodCos,0,0)))
+            local Crosshead_Ang = (holoEntity(MainRod_R):pos() - holoEntity(Crosshead_R):pos()):toAngle()
+            holoAng(MainRod_R, Crosshead_Ang)            
+            
+            #Eccentric Rod Left
+            local EccentricRod_Ang = (holoEntity(EccentricRod_L):pos() - holoEntity(EccentricRodEnd_L):pos()):toAngle()
+            holoAng(EccentricRod_L, EccentricRod_Ang)
+            
+            #Eccentric Rod Right
+            EccentricRod_Ang = (holoEntity(EccentricRod_R):pos() - holoEntity(EccentricRodEnd_R):pos()):toAngle()
+            holoAng(EccentricRod_R, EccentricRod_Ang)
+            
+            #Left Expansion Plate
+            local EccentricCos = cos(WheelRotation+90)*(RodRadius*5.5)
+            holoAng(ExpansionPlate_L, Base:toWorld(ang(-EccentricCos/4,0,0)))
+            
+            #Right Expansion Plate
+            EccentricCos = cos(WheelRotation+390)*(RodRadius*5.5)
+            holoAng(ExpansionPlate_R, Base:toWorld(ang(-EccentricCos/4,0,0)))
+            
+            #Left Combination Lever
+            holoAng(Combination_L, Base:toWorld(ang((sin(WheelRotation+90)*30),0,0)))
+            local ExpansionLink_Ang = (holoEntity(ExpansionLink_L):pos() - holoEntity(Combination_L):pos()):toAngle()
+            holoAng(ExpansionLink_L, ExpansionLink_Ang)            
+            
+            #Right Combination Lever
+            holoAng(Combination_R, Base:toWorld(ang((sin(WheelRotation-(8*Reverser))*30)+(-Reverser-4),0,0)))
+            ExpansionLink_Ang = (holoEntity(ExpansionLink_R):pos() - holoEntity(Combination_R):pos()):toAngle()
+            holoAng(ExpansionLink_R, ExpansionLink_Ang)    
+            
+            #Left Combination End
+            local UnionLink_Ang = (holoEntity(UnionLink_L):pos() - holoEntity(CombinationEnd_L):pos()):toAngle()
+            holoAng(UnionLink_L, UnionLink_Ang)
+            
+            #Right Combination End    
+            UnionLink_Ang = (holoEntity(UnionLink_R):pos() - holoEntity(CombinationEnd_R):pos()):toAngle()
+            holoAng(UnionLink_R, UnionLink_Ang)     
+            
+            #Left Valve Stem
+            local ValveStemAmount = sin(WheelRotation+180*Reverser) * (3*abs(Reverser))
+            holoPos(ValveStem_L, Base:toWorld(vec(225,64,10)-vec(Noot*ValveStemAmount -((0.5) * Reverser),0,0)))            
+            
+            #Right Valve Stem    
+            ValveStemAmount = sin(WheelRotation+(90*Reverser)-90) * (2*abs(Reverser))
+            holoPos(ValveStem_R, Base:toWorld(vec(225,-64,15)-vec(ValveStemAmount - ((0.5) * Reverser),0,0)))
+            
+            #Left Lifting Link
+            local LiftingLink_Ang = (holoEntity(LiftingLink_L):pos() - holoEntity(LiftingLinkEnd_L):pos()):toAngle()
+            holoAng(LiftingLink_L, LiftingLink_Ang)
+                        
+            #Right Lifting Link
+            LiftingLink_Ang = (holoEntity(LiftingLink_R):pos() - holoEntity(LiftingLinkEnd_R):pos()):toAngle()
+            holoAng(LiftingLink_R, LiftingLink_Ang)
+                                    
+        } 
+        
+    local ReverserChanged = changed(Reverser)
+        if(ReverserChanged | (!ReverserChanged & Speed != 0)) {
+            if(ReverserChanged) {
+                local ExpansionOffset = (-Reverser > 0 ? vec(2,0,8) : vec(2,0,-8)) * abs(Reverser)
+                holoPos(ExpansionLink_L, holoEntity(ExpansionPlate_L):toWorld(ExpansionOffset))  
+                holoPos(ExpansionLink_R, holoEntity(ExpansionPlate_R):toWorld(ExpansionOffset)) 
+                
+                local LiftingOffset = -35 * -Reverser 
+                holoAng(LiftingArm, Base:toWorld(ang(LiftingOffset,0,0)))
+                
+                local ExpansionLink_Ang = (holoEntity(ExpansionLink_L):pos() - holoEntity(Combination_L):pos()):toAngle()
+                holoAng(ExpansionLink_L, ExpansionLink_Ang) 
+                
+                local ValveStemAmount = sin(WheelRotation+180*Reverser) * (3*abs(Reverser))
+                holoPos(ValveStem_L, Base:toWorld(vec(225,64,10)-vec(Noot*ValveStemAmount -((0.5) * Reverser),0,0)))   
+                
+                
+    
+                holoAng(Combination_L, Base:toWorld(ang((sin(WheelRotation+90)*30),0,0)))
+                local ExpansionLink_Ang = (holoEntity(ExpansionLink_L):pos() - holoEntity(Combination_L):pos()):toAngle()
+                holoAng(ExpansionLink_L, ExpansionLink_Ang) 
+            }
+        }
+        
+    }
+    updateRods(1)
+}
+
+interval(50)
+if(clk()) {
+    Speed = round(Base:velL():x() / 10)
+    updateRods(Speed)
+}

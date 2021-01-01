@@ -1,0 +1,57 @@
+@name RLC SH Gauge 1
+@inputs On BrakeInfo:array
+@outputs 
+@persist E:entity
+@trigger none
+@model models/gsgtrainprops/parts/cab/gauge_01.mdl
+
+if(first()|duped()){
+    E = entity()
+    
+    
+    function void needleValue(HoloIndex, Value){
+        
+        local Frac = -clamp(Value/160,0,1)
+        local Angle = Frac*290 + 145
+        
+        holoAng(HoloIndex,E:angles():rotateAroundAxis(E:forward(),Angle))
+    }
+    E:propDraw(6)
+   
+    
+    holoCreate(2,E:pos(),vec(1),E:angles(),vec(255),"models/gsgtrainprops/parts/cab/needle_brake_red.mdl")
+    holoParent(2,E)
+    
+    holoCreate(3,E:pos()+0.0625*E:forward(),vec(1),E:angles(),vec(255),"models/gsgtrainprops/parts/cab/needle_brake_white.mdl")
+    holoParent(3,E)
+    holoCreate(4,E:pos()+0.0365*E:forward(),vec(1),E:angles(),vec(255,255,0),"models/gsgtrainprops/parts/cab/needle_brake_white.mdl")
+    holoParent(4,E)
+    
+    needleValue(2,0)
+    needleValue(3,0)
+    needleValue(4,0)
+
+
+
+    entity():setAlpha(0)
+     holoCreate(6,entity():toWorld(vec(0,0,0)),vec(1.3),entity():toWorld(ang(0,0,0)),vec(255),"models/gsgtrainprops/parts/cab/gauge_01.mdl")
+     holoParent(6,entity())
+holoMaterial(6,"models/gsgtrainprops/cab/gauge_air_westinghouse_160_black")
+ holoCreate(7,entity():toWorld(vec(0,0,0)),vec(0.7,0.7,0.1),entity():toWorld(ang(90,0,0)),vec(109),"models/sprops/cylinders/size_4/cylinder_9x3.mdl")
+holoParent(7,entity())
+}
+timer("clk",100)
+needleValue(2,BrakeInfo[3,number])
+needleValue(3,BrakeInfo[5,number])
+needleValue(4,BrakeInfo[4,number])
+    
+    
+
+
+
+
+
+
+if(On){holoColor(7,vec4(255,255,200,10))
+    holoMaterial(7,"models/props_gulch/gulch_crystal_white")}else{holoColor(7,vec4(255,255,200,0))
+    holoMaterial(7,"magtrains/invisible")}

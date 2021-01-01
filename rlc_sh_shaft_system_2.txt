@@ -1,0 +1,58 @@
+@name RLC SH Shaft system 2
+@inputs On On2 On3 Starting2
+@outputs Play Vecout:vector Onout Onout2 A Starting
+@persist E:entity A B Starting Z
+@trigger 
+@model models/sprops/cylinders/size_2/cylinder_3x6.mdl
+E = entity()
+E:setAlpha(0)
+if(first()|dupefinished()){
+A=0
+B=0
+Starting = 0
+holoCreate(3,E:toWorld(vec(0,-1,4.3)),vec(0.5,0.5,0.1),E:toWorld(ang(0,90,0)),vec(40),"models/sprops/cuboids/height06/size_1/cube_6x12x6.mdl")
+holoParent(3,E)
+holoCreate(0,E:toWorld(vec(0,0,0)),vec(1),E:toWorld(ang(0,0,0)),vec(255),"models/sprops/cylinders/size_2/cylinder_3x6.mdl")
+holoParent(0,E)
+
+holoCreate(1,E:toWorld(vec(0,0,-3)),vec(1,1,1),E:toWorld(ang(0,0,0)),vec(255),"models/sprops/geometry/sphere_3.mdl")
+holoParent(1,E)
+holoCreate(2,E:toWorld(vec(0,0,3.7)),vec(1,1,0.5),E:toWorld(ang(0,0,0)),vec(40),"models/sprops/cylinders/size_2/cylinder_3x3.mdl")
+holoParent(2,E)
+holoMaterial(1,"bobsters_trains/base")
+holoMaterial(2,"bobsters_trains/base")
+holoMaterial(3,"bobsters_trains/base")
+}
+
+if(On){holoMaterial(0,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(1,"models/props_gulch/gulch_crystal_white")
+    Onout=1}else{holoMaterial(0,"jazzie/trains/light_bulb")
+    holoMaterial(1,"jazzie/trains/light_bulb")
+     Onout=0}
+if(!Starting){
+holoColor(1,vec(255,255,190))
+holoColor(0,vec(255,255,190))
+Vecout=vec(255)}else{
+holoColor(0,vec(90+A*50,90+A*50,50+A*50))
+holoColor(1,vec(90+A*50,90+A*50,50+A*50))
+Vecout=vec(80+A*50,80+A*50,50+A*50)
+interval(100)}
+
+if(Starting2){Starting=1}
+
+if(A>5){Starting=0}
+if(Starting){A+=0.05
+interval(20)}
+
+if(!Starting){A=0}
+
+
+
+if(A>5){B=1
+    }
+
+if(A<0){B=0}
+
+
+if(On&On2){Onout2=1}else{Onout2=0}
+

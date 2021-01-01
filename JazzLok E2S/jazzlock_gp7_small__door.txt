@@ -1,0 +1,20 @@
+@name JazzLock Gp7 Door
+@inputs Prop 
+@persist T E:entity  On
+@outputs On
+@trigger all
+
+
+if(first() | dupefinished()){
+E=entity()
+A=1
+holoCreate(A,E:toWorld(vec(0)),vec(0.85,0.85,0.9),E:toWorld(ang(0,0,0)),vec(255,109,0),"models/jazzie/trains/locomotives/emd/gp28-35/cabinet_door.mdl")
+holoParent(A,E)
+}
+if(Prop&T<120){T+=5
+    interval(10)}
+if(!Prop&T>0){T-=5
+    interval(10)}
+holoAng(1,E:toWorld(ang(0,0-T,0)))
+if(T>2){On=1}else{On=0}
+

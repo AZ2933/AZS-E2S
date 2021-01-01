@@ -1,0 +1,237 @@
+@name 4F Body
+@inputs Whistle Changelight Light:entity Throttle Brake Tender
+@persist Headcode L1 L2 L3
+@model models/bobsters_trains/uk/4f/4f.mdl
+if(first()|duped()){
+entity():setAlpha(0)
+holoCreate(0)
+holoModel(0,"models/bobsters_trains/uk/4f/4f.mdl")
+holoPos(0,entity():toWorld(vec(0,0,0)))   
+holoParent(0,entity())
+holoColor(0,(vec(30,30,30))) 
+holoEntity(0):setSubMaterial(3,"bobsters_trains/base2")
+#Buffers
+holoCreate(1)
+holoModel(1, "models/bobsters_trains/buffers/circle/buffer_circle_11.mdl")
+holoPos(1,entity():toWorld(vec(211,40,15)))
+holoParent(1, entity())
+holoCreate(2)
+holoModel(2, "models/bobsters_trains/buffers/circle/buffer_circle_11.mdl")
+holoPos(2,entity():toWorld(vec(211,-40,15)))
+holoParent(2, entity())
+#Hook1
+holoCreate(3)
+holoPos(3,entity():toWorld(vec(211,0,17)))
+holoParent(3, entity())
+holoModel(3, "models/bobsters_trains/coupling/hook.mdl")
+#Chain2
+holoCreate(4)
+holoPos(4,entity():toWorld(vec(215,0,18)))
+holoParent(4, entity())
+holoModel(4, "models/bobsters_trains/coupling/3link_chain/chain.mdl")
+holoAng(4, entity():toWorld(ang(90,0,0)) )
+#LampRight
+holoCreate(5)
+holoPos(5,entity():toWorld(vec(200,50,31)))
+holoParent(5, entity())
+holoModel(5, "models/bobsters_trains/lights/uk_lamp.mdl")
+#LampLeft
+holoCreate(6)
+holoPos(6,entity():toWorld(vec(200,-50,31)))
+holoParent(6, entity())
+holoModel(6, "models/bobsters_trains/lights/uk_lamp.mdl")
+#LampTop
+holoCreate(7)
+holoPos(7,entity():toWorld(vec(190,0,133)))
+holoParent(7, entity())
+holoModel(7, "models/bobsters_trains/lights/uk_lamp.mdl")
+holoEntity(5):setSubMaterial(2,"models/props_gulch/gulch_crystal_white")
+holoEntity(6):setSubMaterial(2,"models/props_gulch/gulch_crystal_white")
+holoEntity(7):setSubMaterial(2,"models/props_gulch/gulch_crystal_white")
+holoAlpha(5,0)
+holoAlpha(6,0)
+holoAlpha(7,0)
+Light:setAlpha(0)
+
+#Cab detail.
+
+#Boiler
+holoCreate(10)
+holoModel(10,"models/sprops/trans/lights/light_c4.mdl")
+holoPos(10,entity():toWorld(vec(-145,0,80)))   
+holoParent(10,entity())
+holoColor(10,(vec(50,50,50))) 
+holoScale(10, vec(18,8.9,5))
+holoAng(10, entity():toWorld(ang(90,0,0)) )
+holoMaterial(10,"bobsters_trains/br_dirty_black")
+#Water1
+holoCreate(11)
+holoModel(11,"models/props_bennjo/steam_detail_1.mdl")
+holoPos(11,entity():toWorld(vec(-154,15,110)))   
+holoParent(11,entity())
+holoColor(11,(vec(50,50,50)))
+holoAng(11, entity():toWorld(ang(-180,90,0)) )
+holoScale(11, vec(1,1,0.5))
+#Water2
+holoCreate(12)
+holoModel(12,"models/props_bennjo/steam_detail_1.mdl")
+holoPos(12,entity():toWorld(vec(-154,-15,110)))   
+holoParent(12,entity())
+holoColor(12,(vec(50,50,50)))
+holoAng(12, entity():toWorld(ang(180,90,0)) )
+holoScale(12, vec(1,1,0.5))
+#Fireboxsurround
+holoCreate(13)
+holoModel(13,"models/props_wasteland/kitchen_counter001b.mdl")
+holoPos(13,entity():toWorld(vec(-159,0,60)))   
+holoParent(13,entity())
+holoColor(13,(vec(50,50,50)))
+holoAng(13, entity():toWorld(ang(0,0,0)) )
+holoScale(13, vec(0.1,0.5,0.5))
+holoMaterial(13,"bobsters_trains/br_dirty_black")
+#Throttle
+holoCreate(14)
+holoModel(14,"models/props_bennjo/throttle_us.mdl")
+holoPos(14,entity():toWorld(vec(-154.5,0,115)))   
+holoParent(14,entity())
+holoAng(14, entity():toWorld(ang(230,90,0)) )
+holoScale(14, vec(0.7,0.7,0.7))
+#useless
+holoCreate(15)
+holoModel(15,"models/props_bennjo/valve_1.mdl")
+holoPos(15,entity():toWorld(vec(-157,23,105)))   
+holoParent(15,entity())
+holoAng(15, entity():toWorld(ang(-90,0,0)) )
+holoScale(15, vec(0.7,0.7,0.7))
+#useless
+holoCreate(16)
+holoModel(16,"models/props_bennjo/valve_3.mdl")
+holoPos(16,entity():toWorld(vec(-158,26,95)))   
+holoParent(16,entity())
+holoAng(16, entity():toWorld(ang(180,90,-90)) )
+holoScale(16, vec(0.7,0.7,0.7))
+#uselessbasethrottle
+holoCreate(17)
+holoModel(17,"models/props_phx/construct/plastic/plastic_angle_360.mdl")
+holoPos(17,entity():toWorld(vec(-129,37,70)))   
+holoParent(17,entity())
+holoAng(17, entity():toWorld(ang(-90,0,0)) )
+holoScale(17, vec(0.5,0.1,15.2))
+holoMaterial(17,"bobsters_trains/br_dirty_black")
+#Reverser
+holoCreate(18)
+holoModel(18,"models/props_bennjo/reverser_2.mdl")
+holoPos(18,entity():toWorld(vec(-181,37,80)))   
+holoParent(18,entity())
+holoAng(18, entity():toWorld(ang(20,90,-90)) )
+holoScale(18, vec(1.5,1.5,1.5))
+#useless
+holoCreate(19)
+holoModel(19,"models/hunter/blocks/cube075x1x075.mdl")
+holoPos(19,entity():toWorld(vec(-155,47,48)))   
+holoParent(19,entity())
+holoAng(19, entity():toWorld(ang(0,90,0)) )
+holoScale(19, vec(0.6,1,0.6))
+holoMaterial(19,"bobsters_trains/br_dirty_black")
+#useless
+holoCreate(20)
+holoModel(20,"models/hunter/blocks/cube075x1x075.mdl")
+holoPos(20,entity():toWorld(vec(-155,-42,48)))   
+holoParent(20,entity())
+holoAng(20, entity():toWorld(ang(0,90,0)) )
+holoScale(20, vec(0.6,1,0.6))
+holoMaterial(20,"bobsters_trains/br_dirty_black")
+#models/props_bennjo/reverser_2.mdl
+#Fireboxsurround
+holoCreate(21)
+holoModel(21,"models/hunter/plates/plate1x2.mdl")
+holoPos(21,entity():toWorld(vec(-159,0,62.2)))   
+holoParent(21,entity())
+holoAng(21, entity():toWorld(ang(90,0,0)) )
+holoScale(21, vec(0.3,0.3,1))
+holoMaterial(21,"models/effects/splode_sheet")
+holoColor(21,(vec(250,200,0)))
+holoCreate(22)
+holoModel(22,"models/hunter/plates/plate1x1.mdl")
+holoPos(22,entity():toWorld(vec(-159.5,0,62.2)))   
+holoParent(22,entity())
+holoColor(22,(vec(255,255,255)))
+holoAng(22, entity():toWorld(ang(90,0,0)) )
+holoScale(22, vec(0.3,0.6,1))
+holoMaterial(22,"models/props_combine/tprings_globe")
+holoAlpha(22,1)
+#Brake
+holoCreate(23)
+holoModel(23,"models/props_bennjo/steam_brake.mdl")
+holoPos(23,entity():toWorld(vec(-154,35,104)))   
+holoParent(23,entity())
+holoAng(23, entity():toWorld(ang(0,90,-90)) )
+holoScale(23, vec(0.7,0.7,0.7))
+L1=20
+}
+interval(10000)
+if(Tender==0){holoColor(21,(vec(50,50,50)))}
+if(Tender==1){holoColor(21,(vec(250,200,0)))}
+if(Throttle>=0){holoAng(14, entity():toWorld(ang(230-Throttle*10,90,0)) )}
+if(Throttle<=-0.1){holoAng(14, entity():toWorld(ang(230+Throttle*10,90,0)) )}
+if(Throttle>=0&L1>=21){L1-=5
+    interval(100)}
+if(Throttle<=-0.1&L1<=299){L1+=5
+    interval(100)}
+if(Brake==1){holoAng(23, entity():toWorld(ang(90,90,-90)) )}
+if(Brake==0){holoAng(23, entity():toWorld(ang(-50,90,-90)) )}
+holoAng(18, entity():toWorld(ang(L1,90,-90)) )
+if(Whistle & ~Whistle){soundPlay(0,0,"moztrainsounds/steam/collettgoods/2251_whistle_loop.wav")}
+elseif(!Whistle & ~Whistle){soundPlay(0,0,"moztrainsounds/steam/collettgoods/2251_whistle_end.wav")}
+if(Changelight){Headcode++
+if(Headcode>=10){Headcode=0}
+if(Headcode<=0){holoAlpha(5,0)
+holoAlpha(6,0)
+holoAlpha(7,0)
+Light:setAlpha(0)
+print("No lamps.")}
+if(Headcode==1){holoAlpha(5,255)
+holoAlpha(6,255)
+holoAlpha(7,0)
+Light:setAlpha(0)
+print("Express passenger train.")}
+if(Headcode==2){holoAlpha(5,0)
+holoAlpha(6,0)
+holoAlpha(7,255)
+Light:setAlpha(0)
+print("Local passenger train.")}
+if(Headcode==3){holoAlpha(5,0)
+holoAlpha(6,255)
+holoAlpha(7,255)
+Light:setAlpha(0)
+print("Express goods or empty passenger train.")}
+if(Headcode==4){holoAlpha(5,255)
+holoAlpha(6,0)
+holoAlpha(7,255)
+Light:setAlpha(0)
+print("Express freight/ballast train.")}
+if(Headcode==5){holoAlpha(5,0)
+holoAlpha(6,0)
+holoAlpha(7,255)
+Light:setAlpha(255)
+print("Through freight or ballast train.")}
+if(Headcode==6){holoAlpha(5,0)
+holoAlpha(6,0)
+holoAlpha(7,0)
+Light:setAlpha(255)
+print("Light engine.")}
+if(Headcode==7){holoAlpha(5,0)
+holoAlpha(6,255)
+holoAlpha(7,255)
+Light:setAlpha(0)
+print("Coached freight (mail,parcels).")}
+if(Headcode==8){holoAlpha(5,0)
+holoAlpha(6,255)
+holoAlpha(7,0)
+Light:setAlpha(0)
+print("Through mineral or empty wagon train.")}
+if(Headcode==9){holoAlpha(5,255)
+holoAlpha(6,0)
+holoAlpha(7,0)
+Light:setAlpha(0)
+print("Local freight with multiple stops.")}}

@@ -1,0 +1,243 @@
+@name Jazzlok Bettendorf Bogies
+@inputs [Body Bogie01 Bogie02]:entity Brake_Pressure
+@persist A Roll Rolling Speed BrakeFX Angle Angle2 Total
+
+#=========================================================================================================================
+# Brake Pressure Controlled sounds
+#========================================================================================================================= 
+    # Brake
+    Brake_Release = "_jazzlok/brakes/air_brake_release_1.wav"
+    Brake_Release2 = "_jazzlok/brakes/air_brake_hiss_1.wav"
+   
+    Brake_Apply =  "_jazzlok/brakes/air_brake_release_full.wav"
+    Brake_Apply2 = "_jazzlok/brakes/air_brake_apply.wav"    
+    
+    Brake_Layer1 = "_jazzlok/brakes/brake_whine_heavy.wav"
+    Brake_Layer2 = "_jazzlok/brakes/brake_whine_mid.wav"
+    Brake_Layer3 = "_jazzlok/brakes/brake_whine_light.wav"
+
+    # Rolling
+    Rolling_Layer1 = "_jazzlok/traction/rumble_1.wav"
+    Rolling_Layer2 = "gsgtrainsounds/misc/train_wheels_welded_loop.wav"  
+     
+#========================================================================================================================= 
+
+if(first() | dupefinished())
+{          
+    A = 1
+    holoCreate(A)
+    holoParent(A,Bogie01)
+    holoModel(A, "models/jazzie/trains/cars/wheelset_36.mdl")
+    holoPos(A,Bogie01:toWorld(vec(0,35.5,22)))
+    holoAng(A,Bogie01:toWorld(ang(0,0,0)))
+    
+    A = 2
+    holoCreate(A)
+    holoParent(A,Bogie01)
+    holoModel(A, "models/jazzie/trains/cars/wheelset_36.mdl")
+    holoPos(A,Bogie01:toWorld(vec(0,-35.5,22)))
+    holoAng(A,Bogie01:toWorld(ang(0,0,0)))  
+      
+    A = 3
+    holoCreate(A)
+    holoParent(A,Bogie02)
+    holoModel(A, "models/jazzie/trains/cars/wheelset_36.mdl")
+    holoPos(A,Bogie02:toWorld(vec(0,35.5,22)))
+    holoAng(A,Bogie02:toWorld(ang(0,0,0)))
+    
+    A = 4
+    holoCreate(A)
+    holoParent(A,Bogie02)
+    holoModel(A, "models/jazzie/trains/cars/wheelset_36.mdl")
+    holoPos(A,Bogie02:toWorld(vec(0,-35.5,22)))
+    holoAng(A,Bogie02:toWorld(ang(0,0,0)))                        
+}
+
+Angle2 = Body:angles():yaw()   
+
+Angle = Bogie01:angles():yaw()   
+
+Total = round(Angle - Angle2)
+
+Speed = Body:vel():length()  
+    
+if((Total < -2 & Total > -358) | Total > 2)
+{
+    Sound = 1
+}
+elseif(Total == 0 | Total < 1 | Total > -1 | Total < -359)
+{
+    Sound = 0
+}
+
+soundVolume("noise",(Speed / 600) * 0.5)
+
+
+if(changed(Sound) & Sound)
+{
+    
+    soundPlay("noise",0,"_jazzlok/brakes/flange_loop.wav")
+    
+}
+
+if(!Sound)
+{
+    soundVolume("noise",0)
+    soundStop("noise")
+    }
+
+if(changed(Sound) & !Sound)
+{
+    soundPlay("noise2",0,"_jazzlok/brakes/flange_stop.wav")
+    soundStop("noise2",1.5)
+    }
+    
+soundVolume("noise2",(Speed / 600) * 0.5)    
+        
+soundPitch("noise",100 + (Speed / 200))
+soundPitch("noise2",100 + (Speed / 200))
+
+if(changed(Rolling) & Rolling)
+{    
+    Body:soundPlay("Rolling_Layer1",0,Rolling_Layer1)
+    Body:soundPlay("Rolling_Layer2",0,Rolling_Layer2)
+}
+
+interval(100)
+
+soundVolume("Rolling_Layer1",(Speed / 500))
+soundVolume("Rolling_Layer2",(Speed / 300))
+    
+soundPitch("Rolling_Layer1",30 + Speed / 50)
+soundPitch("Rolling_Layer2",60 + Speed / 50)
+
+if(Speed > 10)
+{
+    Rolling = 1
+}
+else
+{
+    Rolling = 0
+    soundStop("Rolling_Layer1")
+
+}  
+     
+    
+if((changed(BrakeFX) & BrakeFX) & Speed > 100)
+{
+    soundPlay("stop",0,                       
+        select(    
+            randint(1,4),
+            "_jazzlok/brakes/brake_whine_shot01.wav",
+            "_jazzlok/brakes/brake_whine_shot02.wav",
+            "_jazzlok/brakes/brake_whine_shot03.wav",
+            "_jazzlok/brakes/brake_whine_shot04.wav"
+            ) 
+        )
+        
+    soundPitch("stop", select(randint(1,4),95,90,100,110))
+    soundStop("stop",1.5) 
+} 
+
+if(changed(BrakeFX) & BrakeFX)
+{
+    Body:soundPlay("Brake_Layer1",0,Brake_Layer1)
+    Body:soundPlay("Brake_Layer2",0,Brake_Layer2)    
+
+    Body:soundPlay("Brake_Apply5",0,Brake_Apply2)                       
+
+            
+    soundPitch("Brake_Apply5", select(randint(1,4),85,90,100,95))
+    soundVolume("Brake_Apply5",0.75)
+    soundStop("Brake_Apply5",4)               
+}
+
+if(changed(BrakeFX) & !BrakeFX)
+{
+    Body:soundPlay("Brake_Release5",0,Brake_Release2)                      
+        
+    soundPitch("Brake_Release5", select(randint(1,4),85,90,100,95))
+    soundVolume("Brake_Release5",0.5)    
+    soundStop("Brake_Release5",2.2)      
+}
+
+if(Brake_Pressure > 1)
+{
+    BrakeFX = 1  
+    
+    soundVolume("stop",(Brake_Pressure / 72) * (Speed / 300)) 
+    
+    soundVolume("Brake_Layer1",(Brake_Pressure / 72) * (Speed / 1000))  
+    soundPitch("Brake_Layer1",70 + (Speed / 100))
+                 
+    if(Speed < 150)
+    {
+        soundPitch("Brake_Layer2",60 + (Speed / 11.5))
+        soundVolume("Brake_Layer2",(Brake_Pressure / 72) * (Speed / 80)) 
+        
+        soundPitch("Brake_Layer3",90 + (Speed / 100))
+        soundVolume("Brake_Layer3",((Brake_Pressure / 72) / (Speed / 600))) 
+    }
+    else
+    {
+            
+        soundPitch("Brake_Layer3",0)
+        soundVolume("Brake_Layer3",0) 
+        
+        soundPitch("Brake_Layer2",70 + (Speed / 100))
+        soundVolume("Brake_Layer2",((Brake_Pressure / 72) / (Speed / 600)))
+    }
+    
+         
+    if(Speed < 20)
+    {
+        soundVolume("Brake_Layer3",0)
+        soundVolume("Brake_Layer2",0)
+        soundVolume("Brake_Layer1",0)
+        Stop = 1   
+    }
+    else
+    {
+        Stop = 0
+    }
+
+}
+else
+{
+    BrakeFX = 0
+    soundStop("Brake_Layer1")
+    soundStop("Brake_Layer2")
+    soundStop("Brake_Layer3")
+    soundStop("Brake_Release")
+}
+    
+Speed = Bogie01:vel():length()  
+              
+VelL = Bogie01:velL():y()/-3
+
+Roll+=$VelL
+
+if(!inrange(Roll,-360,360))
+{
+    Roll=0
+    }
+   
+holoAng(1,Bogie01:toWorld(ang(0,0,Roll)))
+holoAng(2,Bogie01:toWorld(ang(0,0,Roll)))
+ 
+holoAng(3,Bogie02:toWorld(ang(0,0,Roll)))
+holoAng(4,Bogie02:toWorld(ang(0,0,Roll)))
+
+RadioCmd = owner():lastSaid():explode(" ")
+
+runOnChat(1)
+if(chatClk(owner()))
+{
+    if(RadioCmd[1,string]=="/reset")
+    {
+        hideChat(1)
+        RC = 1    
+        print("JAZZLOK: Car Reset") 
+        reset()
+    }
+}

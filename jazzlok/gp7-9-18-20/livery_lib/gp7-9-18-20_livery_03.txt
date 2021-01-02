@@ -1,0 +1,764 @@
+    StripeColor1 = vec(92,90,100)
+    StripeColor2 = vec(252,2,28) * 0.9
+    BogieColor =  vec(92,90,100)
+    PlowColor = vec(92,90,100)
+    Paint_Scheme = 3
+
+    NumColour = vec(243,239,239)
+    NumColourSide = vec(243,239,239) 
+
+    if(Dynamics)
+    {
+        A = 0
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, Dynamic)
+        holoColor(A,StripeColor1)
+        holoPos(A,Entity:toWorld(vec(0,0,0)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    }  
+    
+    A = 1
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_base.mdl")
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0))) 
+        
+    A = 2
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Body)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))     
+
+    holoClipEnabled(A,1,1)   
+    holoClip(A,1,vec(0,-294,0),vec(0,1,0),0) 
+    
+    if(Front_Hood_Type == 1) 
+    {
+        
+    A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClip(A,1,vec(0,213.6,0),vec(0,-1,0),0) 
+    
+    }
+    
+    if(Front_Hood_Type == 2) 
+    {
+        
+    A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClip(A,1,vec(0,238,0),vec(0,-1,0),0) 
+    
+    }
+            
+    A = 4
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Fans)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 5
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, FuelTank)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 6
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Battery)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 7
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, SideWindows)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 8
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Light)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)  
+                               
+    holoClip(A,1,vec(0,0,0),vec(0,1,-0.125),0) 
+    holoClip(A,2,vec(0,240,0),vec(0,-1,0),0)     
+        
+    A = 9
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor2)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_ladders.mdl")
+    holoPos(A,Entity:toWorld(vec(-16,-313.5,26)))
+    holoAng(A,Entity:toWorld(ang(0,145.5,0)))  
+
+    if(Front_Hood_Type == 1) 
+    {   
+        A = 10
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_ladders.mdl")
+        holoPos(A,Entity:toWorld(vec(16,313,26)))
+        holoAng(A,Entity:toWorld(ang(0,-34.5,0)))   
+    }   
+
+    if(!Strip_Engine)
+    {
+        A = 11
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_cabinet_door01.mdl")
+        holoPos(A,Entity:toWorld(vec(34.5,-197.53,4.55)))
+        holoAng(A,Entity:toWorld(ang(0,-120,0))) 
+    }
+    
+    if(Winterzation == 1) 
+    {    
+        A = 12
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, Winterzation_Model)
+        holoPos(A,Entity:toWorld(vec(0,0,0)))
+        holoAng(A,Entity:toWorld(ang(0,0,0))) 
+    } 
+
+    A = 13
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor2)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+    holoPos(A,Entity:toWorld(vec(-26.75,-300,67.5)))
+    holoAng(A,Entity:toWorld(ang(0,126,0)))  
+    
+    A = 14
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor2)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+    holoPos(A,Entity:toWorld(vec(26.75,-300,67.5)))
+    holoAng(A,Entity:toWorld(ang(180,-126,0)))  
+
+    if(Front_Hood_Type == 1) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,67.5)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,67.5)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    }
+    elseif(Front_Hood_Type == 2 & (Locomotive_Model != 3 & Locomotive_Model != 4)) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,23)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,23)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    }  
+    
+    if(Front_Hood_Type == 2 & Locomotive_Model >= 3) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,13)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor2)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,13)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    } 
+    
+    A = 17
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Body)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))     
+
+    holoClipEnabled(A,1,1)   
+    holoClip(A,1,vec(0,-294,0),vec(0,-1,0),0) 
+
+    if(Front_Hood_Type == 2)
+    {
+           
+    A = 18
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClip(A,1,vec(0,289,0),vec(0,1,0),0) 
+    
+    A = 19
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+            
+    holoClip(A,1,vec(0,238,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,15),vec(0,0,1),0)  
+    
+    A = 20
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+    holoClipEnabled(A,5,1) 
+                    
+    holoClip(A,1,vec(0,234,0),vec(0,1,-1.25),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,15),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,8),vec(0,0,1),0) 
+
+    A = 21
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,240,0),vec(0,1,-0.5),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,6),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,-1),vec(0,0,1),0) 
+    
+    A = 22
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+    holoClipEnabled(A,5,1) 
+                        
+    holoClip(A,1,vec(0,239.25,0),vec(0,1,-0.125),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,-3),vec(0,0,-1),0) 
+    holoClip(A,4,vec(-36,0,0),vec(1,0,0),0)    
+    holoClip(A,5,vec(36,0,0),vec(-1,0,0),0)
+    
+    A = 23
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,238,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,-1),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,-3),vec(0,0,1),0) 
+    
+    A = 24
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,238,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,282,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,8),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,6),vec(0,0,1),0) 
+    
+    A = 25
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,282,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,8),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,6),vec(0,0,1),0) 
+    
+    A = 26
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,225,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,234,0),vec(0,-1,1.25),0)     
+    holoClip(A,3,vec(0,0,15),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,8),vec(0,0,1),0)
+    
+    A = 27
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,225,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,240,0),vec(0,-1,0.5),0)     
+    holoClip(A,3,vec(0,0,6),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,-1),vec(0,0,1),0)
+    
+    A = 28
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+                    
+    holoClip(A,1,vec(0,225,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,239.25,0),vec(0,-1,0.125),0)     
+    holoClip(A,3,vec(0,0,-3),vec(0,0,-1),0) 
+    
+    A = 29
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                        
+    holoClip(A,1,vec(0,239.25,0),vec(0,1,-0.125),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,-3),vec(0,0,-1),0) 
+    holoClip(A,4,vec(-36,0,0),vec(-1,0,0),0)    
+
+    A = 30
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                        
+    holoClip(A,1,vec(0,239.25,0),vec(0,1,-0.125),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,-3),vec(0,0,-1),0) 
+    holoClip(A,4,vec(36,0,0),vec(1,0,0),0) 
+
+    }    
+
+    if(Front_Hood_Type == 1)
+    {
+           
+    A = 18
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,3,1)  
+    holoClipEnabled(A,4,1) 
+    
+    holoClip(A,1,vec(0,289,0),vec(0,1,0),0) 
+    holoClip(A,3,vec(-36,0,0),vec(1,0,0),0)    
+    holoClip(A,4,vec(36,0,0),vec(-1,0,0),0)
+            
+    A = 19
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+            
+    holoClip(A,1,vec(0,213.6,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,35),vec(0,0,1),0)  
+    
+    A = 20
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+    holoClipEnabled(A,5,1) 
+                    
+    holoClip(A,1,vec(0,200,0),vec(0,1,-1),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,35),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,22),vec(0,0,1),0) 
+
+    A = 21
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,214,0),vec(0,1,-0.35),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,19),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,6),vec(0,0,1),0) 
+    
+    A = 22
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+    holoClipEnabled(A,5,1) 
+                        
+    holoClip(A,1,vec(0,215,0),vec(0,1,-0.125),0) 
+    holoClip(A,2,vec(0,289,0),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,3),vec(0,0,-1),0) 
+    holoClip(A,4,vec(-36,0,0),vec(1,0,0),0)    
+    holoClip(A,5,vec(36,0,0),vec(-1,0,0),0)
+    
+    A = 23
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,213.6,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,280,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,22),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,19),vec(0,0,1),0) 
+    
+    A = 24
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,213.6,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,6),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,3),vec(0,0,1),0) 
+    
+    A = 25
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                            
+    holoClip(A,1,vec(0,280,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,289,3),vec(0,-1,0),0)     
+    holoClip(A,3,vec(0,0,22),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,19),vec(0,0,1),0) 
+    
+    A = 26
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,213.6,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,200,0),vec(0,-1,1),0)     
+    holoClip(A,3,vec(0,0,35),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,22),vec(0,0,1),0)
+    
+    A = 27
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1) 
+                    
+    holoClip(A,1,vec(0,200,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,214,0),vec(0,-1,0.35),0)     
+    holoClip(A,3,vec(0,0,19),vec(0,0,-1),0) 
+    holoClip(A,4,vec(0,0,3),vec(0,0,1),0)
+    
+    A = 28
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,2,1)  
+    holoClipEnabled(A,3,1) 
+                    
+    holoClip(A,1,vec(0,200,0),vec(0,1,0),0) 
+    holoClip(A,2,vec(0,215,0),vec(0,-1,0.125),0)     
+    holoClip(A,3,vec(0,0,3),vec(0,0,-1),0) 
+    
+    A = 29
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,4,1) 
+                        
+    holoClip(A,1,vec(0,239.25,0),vec(0,1,-0.125),0) 
+    holoClip(A,4,vec(-36,0,0),vec(-1,0,0),0)    
+
+    A = 30
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)   
+    holoClipEnabled(A,4,1) 
+                        
+    holoClip(A,1,vec(0,239.25,0),vec(0,1,-0.125),0) 
+    holoClip(A,4,vec(36,0,0),vec(1,0,0),0)     
+    }  
+    
+    if(Strip_Engine == 0)  
+    {        
+    A = 31
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoMaterial(A,"bobsters_trains/decals/southern_pacific")
+    holoModel(A, "models/holograms/plane.mdl")
+    holoScale(A,vec(6,16,0.1))
+    holoColor(A, vec(255))
+    holoAng(A,Entity:toWorld(ang(90,90,90)))   
+    holoPos(A,Entity:toWorld(vec(37,-100,10)))    
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,-74,0),vec(0,1,0),0)  
+    
+    
+    A = 32
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoMaterial(A,"bobsters_trains/decals/southern_pacific")
+    holoModel(A, "models/holograms/plane.mdl")
+    holoScale(A,vec(6,16,0.1))
+    holoColor(A, vec(255))
+    holoAng(A,Entity:toWorld(ang(90,-90,90)))   
+    holoPos(A,Entity:toWorld(vec(-37,-100,10))) 
+    }
+    
+    A = 33
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Light)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,240,0),vec(0,1,0),0)  
+    
+    A = 34
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Light)
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,-240,0),vec(0,-1,0),0) 
+ 
+    if(Strip_Engine == 0)  
+    { 
+    A = 35
+    holoCreate(A)
+    holoParent(A,11)
+    holoMaterial(A,"bobsters_trains/decals/southern_pacific")
+    holoModel(A, "models/holograms/plane.mdl")
+    holoScale(A,vec(6,16,0.1))
+    holoColor(A, vec(255))
+    holoAng(A,Entity:toWorld(ang(90,-30,90)))   
+    holoPos(A,Entity:toWorld(vec(117.75,-248.5,10)))    
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,-74,0),vec(0,-1,0),0) 
+    }
+     

@@ -1,0 +1,1578 @@
+@name JazzLok Customs gp7-9-18-20 v2.1
+@inputs [Entity]:entity LOCOMOTIVE_INPUT:array Battery_Door Circuit_Cabient Eng_Door TM_Amps
+@persist Gen_RPM Charge_RPM CirDoor_Shut CirDoor BatDoor BatDoor_Shut EngDoor EngDoor_Shut Fans_1 Fans_2 Reset Reset0 RPM Process Download
+@persist Dynamics_Fan Fans_RPM Fans_RPM2 Fans_RPM3 Sparky Fuel_Max Lube_Max [NumColour NumColourSide]:vector
+@outputs BogieColor:vector [LOCOMOTIVE_DATA NUMPLATE_DATA]:array 
+@model models/jazzie/trains/number_wheel.mdl
+@trigger none
+
+#=================================================================================================
+# Configuration
+#=================================================================================================
+Traction_Effort_lbs = 65000
+# Starting Tractive Effort
+# GP7,9,18,20 = "~65,000 lbs"
+#=================================================================================================
+Engine_HP = 1750
+# Engine Horse Power
+# GP7 = "1500 HP"
+# GP9 = "1750 HP"
+# GP18 = "1800 HP"
+# GP20 = "2000 HP"
+#=================================================================================================
+Livery_Preset = 5
+# 0 = Factory Template
+# 1 = Thunderous Cargo (Fictional)
+# 2 = Scraton Equity 
+# 3 = Southern Pacific
+# 4 = Kansas City Southern 
+# 5 = Evergreen (Fictional)
+# 6 = Burlington Northern
+# 7 = Aperture (Fictional)
+# 8 = Burlington Northern & Santa Fe Railway
+#=================================================================================================
+Locomotive_Model = 1
+# 1 = GP7
+# 2 = GP9 
+# 3 = GP18
+# 4 = GP20
+# 5 = GP10
+#================================================================================================= 
+Front_Hood_Type = 1
+# 1 = Highhood
+# 2 = Lowhood 
+#=================================================================================================      
+Headlights = 1
+# 1 = Headlights
+# 2 = Headlights + Gyra 
+# 3 = Headlights + Gyra + Flashing Red Signal 
+# 4 = Headlights + Ditchlights
+#=================================================================================================   
+Dynamics = 1
+# 1 = Dynamic brake grid
+#=================================================================================================  
+Cooling = 2
+# 1 = 4 x 36" Roof radiator cooling fans + 1 x 36" Dynamics brake grid fan
+# 2 = 4 x 36" Roof radiator cooling fans + 1 x 48" Dynamics brake grid fan
+# 3 = 2 x 48" Roof radiator cooling fans + 1 x 48" Dynamics brake grid fan
+# 4 = 1 x 36" + 2 x 48" Roof radiator cooling fans + 1 x 48" Dynamics brake grid fan
+# 5 = 1 x 36" + 2 x 48" Lowered roof radiator cooling fans + 1 x 48" Dynamics brake grid fan
+#=================================================================================================      
+Side_Windows = 1
+# 1 = Standard cab side windows
+# 2 = Sun cover cab side windows
+# 3 = Extented cab side windows
+#=================================================================================================
+Winterzation = 0
+# 1 = Winterzation Fan cover for GP18-20
+#=================================================================================================
+Fuel_Tank_Type = 3
+# 1 = ( 800 Gallos ) Filled Skirts, fuel socket rear side, Air resevoirs under platform
+# 2 = ( 800 Gallos ) Half filled Skirts, fuel socket front side, Air resevoirs under platform
+# 3 = ( 800 Gallos ) Holed Skirts, fuel socket rear side, Air resevoirs under the platform
+# 4 = ( 900 Gallos ) Half filled Skirts, fuel socket rear side, Air resevoirs on side of the platform
+# 5 = ( 1700 Gallos ) Holed Skirts, fuel socket rear side, Air resevoirs on top of the engine hood
+#=================================================================================================
+Plow_Type = 1
+# 1 = No Plow
+# 2 = Standard Plow
+#=================================================================================================    
+Battery_Cabinet = 0
+Strip_Engine = 0
+#=================================================================================================
+
+LOCOMOTIVE_DATA = array(
+Traction_Effort_lbs,
+Engine_HP,
+Locomotive_Model,
+Fuel_Max,
+Lube_Max,
+Dynamics,
+Front_Hood_Type,
+Headlights
+)
+
+NUMPLATE_DATA = array(
+Front_Hood_Type,
+NumColour,
+NumColourSide,
+Reset,
+Livery_Preset
+)
+
+if(first() | dupefinished())
+{
+    timer("spawn",5000)
+}
+
+if(Fuel_Tank_Type >= 1 & Fuel_Tank_Type <= 3)
+{
+    Fuel_Max = 800
+    Lube_Max = 200
+}
+elseif(Fuel_Tank_Type == 4)
+{
+    Fuel_Max = 900
+    Lube_Max = 200
+}
+elseif(Fuel_Tank_Type == 5)
+{
+    Fuel_Max = 1700
+    Lube_Max = 200
+}
+
+if(Locomotive_Model == 1 & clk("spawn"))
+{
+    Engine = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine.mdl"
+    EngineRack = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine_rack.mdl"
+
+    if(Side_Windows == 1)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_basic.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }    
+    elseif(Side_Windows == 2)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_sun_cover.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }
+    elseif(Side_Windows == 3)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_extented.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_extented01.mdl" 
+    }
+        
+    if(Front_Hood_Type == 1)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_highhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_highhood.mdl"
+        }         
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_highhood.mdl"
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_highhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_highood.mdl"
+        }
+        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_highhood.mdl"   
+        
+    }    
+    elseif(Front_Hood_Type == 2)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood.mdl" 
+        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_lowhood.mdl" 
+
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_lowhood.mdl"
+        }                
+    }
+
+    if(Plow_Type == 1) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_basic.mdl"
+    }
+    elseif(Plow_Type == 2) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_standard.mdl"
+    }
+    
+    if(Fuel_Tank_Type == 1)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_basic.mdl" 
+    }   
+    elseif(Fuel_Tank_Type == 2)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_narrow.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 3)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_slotted.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 4)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_removed.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 5)
+    {    
+        Dynamics = 0
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_roof_airtanks.mdl" 
+    }
+            
+    if(Battery_Cabinet == 1)
+    {    
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_open.mdl" 
+    }       
+    else
+    {
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_closed_gp7-9-18.mdl" 
+    }
+
+    if(Strip_Engine == 0)
+    {    
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7_body.mdl"                  
+		
+        if(Cooling == 1)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_36.mdl"   
+            
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }            
+        }
+        elseif(Cooling == 2)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48.mdl"  
+             
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }                  
+              
+        }
+        elseif(Cooling == 3)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl"   
+        }   
+        elseif(Cooling == 4)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48_uncovered.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl" 
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }        
+        elseif(Cooling == 5)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_covered.mdl"   
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }                 
+    }       
+    elseif(Strip_Engine == 1)
+    {        
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7_body_stripped.mdl"
+        
+        if(Dynamics) 
+        {   
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_exposed.mdl"
+        }
+    }
+}
+
+if(Locomotive_Model == 2 & clk("spawn"))
+{
+    Engine = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567c_engine.mdl"
+    EngineRack = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine_rack.mdl"
+
+    if(Side_Windows == 1)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_basic.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }    
+    elseif(Side_Windows == 2)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_sun_cover.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }
+    elseif(Side_Windows == 3)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_extented.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_extented01.mdl" 
+    }
+        
+    if(Front_Hood_Type == 1)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_highhood.mdl" 
+        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_highhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_highhood.mdl"
+        }         
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_highhood.mdl"
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_highhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_highood.mdl"
+        }   
+              
+    }    
+    elseif(Front_Hood_Type == 2)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood.mdl" 
+
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_lowhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_lowhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_lowhood.mdl"
+        }                                               
+    }
+
+    if(Plow_Type == 1) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_basic.mdl"
+    }
+    elseif(Plow_Type == 2) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_standard.mdl"
+    }
+    
+    if(Fuel_Tank_Type == 1)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_basic.mdl" 
+    }   
+    elseif(Fuel_Tank_Type == 2)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_narrow.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 3)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_slotted.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 4)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_removed.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 5)
+    {    
+        Dynamics = 0
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_roof_airtanks.mdl" 
+    }
+            
+    if(Battery_Cabinet == 1)
+    {    
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_open.mdl" 
+    }       
+    else
+    {
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_closed_gp7-9-18.mdl" 
+    }
+
+    if(Strip_Engine == 0)
+    {    
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp9_body.mdl"
+        
+        if(Cooling == 1)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_36.mdl"   
+            
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }            
+        }
+        elseif(Cooling == 2)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48.mdl"  
+             
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }                  
+              
+        }
+        elseif(Cooling == 3)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl"   
+        }   
+        elseif(Cooling == 4)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48_uncovered.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl" 
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }        
+        elseif(Cooling == 5)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_covered.mdl"   
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }                              
+    }       
+    elseif(Strip_Engine == 1)
+    {
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7_body_stripped.mdl"
+        
+        if(Dynamics) 
+        {   
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_exposed.mdl"
+        }
+    }
+}
+
+if(Locomotive_Model == 3 & clk("spawn"))
+{
+    Engine = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567c_engine.mdl"
+    EngineRack = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine_rack.mdl"  
+
+    if(Side_Windows == 1)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_basic.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }    
+    elseif(Side_Windows == 2)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_sun_cover.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }
+    elseif(Side_Windows == 3)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_extented.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_extented01.mdl" 
+    }
+        
+    if(Front_Hood_Type == 1)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_highhood.mdl" 
+   
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_highhood.mdl" 
+             
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_highhood.mdl"
+        }         
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_highhood.mdl"
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_highhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_highood.mdl"
+        }    
+    }    
+    elseif(Front_Hood_Type == 2)
+    {        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_lowhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_lowhood.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slopped.mdl" 
+        } 
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slot.mdl" 
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slot.mdl" 
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slopped.mdl" 
+        }          
+    }          
+    
+    if(Plow_Type == 1) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_basic.mdl"
+    }
+    elseif(Plow_Type == 2) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_standard.mdl"
+    }
+        
+    if(Fuel_Tank_Type == 1)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_basic.mdl" 
+    }   
+    elseif(Fuel_Tank_Type == 2)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_narrow.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 3)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_slotted.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 4)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_removed.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 5)
+    {    
+        Dynamics = 0
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_roof_airtanks.mdl" 
+    }  
+
+    if(Battery_Cabinet == 1)
+    {    
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_open.mdl" 
+    }       
+    else
+    {
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_closed_gp20.mdl" 
+    }
+
+    if(Strip_Engine == 0)
+    {    
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp18_body.mdl"
+        
+        if(Cooling == 1)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_36.mdl"   
+            
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }            
+        }
+        elseif(Cooling == 2)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48.mdl"  
+             
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }                  
+              
+        }
+        elseif(Cooling == 3)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl"   
+        }   
+        elseif(Cooling == 4)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48_uncovered.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl" 
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }        
+        elseif(Cooling == 5)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_covered.mdl"   
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }  
+    }       
+    elseif(Strip_Engine == 1)
+    {
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp9-18_body_stripped.mdl"
+        
+        if(Dynamics) 
+        {   
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_exposed.mdl"
+        }
+    }
+}
+
+if(Locomotive_Model == 4 & clk("spawn"))
+{
+    Engine = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567d-2_engine.mdl"
+    EngineRack = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine_rack.mdl"  
+
+    if(Side_Windows == 1)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_basic.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }    
+    elseif(Side_Windows == 2)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_sun_cover.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }
+    elseif(Side_Windows == 3)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_extented.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_extented01.mdl" 
+    }
+        
+    if(Front_Hood_Type == 1)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_highhood.mdl" 
+        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_highhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_highhood.mdl"
+        }         
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_highhood.mdl"
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_highhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_highood.mdl"
+        }    
+    }    
+    elseif(Front_Hood_Type == 2)
+    {
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_lowhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_lowhood.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slopped.mdl" 
+        } 
+        elseif(Headlights == 2)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slot.mdl" 
+        } 
+        elseif(Headlights == 3)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_gyra_flash_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slot.mdl" 
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_lowhood_slopped.mdl"
+            Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood_slopped.mdl" 
+        }          
+    }          
+    
+    if(Plow_Type == 1) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_basic.mdl"
+    }
+    elseif(Plow_Type == 2) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_standard.mdl"
+    }
+        
+    if(Fuel_Tank_Type == 1)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_basic.mdl" 
+    }   
+    elseif(Fuel_Tank_Type == 2)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_narrow.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 3)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_slotted.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 4)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_removed.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 5)
+    {    
+        Dynamics = 0
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_roof_airtanks.mdl" 
+    }  
+
+    if(Battery_Cabinet == 1)
+    {    
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_open.mdl" 
+    }       
+    else
+    {
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_closed_gp20.mdl" 
+    }
+
+    if(Strip_Engine == 0)
+    {    
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp20_body.mdl"
+        
+         if(Cooling == 1)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_36.mdl"   
+            
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }            
+        }
+        elseif(Cooling == 2)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48.mdl"  
+             
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }                  
+              
+        }
+        elseif(Cooling == 3)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl"   
+        }   
+        elseif(Cooling == 4)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48_uncovered.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl" 
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }        
+        elseif(Cooling == 5)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_covered.mdl"   
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }    
+    }       
+    elseif(Strip_Engine == 1)
+    {
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp20_body_stripped.mdl"
+        
+        if(Dynamics) 
+        {   
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_exposed.mdl"
+        }
+    }
+}
+
+if(Locomotive_Model == 5 & clk("spawn"))
+{
+    Engine = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567c_engine.mdl"
+    EngineRack = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567b_engine_rack.mdl"  
+
+    if(Side_Windows == 1)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_basic.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }    
+    elseif(Side_Windows == 2)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_sun_cover.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_normal.mdl" 
+    }
+    elseif(Side_Windows == 3)
+    {
+        SideWindows = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/side_windows_extented.mdl" 
+        Glass2 = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_side_extented01.mdl" 
+    }
+        
+    if(Front_Hood_Type == 1)
+    {
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_highhood.mdl" 
+        
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_highhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_highhood.mdl"
+        }         
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_highood.mdl"
+        }    
+    }    
+    elseif(Front_Hood_Type == 2)
+    {
+        Glass = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/windows_lowhood.mdl" 
+        Hood = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_lowhood.mdl" 
+        
+        if(Headlights == 1)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_lowhood.mdl"
+        }       
+        elseif(Headlights == 4)
+        {
+            Light = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/headlights_ditchlights_lowhood_slopped.mdl"
+        }          
+    }          
+    
+    if(Plow_Type == 1) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_basic.mdl"
+    }
+    elseif(Plow_Type == 2) 
+    {   
+        Plow = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_plow_standard.mdl"
+    }
+        
+    if(Fuel_Tank_Type == 1)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_basic.mdl" 
+    }   
+    elseif(Fuel_Tank_Type == 2)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_narrow.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 3)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_slotted.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 4)
+    {    
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_removed.mdl" 
+    }  
+    elseif(Fuel_Tank_Type == 5)
+    {    
+        Dynamics = 0
+        FuelTank = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_tank_roof_airtanks.mdl" 
+    }  
+
+    if(Battery_Cabinet == 1)
+    {    
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_open.mdl" 
+    }       
+    else
+    {
+        Battery = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_battery_closed_gp20.mdl" 
+    }
+
+    if(Strip_Engine == 0)
+    {
+        if(Dynamics)
+        {    
+            Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp10_body_2exhaust.mdl"
+        }
+        else
+        {
+            Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp10_body_4exhaust.mdl"
+        }
+        
+         if(Cooling == 1)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_36.mdl"   
+            
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }            
+        }
+        elseif(Cooling == 2)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_4x36.mdl"
+
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48.mdl"  
+             
+            if(Winterzation == 2)
+        		  {
+    			         Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_longer_cover.mdl"
+    		      }
+            else
+    		      {
+                Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"
+    		      }                  
+              
+        }
+        elseif(Cooling == 3)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl"   
+        }   
+        elseif(Cooling == 4)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48_uncovered.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_modern.mdl" 
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }        
+        elseif(Cooling == 5)
+        {
+            Fans = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/fan_1x36_2x48.mdl"
+            
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_48_covered.mdl"   
+            
+            Winterzation_Model = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/winterzation_cover.mdl"  
+        }    
+    }       
+    elseif(Strip_Engine == 1)
+    {
+        Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp20_body_stripped.mdl"
+        
+        if(Dynamics)
+        {    
+            Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp10_2exhaust_body_stripped.mdl"
+            Dynamic = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/dynamics_exposed.mdl"
+        }
+        else
+        {
+            Body = "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp10_4exhaust_body_stripped.mdl"
+        }
+    }
+}
+
+#=================================================================================================
+
+if(clk("spawn"))
+{
+    Entity:setAlpha(0)  
+    Reset = 1
+
+if(Livery_Preset == 0) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_00"
+} 
+
+if(Livery_Preset == 1) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_01"
+} 
+
+if(Livery_Preset == 2) 
+{  
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_02"   
+} 
+
+if(Livery_Preset == 3) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_03"   
+} 
+ 
+if(Livery_Preset == 4) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_04"
+}  
+
+if(Livery_Preset == 5) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_05"
+} 
+
+if(Livery_Preset == 6) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_06"
+} 
+
+if(Livery_Preset == 7) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_07"
+} 
+
+if(Livery_Preset == 8) 
+{
+    #include "jazzlok/gp7-9-18-20/livery_lib/gp7-9-18-20_livery_08"
+} 
+
+    if(Cooling == 1 & Strip_Engine == 0) 
+    {   
+        if(Dynamics & Fuel_Tank_Type != 5)
+        {
+            A = 59
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-85,87.25)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        }
+    
+        A = 60
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-243.25,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+        A = 61
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-201.75,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+        A = 62
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,54.25,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+        A = 63
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,95.75,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0))) 
+    }    
+
+    if(Cooling == 2 & Strip_Engine == 0) 
+    {   
+        if(Dynamics & Fuel_Tank_Type != 5)
+        {
+            A = 59
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-85,87.25)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        }
+    
+        A = 60
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-243.25,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+        A = 61
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-201.75,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+        A = 62
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,54.25,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+        A = 63
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,95.75,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0))) 
+    }  
+
+    if(Cooling == 3 & Strip_Engine == 0) 
+    {   
+        if(Dynamics & Fuel_Tank_Type != 5)
+        {
+            A = 59
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-85,90.5)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+            
+            A = 60
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-222.5,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+            A = 62
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,75,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        }
+        else
+        {
+            A = 60
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-222.5,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+            A = 62
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,75,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        }
+    }  
+
+    if(Cooling == 4 & Strip_Engine == 0) 
+    {   
+        if(Dynamics & Fuel_Tank_Type != 5)
+        {
+            A = 59
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-85,90.5)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        }
+    
+        A = 60
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-247.5,83)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+
+        A = 61
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,-197,80)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+            
+        A = 62
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+        holoScale(A,vec(0.95))
+        holoPos(A,Entity:toWorld(vec(0,75,83)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    } 
+
+    if(Cooling == 5 & Strip_Engine == 0) 
+    {   
+        if(Dynamics & Fuel_Tank_Type != 5)
+        {
+            A = 59
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-85,89.5)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+            
+            A = 61
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_36_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-197,80)))
+            holoAng(A,Entity:toWorld(ang(0,0,0))) 
+            
+            A = 60
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-247.5,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+            
+            A = 62
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,75,83)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))   
+        }
+        else
+        {    
+            A = 60
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,-222.5,85)))
+            holoAng(A,Entity:toWorld(ang(0,0,0)))  
+            
+            A = 62
+            holoCreate(A)
+            holoParent(A,Entity)
+            holoModel(A, "models/jazzie/trains/locomotives/emd/emd_fan_48_propeller.mdl")
+            holoScale(A,vec(0.95))
+            holoPos(A,Entity:toWorld(vec(0,75,85)))
+            holoAng(A,Entity:toWorld(ang(0,0,0))) 
+        } 
+    } 
+                     
+    A = 64
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/cabinet_door_upper.mdl")
+    holoPos(A,Entity:toWorld(vec(32,129.5,41)))
+    holoAng(A,Entity:toWorld(ang(0,-90,0))) 
+    
+    A = 65
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/cabinet_door_lower.mdl")
+    holoPos(A,Entity:toWorld(vec(-29,129.5,9)))
+    holoAng(A,Entity:toWorld(ang(0,0,0))) 
+     
+    A = 66
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/cab_light.mdl")
+    holoPos(A,Entity:toWorld(vec(-46,160,75.25)))
+    holoAng(A,Entity:toWorld(ang(30,180,0)))  
+        
+    A = 67
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/cab_light.mdl")
+    holoPos(A,Entity:toWorld(vec(46,160,75.25)))
+    holoAng(A,Entity:toWorld(ang(30,0,0)))  
+    
+    A = 68
+    holoCreate(A)
+    holoParent(A,71)
+    holoScale(A,vec(0.94))
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_governor_bar_right.mdl")
+    holoPos(A,Entity:toWorld(vec(20.25,-172,28.75)))
+    holoAng(A,Entity:toWorld(ang(7.25,0,0)))  
+
+    A = 69
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_throttle_axel_left_bank.mdl")
+    holoPos(A,Entity:toWorld(vec(-23.75,-172,24.75)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+    A = 70
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_governor_axel.mdl")
+    holoPos(A,Entity:toWorld(vec(0,-173,24.75)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+    A = 71
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_crank_lever.mdl")
+    holoPos(A,Entity:toWorld(vec(23.75,-172,24.75)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    
+    A = 73
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/generator_rotor.mdl")
+    holoPos(A,Entity:toWorld(vec(0,-63,-19)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))       
+                    
+    A = 78
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, EngineRack)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+    
+    A = 79
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Engine)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+           
+    A = 80
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Plow)
+    holoColor(A,PlowColor)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0))) 
+    
+    A = 81
+    holoCreate(A)
+    holoParent(A,69)
+    holoScale(A,vec(0.98))
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_governor_bar_right.mdl")
+    holoPos(A,Entity:toWorld(vec(20.25,-172,28.75)))
+    holoAng(A,Entity:toWorld(ang(7.25,0,0)))
+    
+    A = 82
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Glass2)
+    holoColor(A,vec4(150))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+        
+    if(Locomotive_Model == 4)
+    {
+        A = 83
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/emd567d-2_turbine.mdl")
+        holoPos(A,Entity:toWorld(vec(0,20,36)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))    
+        
+        A = 72
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoScale(A,vec(1,1.8,1))
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/aux_gen_pole.mdl")
+        holoPos(A,Entity:toWorld(vec(-20.75,24,29)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    }
+    else
+    {
+        A = 72
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/aux_gen_pole.mdl")
+        holoPos(A,Entity:toWorld(vec(0,14,22.5)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    }
+          
+}
+    
+#==================================================================================================
+if((changed(Battery_Door) & Battery_Door) | (changed(Eng_Door) & Eng_Door) | (changed(Circuit_Cabient ) & Circuit_Cabient ))
+{
+    Entity:soundPlay("door234",0,"_jazzlok/switches/cabinet_door01.wav")
+    soundStop("door234",1)
+}
+
+if(changed(Battery_Door) & !Battery_Door | (changed(Eng_Door) & !Eng_Door) | (changed(Circuit_Cabient) & !Circuit_Cabient ))
+{
+    Entity:soundPlay("door234",0,"_jazzlok/switches/cabinet_door02.wav")
+    soundStop("door234",1)
+}
+
+if(CirDoor < 0.02)
+{
+    CirDoor_Shut = 1
+}
+else
+{
+    CirDoor_Shut = 0
+}
+
+if((changed(CirDoor_Shut ) & CirDoor_Shut))
+{
+    Entity:soundPlay("door2",0,"_jazzlok/switches/cabinet_shut.wav")
+    soundStop("door2",1)
+}
+
+if(BatDoor < 0.02)
+{
+    BatDoor_Shut = 1
+}
+else
+{
+    BatDoor_Shut = 0
+}
+
+if((changed(BatDoor_Shut) & BatDoor_Shut))
+{
+    Entity:soundPlay("door2",0,"_jazzlok/switches/cabinet_shut.wav")
+    soundStop("door2",1)
+}
+
+if(EngDoor < 0.02)
+{
+    EngDoor_Shut = 1
+}
+else
+{
+    EngDoor_Shut = 0
+}
+
+if((changed(EngDoor_Shut) & EngDoor_Shut))
+{
+    Entity:soundPlay("door2",0,"_jazzlok/switches/cabinet_shut.wav")
+    soundStop("door2",1)
+}
+
+interval(66)
+
+
+
+Fan_Control = LOCOMOTIVE_INPUT[1,number] 
+RPM = LOCOMOTIVE_INPUT[2,number] 
+Transition = LOCOMOTIVE_INPUT[3,number] 
+
+
+if(Fan_Control >= 1)
+{
+    Fans_1 += 50
+}
+
+if(Fan_Control == 2)
+{
+    Fans_2 += 50
+}
+
+if(TM_Amps > 50 & Transition < 0)
+{
+    Dynamics_Fan += 30
+}
+elseif(TM_Amps > 200 & Transition < 0)
+{
+    Dynamics_Fan += 60
+}
+elseif(TM_Amps > 400 & Transition < 0)
+{
+    Dynamics_Fan += 100
+}
+else
+{
+    Dynamics_Fan = 0
+}
+
+Fans_RPM = Fans_RPM + ( Fans_1 - Fans_RPM ) /  max( 80, 0 ) 
+Fans_RPM2 = Fans_RPM2 + ( Fans_2 - Fans_RPM2 ) /  max( 80, 0 ) 
+Fans_RPM3 = Fans_RPM3 + ( Dynamics_Fan - Fans_RPM3 ) /  max( 80, 0 ) 
+
+holoAng(60,Entity:toWorld(ang(0,0+Fans_RPM,0)))
+holoAng(63,Entity:toWorld(ang(0,0+Fans_RPM,0)))
+holoAng(62,Entity:toWorld(ang(0,0+Fans_RPM2,0)))
+holoAng(61,Entity:toWorld(ang(0,0+Fans_RPM2,0)))
+holoAng(59,Entity:toWorld(ang(0,0+Fans_RPM3,0)))
+
+holoPos(68,Entity:toWorld(vec(22.75+RPM/400,-172,29.25-RPM/1500)))
+holoAng(68,Entity:toWorld(ang(6+RPM/600,0,0))) 
+holoAng(69,Entity:toWorld(ang(-10-RPM/30,0,0))) 
+holoAng(70,Entity:toWorld(ang(-RPM/30,0,0))) 
+holoAng(71,Entity:toWorld(ang(-20+RPM/30,0,0))) 
+
+holoPos(81,Entity:toWorld(vec(-24-RPM/400,-172,28.75-RPM/1500)))
+holoAng(81,Entity:toWorld(ang(19+RPM/600,180,0))) 
+
+holoAng(72,Entity:toWorld(ang(Gen_RPM*2,0,0))) 
+holoAng(73,Entity:toWorld(ang(Gen_RPM,0,0))) 
+holoAng(83,Entity:toWorld(ang(Gen_RPM*3,0,0))) 
+
+Charge_RPM = Charge_RPM + ( RPM - Charge_RPM ) /  max( 10, 0 ) 
+
+
+Gen_RPM += Charge_RPM / 15
+
+
+CirDoor = CirDoor + ( Circuit_Cabient - CirDoor ) /  max( 5, 0 ) 
+holoAng(64,Entity:toWorld(ang(0,-120*CirDoor,0)))
+
+BatDoor = BatDoor + ( Battery_Door - BatDoor ) /  max( 5, 0 ) 
+holoAng(65,Entity:toWorld(ang(0,120*BatDoor,0)))
+
+EngDoor = EngDoor + ( Eng_Door - EngDoor ) /  max( 5, 0 ) 
+holoAng(11,Entity:toWorld(ang(0,-120*EngDoor,0)))
+
+if(dupefinished())
+{
+    reset()
+}
+
+RadioCmd = owner():lastSaid():explode(" ")
+
+runOnChat(1)
+if(chatClk(owner()))
+{
+    if(RadioCmd[1,string]=="/fixit")
+    {
+        hideChat(1) 
+        print("JAZZLOK: Locomotive Reset") 
+        reset()
+    }
+    
+    if(RadioCmd[1,string]=="/libupdate")
+    {
+        hideChat(1)
+        Download = 1    
+        interval(5000)
+        print("JAZZLOK: Locomotive Reset") 
+        
+    }
+}
+
+if(Reset0 <= 5)
+{
+    Reset0++
+    Reset = 1
+}
+
+if(Reset >= 4)
+{
+    Reset = 0
+    Reset0 = 0                                                                  
+}
+
+

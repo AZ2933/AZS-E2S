@@ -1,0 +1,34 @@
+@name AZ'S Simple HeadLight Switch E2
+@inputs Cycle Button:entity
+@outputs RGB:vector
+@persist A
+@model models/magtrainslocos/rotaryswitches/headlight_emd.mdl
+
+#Original Name: Borich Loco Class Light
+#Originally Created By (MAYBE) Jaiden (jaidenr704)
+#Edited By AZ2933
+#Also Works With PT2 Headsplight, Light Tool, And Other s--t that is light related
+
+Button:setAlpha(0)
+if(first()|dupefinished()){
+
+}
+
+if(Cycle){
+    soundPlay(A,1,"_jazzlok/switches/rotary_switch.wav")
+    A++
+    if(A>1){
+     A=0
+    }
+}
+
+if(A==0){
+ entity():setBodygroup(1,0)
+ RGB=vec(1,1,1)   
+}elseif(A==1){
+ entity():setBodygroup(1,2)
+RGB=vec(255)
+
+}
+
+

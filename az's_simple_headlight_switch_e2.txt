@@ -1,4 +1,4 @@
-@name AZ'S Simple HeadLight Switch E2
+@name AZ'S HeadLight Switch E2
 @inputs Cycle Button:entity
 @outputs RGB:vector
 @persist A

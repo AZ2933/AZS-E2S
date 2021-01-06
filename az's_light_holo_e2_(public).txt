@@ -8,6 +8,12 @@
 
 if(first() | duped()){
 
+1. Wire E:entity To Anyprop you could spawn
+2. Spawn a toggled button
+3. Wire Light to the button and then the (holo) prop should appear! if not then contact me here \/
+Discord: az2933#8263 (The E2 Will Be Updated If I Changed My Disc Name)
+Steam: https://steamcommunity.com/profiles/76561198819798405/
+
 #############################################################################################
 
 A=0

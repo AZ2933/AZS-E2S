@@ -17,10 +17,10 @@ A=0
 
     
     A=1
-    holoCreate(A, E:toWorld(vec(0,0,30)), vec(0,0,0), E:toWorld(ang(0))) #Middle = Forwards & Backwards (< -0) (/\
+    holoCreate(A, E:toWorld(vec(0,0,30)), vec(0,0,0), E:toWorld(ang(0))) #First = Left And Right (< -0) #Middle = Forwards & Backwards (< -0) #Last = Up And Down (< -0)
     holoAng(A, entity():toWorld(ang(0,-90,0)) ) 
-    holoColor(A, vec(255))                                               #Last = Up And Down (< -0) (/\
-    holoModel(A, "models/sprops/rectangles/size_5/rect_48x480x3.mdl")    #First = Left And Right (< -0) (/\
+    holoColor(A, vec(255))                                               
+    holoModel(A, "models/sprops/rectangles/size_5/rect_48x480x3.mdl")    
     holoAlpha(A,0)
     holoScale(A, vec(1))
     holoParent(A, E)

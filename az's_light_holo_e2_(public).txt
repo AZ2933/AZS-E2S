@@ -1,6 +1,5 @@
 @name AZ'S Light Holo E2 (Public)
 @inputs E:entity Light
-@outputs 
 @persist A E:entity
 @trigger all
 

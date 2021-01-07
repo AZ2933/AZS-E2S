@@ -1,0 +1,38 @@
+@name Custom GSG Coupler E2 V1
+@inputs Connect ButtonEntity:entity
+@outputs Connect Connect_2
+@persist A
+@trigger
+@model models/gsgtrainprops/parts/couplers/type_e_coupler.mdl
+
+#Created By AZ2933
+#NOT a "hate" e2
+#^ So Its Simple
+
+ButtonEntity:setAlpha(0)
+
+Coupler = entity()
+
+if(Connect){
+ Coupler:setBodygroup(1,0)
+ soundPlay(0,0,"_jazzlok/misc/couple.wav")
+}else{
+ Coupler:setBodygroup(1,1)
+ soundPlay(0,0,"gsgtrainsounds/misc/uncouple.wav")
+
+if(Connect){Connect=1
+Coupler:setBodygroup(1,0)
+   
+}else{Connect=0
+Coupler:setBodygroup(1,1)
+}
+
+if(Connect_2){Connect_2=0
+Coupler:setBodygroup(1,0)
+   
+}else{Connect_2=1
+Coupler:setBodygroup(1,1)
+}
+
+}
+#########################################################

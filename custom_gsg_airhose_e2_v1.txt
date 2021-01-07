@@ -5,7 +5,7 @@
 
 #Edited By AZ2933
 #Original Name: Battery Knife Switch (RLC RUBY)
-#MAYBE Originally Created By Jaiden (Jaidenr704)
+#MAYBE Originally Created (^) By Jaiden (Jaidenr704)
 
 ButtonEntity:setAlpha(0)
 

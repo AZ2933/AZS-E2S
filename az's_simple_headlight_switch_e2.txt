@@ -1,6 +1,6 @@
 @name AZ'S Simple HeadLight Switch E2
 @inputs Cycle Button:entity
-@outputs RGB:vector
+@outputs RGB:vector Light_On
 @persist A
 @model models/magtrainslocos/rotaryswitches/headlight_emd.mdl
 
@@ -29,6 +29,9 @@ if(A==0){
  entity():setBodygroup(1,2)
 RGB=vec(255)
 
+if(Light_On){Light_On=1
+    
+}else{Light_On=0.1
 }
 
-
+}

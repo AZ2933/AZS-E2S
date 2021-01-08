@@ -9,6 +9,19 @@
 #Edited By AZ2933
 #Also Works With PT2 Headsplight, Light Tool, And Other s--t that is light related
 
+Submaterial = ""
+
+entity():setSubMaterial(1,Submaterial)
+
+# "Models/effects/vol_light001" (Invisible
+# "models/proppertextures/hdlt_emd_front_3pos" (Already used when spawned in)
+# "models/proppertextures/hdlt_emd_rear_3pos"
+# "models/proppertextures/hdlt_emd_front_4pos"
+# "models/proppertextures/hdlt_emd_rear_4pos"
+# "models/proppertextures/enamel_gray"
+# "models/proppertextures/plastic_black"
+# "models/proppertextures/grid_b"
+
 Button:setAlpha(0)
 if(first()|dupefinished()){
 
@@ -24,7 +37,7 @@ if(Cycle){
 
 if(A==0){
  entity():setBodygroup(1,0)
- RGB=vec(1,1,1)   
+ RGB=vec(0)   
 }elseif(A==1){
  entity():setBodygroup(1,2)
 RGB=vec(255)

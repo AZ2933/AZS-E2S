@@ -1,6 +1,6 @@
 @name Custom GSG Coupler E2 V1
 @inputs Connect ButtonEntity:entity
-@outputs Connect Connect_2
+@outputs Connect
 @persist A
 @trigger
 @model models/gsgtrainprops/parts/couplers/type_e_coupler.mdl
@@ -26,13 +26,5 @@ Coupler:setBodygroup(1,0)
 }else{Connect=0
 Coupler:setBodygroup(1,1)
 }
-
-if(Connect_2){Connect_2=0
-Coupler:setBodygroup(1,0)
-   
-}else{Connect_2=1
-Coupler:setBodygroup(1,1)
-}
-
 }
 #########################################################

@@ -1,0 +1,18 @@
+@name Water Glass
+@inputs Water
+@outputs 
+@persist E:entity Max
+@trigger 
+@model models/props_bennjo/steam_detail_1.mdl
+if(first()|duped()){
+    Max = 120
+    E = entity()
+    
+    E:setSubMaterial(3,"phoenix_storms/glass")
+    holoCreate(0,E:pos() - 2.5*E:right(),vec(0.25,0.25,1),E:angles(),vec(0,100,255),"cylinder")
+
+ holoParent(0,E)   
+}
+W = clamp(Water,0,Max)
+holoScale(0,vec(0.25,0.25,(W/Max)*(1.25)))
+holoPos(0,E:pos() - 2.5*E:right() - 7.5*(1 - W/Max)*E:up())

@@ -1,0 +1,19 @@
+@name Coal
+@inputs Prop:entity
+
+Mat="WTP/paint_2"
+
+
+A=1
+holoCreate(A)
+holoEntity(A):setSubMaterial(1,"") #magtrains/invisible
+holoPos(A,Prop:toWorld(vec(0,0,-2)))
+holoParent(A, Prop)
+holoModel(A, "models/props_metaladon/loads/hopper_aggregate_freelance_limestone.mdl")
+holoAng(A,Prop:toWorld(ang(0,90,0)) )
+holoScale(A, vec(0.65,0.26,0.55))
+holoMaterial(A,"bobsters_trains/coal")
+holoAlpha(A,255)
+holoColor(A, vec(255,255,255))
+
+####################################

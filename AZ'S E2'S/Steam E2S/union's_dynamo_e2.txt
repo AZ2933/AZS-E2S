@@ -1,0 +1,29 @@
+@name Union's Dynamo E2
+@inputs Steam Active
+@outputs Power 
+@persist
+@model models/unionsparts/pyle_k2.mdl
+if(first()|dupefinished()){ 
+interval(10)
+E = entity()
+
+#Master Version 1.2
+
+DynamoStart = "usa_locomotive_sounds_3/steam/dynamo/dynamo2.wav"
+
+
+
+E:setColor(55,55,55)
+E:setAlpha(255)
+
+soundPlay(0,0,DynamoStart)
+}
+
+if(Active & Steam >= 75){
+    Power = 1
+    soundVolume(0,100,2)
+    }else{
+    Power = 0
+    soundVolume(0,0,2)
+}
+E:setColor(vec4(0,0,0,0))

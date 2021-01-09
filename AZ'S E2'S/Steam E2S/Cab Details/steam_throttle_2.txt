@@ -1,0 +1,22 @@
+@name Steam Throttle 2
+@inputs Throttle
+
+if( first() | duped() ){
+holoCreate(1)
+holoModel(1,"models/props_bennjo/throttle_uk_1.mdl")
+holoScale(1,vec(0.9))
+holoParent(1, entity())
+    
+}
+
+interval(100)
+if(Throttle > 0){
+A=Throttle*3-10
+}
+else{
+A=Throttle*-3-10
+}
+ 
+holoAng(1, entity():toWorld(ang(A,0,0)))
+
+

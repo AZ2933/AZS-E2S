@@ -1,0 +1,70 @@
+@name Whistle
+@inputs Active
+@outputs Max Min
+@persist 
+@trigger 
+Max = 9
+Min = 7
+
+### thanks for using this e2 i made. i think it'll put geart amounts of realism on it ;)
+
+
+############# this is the whistle construction
+holoCreate(1)
+holoModel(1,"models/sprops/cylinders/size_2/cylinder_3x12.mdl")
+holoParent(1,entity())
+holoPos(1,entity():toWorld(vec(0,0,5)))
+holoMaterial(1,"bobsters_trains/br_brass")
+
+holoCreate(2)
+holoModel(2,"models/sprops/misc/domes/size_0/dome_6x3.mdl")
+holoParent(2,entity())
+holoPos(2,entity():toWorld(vec(0,0,7)))
+holoAng(2,entity():toWorld(ang(0,0,180)))
+holoMaterial(2,"bobsters_trains/br_brass")
+
+holoCreate(3)
+holoModel(3,"models/sprops/cylinders/size_1/cylinder_1_5x12.mdl")
+holoParent(3,entity())
+holoPos(3,entity():toWorld(vec(0,0,7)))
+holoAng(3,entity():toWorld(ang(0,0,0)))
+holoMaterial(3,"bobsters_trains/br_brass")
+
+holoCreate(4)
+holoModel(4,"models/sprops/cylinders/size_3/cylinder_6x3.mdl")
+holoParent(4,3)
+holoPos(4,entity():toWorld(vec(0,0,11)))
+holoAng(4,entity():toWorld(ang(0,0,0)))
+holoMaterial(4,"bobsters_trains/br_brass")
+
+holoCreate(5)
+holoModel(5,"models/sprops/misc/domes/size_0/dome_6x3.mdl")
+holoParent(5,3)
+holoPos(5,entity():toWorld(vec(0,0,12.5)))
+holoAng(5,entity():toWorld(ang(0,0,0)))
+holoMaterial(5,"bobsters_trains/br_brass")
+
+holoCreate(6)
+holoModel(6,"models/sprops/cylinders/size_1/cylinder_1_5x12.mdl")
+holoParent(6,3)
+holoPos(6,entity():toWorld(vec(0,0,11)))
+holoAng(6,entity():toWorld(ang(0,0,0)))
+holoMaterial(6,"bobsters_trains/br_brass")
+
+##################################### end of holos.
+
+
+################################# now where the coding is
+
+
+if(Active == 1){
+    holoPos(3,entity():toWorld(vec(0,0,Max)))
+}
+if(Active == 0){
+    holoPos(3,entity():toWorld(vec(0,0,Min)))
+}
+
+
+###################end of code
+    
+

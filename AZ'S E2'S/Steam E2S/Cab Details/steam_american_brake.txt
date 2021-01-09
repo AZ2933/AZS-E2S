@@ -1,0 +1,25 @@
+@name Steam American Brake
+@inputs Brake
+
+if( first() | duped() ){
+holoCreate(1)
+holoModel(1, "models/props_bennjo/steam_brake.mdl")
+holoScale(1,vec(1))
+holoColor(1,vec(255))
+holoParent(1, entity())
+
+}
+
+interval(1000)
+
+A=Brake/5*40
+
+holoAng(1, entity():toWorld(ang(0,A,0)))
+
+
+    if(Brake & ~Brake)
+    {
+        
+        soundPlay(3,0,"usa_locomotive_sounds/sd70m_sounds/cab/t_sd70_cab_ebrake_full.wav") 
+        soundPitch(3,24)  
+		      }

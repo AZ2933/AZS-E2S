@@ -1,0 +1,96 @@
+@name Better Whistle Pull Cord
+@inputs Alt Space
+@persist A B C D F G
+
+
+    interval(100)
+
+    E=entity()
+    
+    X=1
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,0+A)))
+    holoParent(X,E)   holoModel(X,"models/bobsters_trains/coupling/3link_chain/chain.mdl")
+    holoAng(X,E:toWorld(ang(90,0,0)))    holoScale(X,vec(0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(188))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-5.3+A)))
+    holoParent(X,1)   holoModel(X,"models/bobsters_trains/coupling/3link_chain/chain.mdl")
+    holoAng(X,E:toWorld(ang(90,90,0)))    holoScale(X,vec(0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(188))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-10.6+A)))
+    holoParent(X,1)   holoModel(X,"models/bobsters_trains/coupling/3link_chain/chain.mdl")
+    holoAng(X,E:toWorld(ang(90,0,0)))    holoScale(X,vec(0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(188))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-15.9+A)))
+    holoParent(X,1)   holoModel(X,"models/bobsters_trains/coupling/3link_chain/chain.mdl")
+    holoAng(X,E:toWorld(ang(90,90,0)))    holoScale(X,vec(0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(188))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-16+A)))
+    holoParent(X,1)   holoModel(X,"models/bobsters_trains/coupling/3link_chain/chain.mdl")
+    holoAng(X,E:toWorld(ang(90,90,0)))    holoScale(X,vec(0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(188))
+
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-23+A)))
+    holoParent(X,1)   holoModel(X,"models/sprops/cylinders/size_1/cylinder_1_5x6.mdl")
+    holoAng(X,E:toWorld(ang(0,0,0)))    holoScale(X,vec(1,1,0.6))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(210,0,0))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,-21+A)))
+    holoParent(X,1)   holoModel(X,"models/sprops/cylinders/size_1/cylinder_1_5x6.mdl")
+    holoAng(X,E:toWorld(ang(0,0,0)))    holoScale(X,vec(1.1,1.1,0.1))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(210,0,0))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,0,0+A)))
+    holoParent(X,E)   holoModel(X,"models/sprops/cylinders/size_2/cylinder_3x3.mdl")
+    holoAng(X,E:toWorld(ang(90,0,0)))    holoScale(X,vec(0.8))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(31))
+    
+    X++
+    holoCreate(X)   holoPos(X,E:toWorld(vec(0,-10+F,0+D)))
+    holoParent(X,E)   holoModel(X,"models/sprops/geometry/qring_48.mdl")
+    holoAng(X,E:toWorld(ang(40+B,90,0)))    holoScale(X,vec(0.6+C))
+    holoMaterial(X,"WTP/metal_2")  holoColor(X,vec(31))
+
+    
+if(Alt ^^ Space) {
+    
+    A=-5
+    
+    B=24
+    
+    C=0.1
+    
+    D=-1 
+    
+    F=0
+}
+elseif(Alt&Space){
+    
+    A=-10
+    
+    B=24*2
+    
+    C=0.1
+    
+    D=-1*2
+    
+    F=2.3
+}
+else{
+    
+A=B=C=D=F=0
+
+
+}
+
+

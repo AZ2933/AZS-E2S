@@ -1,0 +1,50 @@
+@name Custom GSG Airhose E2 V2
+@inputs Connect ButtonEntity:entity
+@outputs Connect Connect2 Connect3 Connect4 Connect5
+@model models/lazpack/detail/brakehose.mdl
+#@trigger 
+#Edited By AZ2933
+#Original Name: Battery Knife Switch (RLC RUBY)
+#MAYBE Originally Created By Jaiden (Jaidenr704)
+
+if(first()|dupefinished()){
+print("Its A Simple Airhose (Made By AZ)")
+}
+
+ButtonEntity:setAlpha(0)
+
+Airhose = entity()
+
+if(Connect){
+ soundPlay(0,0,"gsgtrainsounds/misc/airbrake2.wav")
+}else{
+ soundPlay(0,0,"gsgtrainsounds/misc/airbrake1.wav")
+}
+if(Connect){
+ Airhose:setBodygroup(1,0)
+}else{
+ Airhose:setBodygroup(1,1)
+}
+
+########################Extra's##########################
+
+if(Connect){Connect2=1
+    
+}else{Connect2=0
+}
+
+if(Connect){Connect3=1
+    
+}else{Connect3=0
+}
+
+if(Connect){Connect4=1
+    
+}else{Connect4=0
+}
+
+if(Connect){Connect5=1
+    
+}else{Connect5=0
+}
+

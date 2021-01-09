@@ -1,0 +1,27 @@
+@name whistlepullcordsmallROPE
+@inputs A D
+
+if(first()|duped()){
+    
+    holoCreate(3)
+    holoModel(3, "models/sprops/geometry/hring_144.mdl")
+
+    holoParent(3,entity())
+    holoPos(3,entity():toWorld(vec(0,0,0)))
+    holoAng(3,entity():toWorld(ang(0,0,-90)))
+    holoMaterial(3,"wtp/cloth_2")
+    holoColor(3,vec(150,135,100))  
+}
+
+if(A ^^ D) {
+    holoPos(3,entity():toWorld(vec(0,1,0)))
+    holoScale(3,vec(0.5,0.5,0.25))
+}
+elseif(A&D){
+    holoPos(3,entity():toWorld(vec(0,2.2,0)))
+    holoScale(3,vec(0.5,0.5,0.3))
+}
+else{
+    holoPos(3,entity():toWorld(vec(0,0,0)))
+    holoScale(3,vec(0.5,0.5,0.2))
+}

@@ -1,0 +1,181 @@
+@name Firebox Door
+@inputs A
+@outputs Pitch DoorOpen
+@persist Targ Cur Speed Max Min Default_Volume [SoundOn SoundOff]:string H:entity
+@trigger 
+
+if(first()|dupefinished()){
+    
+    SoundOn = "scotttrains/daylight 4449/bb_fireboxo.wav"
+    SoundOff = "scotttrains/daylight 4449/bb_fireboxo.wav"
+    
+    Default_Volume = 1
+    
+    holoCreate(1)
+    holoModel(1,"models/sprops/cylinders/size_3/cylinder_6x6.mdl")
+    holoScale(1,vec(1))
+    holoParent(1,entity())
+    holoPos(1,entity():toWorld(vec(0,0,0)))
+    holoAng(1,entity():toWorld(ang(0,Cur,0)))
+    holoColor(1,vec(36))
+    holoMaterial(1,"WTP/metal_2")
+    
+    holoCreate(2)
+    holoModel(2,"")
+    holoScale(2,vec(0))
+    holoParent(2,entity())
+    holoPos(2,entity():toWorld(vec(0,0,0)))
+    holoAng(2,entity():toWorld(ang(0,-Cur,0)))
+    
+    Speed = 4
+    
+    Max = 60
+    Min = 0
+    
+    
+    Targ = Cur = Min
+
+    SoundOn = "scotttrains/daylight 4449/bb_fireboxo.wav"   #The sound that is played when you blow the horn/whistle
+    SoundOff = "scotttrains/daylight 4449/bb_fireboxo.wav"   #The sound that is played when you turn off the horn/whistle
+    Default_Pitch = 100   #The pitch that the sound is played at. 100 is default, 50 is an octave lower and 200 is an octave higher.
+    Default_Volume = 0.5    #The Default volume the sound it played at. 1 is the maximum, as well as the defualt. Why would you want it any lower?
+    
+    
+    H = holoCreate(24,holoEntity(17):pos())
+    holoAlpha(24,0)
+    holoParent(24,holoEntity(17))
+
+for(N=0,3){
+    soundPitch(N,->Pitch ? Pitch*100 : Default_Pitch)
+}
+}
+
+if(changed(A) & A){
+    if(Targ==Min){Targ=Max DoorOpen = 1 soundStop(30)
+    soundStop(31)
+    soundPlay(32,0,SoundOn)
+    H:soundPlay(33,0,SoundOn)
+    soundVolume(32,Default_Volume)
+soundVolume(33,Default_Volume)}else{Targ=Min DoorOpen = -1 soundStop(32)
+    soundStop(33)
+    soundPlay(30,1,SoundOff)
+    H:soundPlay(31,0,SoundOff)
+    soundVolume(30,Default_Volume)
+    soundVolume(31,Default_Volume)}
+}
+
+if(Cur!=Targ){
+    interval(50)
+    if(Cur<Targ){Cur+=Speed}else{Cur-=Speed}
+    if(Cur<Min){Cur=Min}
+    elseif(Cur>Max){Cur=Max}
+    
+    holoAng(1,entity():toWorld(ang(0,Cur,0)))
+    holoAng(2,entity():toWorld(ang(0,-Cur,0)))
+}
+
+    holoCreate(3)
+    holoModel(3,"models/sprops/geometry/t_qdisc_24.mdl")
+    holoParent(3,holoEntity(1))
+    holoPos(3,holoEntity(1):toWorld(vec(5,6,0)))
+    holoAng(3,holoEntity(1):toWorld(ang(180,0,-90)))
+    holoColor(3,vec(36))
+    holoMaterial(3,"WTP/metal_6")
+    
+    holoCreate(4)
+    holoModel(4,"models/sprops/geometry/t_qdisc_24.mdl")
+    holoParent(4,holoEntity(2))
+    holoPos(4,holoEntity(2):toWorld(vec(5,-6,0)))
+    holoAng(4,holoEntity(2):toWorld(ang(180,0,90)))
+    holoColor(4,vec(36))
+    holoMaterial(4,"WTP/metal_6")
+
+    holoCreate(5)
+    holoModel(5,"models/sprops/rectangles_thin/size_1_5/rect_6x12x1_5.mdl")
+    holoParent(5,holoEntity(1))
+    holoScale(5,vec(1,1.5,1))
+    holoPos(5,holoEntity(1):toWorld(vec(15,6,0)))
+    holoAng(5,holoEntity(1):toWorld(ang(0,90,0)))
+    holoColor(5,vec(36))
+    holoMaterial(5,"WTP/metal_6")
+    
+    holoCreate(6)
+    holoModel(6,"models/sprops/rectangles_thin/size_1_5/rect_6x12x1_5.mdl")
+    holoParent(6,holoEntity(2))
+    holoScale(6,vec(1,1.5,1))
+    holoPos(6,holoEntity(2):toWorld(vec(15,-6,0)))
+    holoAng(6,holoEntity(2):toWorld(ang(0,90,0)))
+    holoColor(6,vec(36))
+    holoMaterial(6,"WTP/metal_6")
+
+    holoCreate(7)
+    holoModel(7,"models/sprops/misc/tubes_thin/size_2/t_q_tube_24x6.mdl")
+    holoParent(7,holoEntity(1))
+    holoPos(7,holoEntity(1):toWorld(vec(5,6,0)))
+    holoAng(7,holoEntity(1):toWorld(ang(0,0,-90)))
+    holoColor(7,vec(36))
+    holoMaterial(7,"WTP/metal_2")
+    holoScale(7,vec(1.1,0.4,1.1))
+    
+    holoCreate(8)
+    holoModel(8,"models/sprops/misc/tubes_thin/size_2/t_q_tube_24x6.mdl")
+    holoParent(8,holoEntity(2))
+    holoPos(8,holoEntity(2):toWorld(vec(5,-6,0)))
+    holoAng(8,holoEntity(2):toWorld(ang(0,0,90)))
+    holoColor(8,vec(36))
+    holoMaterial(8,"WTP/metal_2")
+    holoScale(8,vec(1.1,0.4,1.1))
+
+    holoCreate(9)
+    holoModel(9,"models/sprops/rectangles_thin/size_1/rect_3x6x1_5.mdl")
+    holoParent(9,holoEntity(1))
+    holoScale(9,vec(1.5,0.8,1))
+    holoPos(9,holoEntity(1):toWorld(vec(15,11.6,0)))
+    holoAng(9,holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(9,vec(36))
+    holoMaterial(9,"WTP/metal_2")
+    
+    holoCreate(10)
+    holoModel(10,"models/sprops/rectangles_thin/size_1/rect_3x6x1_5.mdl")
+    holoParent(10,holoEntity(2))
+    holoScale(10,vec(1.5,0.8,1))
+    holoPos(10,holoEntity(2):toWorld(vec(15,-11.6,0)))
+    holoAng(10,holoEntity(2):toWorld(ang(0,0,90)))
+    holoColor(10,vec(36))
+    holoMaterial(10,"WTP/metal_2")
+    
+    holoCreate(11)
+    holoModel(11,"models/sprops/rectangles_thin/size_1/rect_3x6x1_5.mdl")
+    holoParent(11,holoEntity(1))
+    holoScale(11,vec(2.1,1,1))
+    holoPos(11,holoEntity(1):toWorld(vec(19,5.6,0)))
+    holoAng(11,holoEntity(1):toWorld(ang(0,90,90)))
+    holoColor(11,vec(36))
+    holoMaterial(11,"WTP/metal_2")
+    
+    holoCreate(12)
+    holoModel(12,"models/sprops/rectangles_thin/size_1/rect_3x6x1_5.mdl")
+    holoParent(12,holoEntity(2))
+    holoScale(12,vec(2.1,1,1))
+    holoPos(12,holoEntity(2):toWorld(vec(19,-5.6,0)))
+    holoAng(12,holoEntity(2):toWorld(ang(0,90,90)))
+    holoColor(12,vec(36))
+    holoMaterial(12,"WTP/metal_2")
+
+    holoCreate(13)
+    holoModel(13,"models/sprops/rectangles_thin/size_1/rect_3x12x1_5.mdl")
+    holoParent(13,holoEntity(1))
+    holoScale(13,vec(1.4,1,0.3))
+    holoPos(13,holoEntity(1):toWorld(vec(11,0.1,0)))
+    holoAng(13,holoEntity(1):toWorld(ang(0,0,90)))
+    holoColor(13,vec(36))
+    holoMaterial(13,"WTP/metal_2")
+    
+    holoCreate(14)
+    holoModel(14,"models/sprops/rectangles_thin/size_1/rect_3x12x1_5.mdl")
+    holoParent(14,holoEntity(2))
+    holoScale(14,vec(1.4,1,0.3))
+    holoPos(14,holoEntity(2):toWorld(vec(11,-0.1,0)))
+    holoAng(14,holoEntity(2):toWorld(ang(0,0,90)))
+    holoColor(14,vec(36))
+    holoMaterial(14,"WTP/metal_2")

@@ -1,0 +1,25 @@
+@name Steam American Reverser
+@inputs Reverser
+
+if( first() | duped() ){
+holoCreate(1)
+holoModel(1, "models/props_bennjo/throttle_uk_1.mdl")
+holoScale(1,vec(1))
+holoColor(1,vec(255))
+holoParent(1, entity())
+
+}
+
+interval(1000)
+
+A=Reverser/5*40
+
+holoAng(1, entity():toWorld(ang(A,0,0)))
+
+
+    if(Reverser & ~Reverser)
+    {
+        
+        soundPlay(3,0,"Buttons.snd27") 
+        soundPitch(3,24)  
+		      }

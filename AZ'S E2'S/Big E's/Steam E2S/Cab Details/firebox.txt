@@ -1,0 +1,93 @@
+@name Firebox
+@inputs On Pitch
+@outputs Sound:string
+@persist POS1 POS2 POS3 ANG1 ANG2 ANG3 P1 P2 P3 A1 A2 A3 Sound:string Default_Pitch Default_Volume 
+@trigger 
+
+interval(10)
+
+
+
+
+#Left
+
+holoCreate(3)
+holoModel(3,"models/sprops/geometry/hdisc_18.mdl")
+holoScale(3,vec(1,1,1.1))
+holoColor(3,vec(31,31,31))
+holoMaterial(3,"models/debug/debugwhite")
+holoAng(3,entity():toWorld(ang(A1,A2,A3)))
+holoPos(3,entity():toWorld(vec(P1,P2,P3)))
+holoParent(3,(1))
+
+#Right
+
+holoCreate(4)
+holoModel(4,"models/sprops/geometry/hdisc_18.mdl")
+holoScale(4,vec(1,1,1.1))
+holoColor(4,vec(31,31,31))
+holoMaterial(4,"models/debug/debugwhite")
+holoAng(4,entity():toWorld(ang(ANG1,ANG2,ANG3)))
+holoPos(4,entity():toWorld(vec(POS1,POS2,POS3)))
+holoParent(4,(2))
+
+#Open left pos (-10,1,0)
+#Close left pos (4.5,9.3,0)
+
+#Open left ANG (0,-30,90)
+#Close left ANG (0,90,-90)
+
+if(On == 1)
+{
+POS1 = -10
+POS2 = -1
+POS3 = 0
+
+ANG1 = 0
+ANG2 = -30
+ANG3 = 90
+
+P1 = 10
+P2 = -1
+P3 = 0
+
+A1 = 0
+A2 = 30
+A3 = 90
+}
+
+if(On == 0)
+{
+POS1 = -4.6
+POS2 = 6
+POS3 = 0
+
+ANG1 = 0
+ANG2 = -90
+ANG3 = 90
+
+P1 = 4.6
+P2 = 6
+P3 = 0
+
+A1 = 0
+A2 = 90
+A3 = 90
+}
+
+if(first() | duped()){
+    Sound = "usa_locomotive_sounds/challenger/chal_fire.wav"      #This is the path to the sound that you want to play.
+    Default_Pitch = 100    #This is the pitch that the sound will play at. 100 is the default pitch. 50 is one octave lower, 200 is one octave higher.
+    Default_Volume = 1     #This is the default volume the sound will play at, 1 is the default as well as the maximum.
+}
+
+if(On & ~On){
+    soundPlay(0,0,Sound)
+    soundVolume(0,Default_Volume)
+}elseif(!On){
+    soundStop(0)
+}
+soundPitch(0,->Pitch ? Pitch*100 : Default_Pitch)
+
+
+

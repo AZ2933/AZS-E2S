@@ -1,0 +1,447 @@
+@name Realistic Loco Control AB SD40_2
+@inputs Active MU_Master Increase Decrease ReverserF ReverserB ApplyBrake ApplyDynamics [FrontPlugIn RearPlugIn]:array 
+@outputs MPH KPH V Throttle Notch OPS Reverser Brake Dynamics PitchTarget PitchReal [FrontPlugOut RearPlugOut]:array DSINDEX
+@persist MaxSpeed Mul BrakeMul Dynamul [E O Weld]:entity Diesel_Sounds:array EngineIndeces:array DSINDEX Cnt PitchTarget PitchReal Trig
+@persist [Wheel_Sound Brake_Sound Reverser_Sound Dyna_Sound Locobrake_On Locobrake_Off]:string EnginePitches:array Throttle Braking Parking Spd Reverser THQ RQ BQ DQ Brake Dynamics WheelPitch
+@persist Startup:string StartupDelay
+@trigger Active
+@model models/beer/wiremod/watersensor.mdl
+
+if(first()|duped()){
+    
+    #[
+    Welcome to Magnum's Realistic Loco Control E2!
+    Setup Instructions:
+    
+    Place the E2 onto the back of either the body or a bogie and configure the e2 (see below).
+    Wire Active and MU_Master to two separate toggled buttons in the cab.
+    Wire up the controls according to your personal preference. If you are confused, just follow this control scheme:
+    Increase -> D (Increases throttle by 1 notch)
+    Decrease -> A (Decreases throttle by 1 notch)
+    ReverserF -> W (Cycles the reverser forward one position)
+    ReverserB -> S (Cycles the reverser backward one position)
+    ApplyBrake -> Space (Toggles Airbrakes)
+    ApplyDynamics -> Shift (Toggles Dynamic Braking)
+    
+    
+    How to hook up MU System:
+    Spawn a wire socket at each end of the locomotive (make sure that the "Use array inputs/outputs" box is TICKED)
+    Wire the FrontPlugIn and RearPlugIn inputs to each respective sockets (the e2 also has FrontPlugOut and RearPlugOut Outputs that need to be wired)
+    Make sure the control locomotive's Master switch (the button that MU_Master is wired to) is on and all the other master switches are off
+    Then simply connect the two sockets using two wire plugs!
+    
+    Chat commands:
+    .reverser [number[ - Overrides the reverser position. Scales from -1 to 1.
+    .throttle [number] - Overrides the throttle. Scales from 0 to 10. Ex: .throttle 5
+    .notch [number] - Overrides the throttle. Scales from 0 to 8. Ex: .notch 4
+    .mul [number] - Changes the locomotive's Force Multiplier. Ex: .mul 125
+    .maxspeed [number[ - Changes the locomotive's Maximum Velocity in Hammer units per second. Ex: .maxspeed 800
+    .brake - Toggles locomotive airbrakes.
+    .superice - Changes all the props in your consist to have Super Ice physical properties.
+    
+    Power Ratings
+    Using a MaxSpeed of 800:
+    
+    40 Mul makes a good DMU. Example: Budd RDC
+    120 Mul can pull 6 standard cars from a dead stop, upgrade. About 1500 Horsepower.
+    140 Mul can do the same with 8 cars. About 2000 Horsepower
+    160 Mul can do the same with 10 cars. About 3000 Horsepower
+    180 Mul can do the same with 12 cars. About 4000 Horsepower.
+    And so on.
+    
+    ]#
+    MaxSpeed = 800 #Top Speed in hammer units per second
+    Mul = 160       #Force multiplier
+    Dynamul = 1.25 #Force Multiplier for the Dynamic brakes
+    
+    LBE = 0 #Enables extra locomotive braking, only set this to 1 if you have trouble stopping really short trains.
+    BrakeMul = 700 #Force multiplier for the Extra Locomotive Brakes. If the above variable is set to 0, this does nothing.
+    
+    Startup = ""
+    StartupDelay = 10
+    
+    #Sounds, anyone?
+    Diesel_Sounds = array(
+    "gsgtrainsounds/emd645t/645t_idle_notch1.wav",
+    "gsgtrainsounds/emd645t/645t_notch3.wav",
+    "gsgtrainsounds/emd645t/645t_notch8.wav"
+    )
+    #This one requires some special explanation. The E2 will automatically cycle through these sounds depending on current throttle position and the EngineIndeces Array below.
+    
+    Wheel_Sound = "gsgtrainsounds/misc/train_wheels_welded_loop.wav"
+    
+    Brake_Sound = "gsgtrainsounds/wheels/brake_1.wav"
+    
+    Reverser_Sound = "buttons/lightswitch2.wav"
+    
+    Dyna_Sound = "gsgtrainsounds/misc/emd_dynb_loop.wav"
+    
+    Locobrake_On = "buttons/lever7.wav"
+    Locobrake_Off = "gsgtrainsounds/misc/brake_engine1.wav"
+    
+    #EMD 567 (100,120,140,160,180,200,220,240,255)
+    #GE Dash9 (100,100,100,110,115,120,125,130,100)
+    #EMD 645 (100,98,120,135,90,110,130,140,100)
+    EnginePitches = array(100,105,130,100,120,140,160,180,100)
+    #This is important. These are the sound pitches that the engine will go to at each throttle position, starting with idling (notch 0) and ending at notch 8.
+    EngineIndeces = array(0,0,0,1,1,1,1,1,2)
+                   #Notch 0 1 2 3 4 5 6 7 8
+    #This array maps the different engine sounds to the throttle notch.  
+    #NOTE: This array uses "0" for idling and "8" for notch 8, with the rest of the notches picked picked accordingly.
+    
+    WheelPitch = 250
+    #The sound pitch the wheels will reach when the locomotive is at maximum speed                 
+    
+    #Ignore the rest of this code, the config is done!
+    
+    Throttle = 0
+    Notch = 0
+    AccelTo = 0
+    Reverser = 0
+    Braking = 0
+    Parking = 0
+    Trig = 0
+    THQ = 0
+    RQ = 0
+    BQ = 0
+    DQ = 0
+    RearPlugOut = array()
+    FrontPlugOut = array()
+    ReverserOVR = ThrottleOVR = BrakeOVR = 0
+    E = entity()
+    O = owner()
+    runOnChat(1)
+    Cnt = Diesel_Sounds:count()
+    
+    
+}
+interval(20)
+if(Active){
+    
+    #Ignition
+    if(~Active){
+        Weld = E:isWeldedTo()
+        DSINDEX = 1
+        
+        if(Startup!= ""){
+            E:soundPlay(6,0,Startup)
+            timer("transfer",StartupDelay*1000)
+        }else{
+            E:soundPlay(0,0,Diesel_Sounds[1,string])
+            soundPitch(0,EnginePitches[1,number])
+        }
+        PitchReal = EnginePitches[1,number]
+        PitchTarget = EnginePitches[1,number]
+        E:soundPlay(1,0,Wheel_Sound)
+    }
+    
+    if(clk("transfer")){
+        soundStop(6)
+        E:soundPlay(0,0,Diesel_Sounds[1,string])
+        soundPitch(0,EnginePitches[1,number])
+    }
+    #MU Information Retrieval
+    #In from front, out from rear
+    if(!MU_Master){
+        
+        if(FrontPlugIn[5,number] | RearPlugIn[5,number]){
+            RearPlugOut = FrontPlugIn:clone()
+            FrontPlugOut = RearPlugIn:clone()
+            
+            Reverser = -FrontPlugIn[1,number] + RearPlugIn[1,number]
+            Throttle = FrontPlugIn[2,number] + RearPlugIn[2,number]
+            Brake = FrontPlugIn[3,number] + RearPlugIn[3,number]
+            Dynamics = FrontPlugIn[4,number] + RearPlugIn[4,number]
+            Notch = Throttle/1.25
+            DSINDEX = EngineIndeces[Notch+1,number]+1
+            if(($DSINDEX)!=0){
+                soundPlay(0,0,Diesel_Sounds[DSINDEX,string])
+            }
+            
+            PitchTarget = EnginePitches[Notch+1,number]
+            if($Throttle > 0){
+                if(EnginePitches[Notch,number] > EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }elseif($Throttle < 0){
+                if(EnginePitches[Notch+2,number] < EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }
+            
+        }
+    }else{
+    
+        #MU Cable Update Flagging
+        if(changed(Throttle)|changed(Reverser)|changed(Brake)|changed(Dynamics)){
+
+            Trig = 1
+        }else{
+            Trig = 0
+        }
+        
+    
+    
+        #Reverser
+        
+        if(ReverserF|ReverserB){
+            if(!RQ & (Throttle==0)){
+                RQ = 1
+                Reverser += ReverserF-ReverserB
+                if(abs(Reverser)<2){
+                    E:soundPlay(3,1,Reverser_Sound)
+                }
+                
+                Reverser = clamp(Reverser,-1,1)
+                
+                
+                
+            }
+        }elseif(RQ){
+            RQ = 0 
+        }
+        
+        #Throttle Controlling
+        
+        if((Increase|Decrease)){
+            
+            if(!THQ){
+                THQ = 1
+                Throttle += (Increase - Decrease)*1.25
+                Throttle = clamp(Throttle,0,10)
+                Notch = Throttle/1.25
+                DSINDEX = EngineIndeces[Notch+1,number]+1
+                if(($DSINDEX)!=0){
+                    soundPlay(0,0,Diesel_Sounds[DSINDEX,string])
+                }
+                
+                PitchTarget = EnginePitches[Notch+1,number]
+                if(Increase){
+                    if(EnginePitches[Notch,number] > EnginePitches[Notch+1,number]){
+                        PitchReal = PitchTarget
+                        soundPitch(0,PitchReal)
+                    }
+                }elseif(Decrease){
+                    if(EnginePitches[Notch+2,number] < EnginePitches[Notch+1,number]){
+                        PitchReal = PitchTarget
+                        soundPitch(0,PitchReal)
+                    }
+                }  
+                
+                
+            }
+            
+        }elseif(THQ){
+            THQ = 0
+        }
+        
+        
+        
+    
+    
+    
+        RearPlugOut = array(-Reverser,Throttle,Brake,Dynamics,Trig) 
+        FrontPlugOut = array(Reverser,Throttle,Brake,Dynamics,Trig)  
+             
+        }
+    
+    
+    
+    
+    #Velocity Info Gathering
+    V = -E:velL():z()
+    Spd = abs(V)
+    MPH = toUnit("mph",Spd)
+    KPH = toUnit("km/h",Spd)
+    
+    #Brake noises
+    if(MU_Master){
+        if(ApplyBrake & !BQ){
+            BQ = 1
+            Brake = !Brake
+            if(Brake){
+                soundPlay(5,3,Locobrake_On)
+                local Weld = E:isWeldedTo()
+                local Constrained = Weld:getConstraints()
+                Weld:propPhysicalMaterial("ice")
+                for(N=1,Constrained:count()){
+                    Constrained[N,entity]:propPhysicalMaterial("ice")
+                }
+            }else{
+                soundPlay(5,3,Locobrake_Off)
+                local Weld = E:isWeldedTo()
+                local Constrained = Weld:getConstraints()
+                Weld:propPhysicalMaterial("gmod_ice")
+                for(N=1,Constrained:count()){
+                    Constrained[N,entity]:propPhysicalMaterial("gmod_ice")
+                }
+            }
+        }elseif(!ApplyBrake & BQ){
+            BQ = 0
+        }
+        if(ApplyDynamics & !DQ & (Throttle==0)){
+            DQ = 1
+            Dynamics = !Dynamics
+            if(Dynamics){E:soundPlay(4,0,Dyna_Sound)}else{soundStop(4,2)}
+        }elseif(!ApplyDynamics & DQ){
+            DQ = 0
+        }
+    }
+    if(Brake & !Braking & (inrange(abs(V),5,150))){
+        Braking = 1
+        E:soundPlay(2,0,Brake_Sound)
+        
+    }elseif((!Brake | (abs(V)<5)) & Braking){
+        Braking = 0
+        soundStop(2,0)
+    }
+    if(Brake & abs(V)<5 & !Parking){
+        Parking = 1
+        local Weld = E:isWeldedTo()
+        local Constrained = Weld:getConstraints()
+        Weld:propPhysicalMaterial("jeeptire")
+        for(N=1,Constrained:count()){
+            Constrained[N,entity]:propPhysicalMaterial("jeeptire")
+        }
+    }elseif(!Brake & Parking){
+        Parking = 0
+        local Weld = E:isWeldedTo()
+        local Constrained = Weld:getConstraints()
+        Weld:propPhysicalMaterial("gmod_ice")
+        for(N=1,Constrained:count()){
+            Constrained[N,entity]:propPhysicalMaterial("gmod_ice")
+        }
+    }
+    
+    #Sound Pitch Adjustment
+    
+    #soundPitch(0,EngineMin + (Throttle/10)*(EngineMax - EngineMin))
+    if(PitchReal!=PitchTarget){
+        PitchReal += sign(PitchTarget-PitchReal)/4
+        soundPitch(0,PitchReal)
+    }
+    soundPitch(1,Spd > 15 ? WheelPitch*(Spd/MaxSpeed) : 0)
+    
+    
+    #Force Application
+    Dir = -E:up()
+    TargetSpeed = !Dynamics*Reverser*MaxSpeed*Throttle/10
+    
+    if(clk("interval")){
+        local FORCE = Dir*((TargetSpeed - 0*V/16 - Dynamul*Dynamics*V*abs(V)*Throttle/4096 - (LBE*Brake)*sign(V)*BrakeMul*(abs(V)>5))*Mul)*2
+        FL = FORCE:length()
+        Weld:applyForce(FORCE)
+    }
+    #Chat Control
+    
+    if(chatClk(O) & MU_Master){
+        Sentence = O:lastSaid():explode(" ")
+        CMD = Sentence[1,string]
+        if(CMD == ".throttle"){
+            hideChat(1)
+            Notch = round(Sentence[2,string]:toNumber()/1.25)
+            Throttle = Notch*1.25
+            print("Setting Throttle to Notch " + Notch:toString())
+            
+            DSINDEX = EngineIndeces[Notch+1,number]+1
+            
+            if(($DSINDEX)!=0){
+                soundPlay(0,0,Diesel_Sounds[DSINDEX,string])
+            }
+            
+            PitchTarget = EnginePitches[Notch+1,number]
+            if($Throttle > 0){
+                if(EnginePitches[Notch,number] > EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }elseif($Throttle < 0){
+                if(EnginePitches[Notch+2,number] < EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }
+        }elseif(CMD==".notch"){
+            hideChat(1)
+            Notch = floor(Sentence[2,string]:toNumber())
+            Throttle = Notch*1.25
+            print("Setting Throttle to Notch " + Notch:toString())
+            DSINDEX = EngineIndeces[Notch+1,number]+1
+            
+            if(($DSINDEX)!=0){
+                soundPlay(0,0,Diesel_Sounds[DSINDEX,string])
+            }
+            
+            PitchTarget = EnginePitches[Notch+1,number]
+            if(Increase){
+                if(EnginePitches[Notch,number] > EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }elseif(Decrease){
+                if(EnginePitches[Notch+2,number] < EnginePitches[Notch+1,number]){
+                    PitchReal = PitchTarget
+                    soundPitch(0,PitchReal)
+                }
+            }
+        }elseif(CMD==".reverser"){
+            hideChat(1)
+            Reverser = sign(Sentence[2,string]:toNumber())
+            print("Setting Reverser to Position " + Reverser:toString())
+        }elseif(CMD==".brake"){
+            hideChat(1)
+            
+            Brake = !Brake
+            if(Brake){
+                print("Cutting throttle and applying brakes")
+                Throttle = 0
+                Notch = 0
+                PitchReal = PitchTarget = EnginePitches[1,number]
+                if(DSINDEX != 1){
+                    soundPlay(0,0,Diesel_Sounds[1,string])
+                    DSINDEX = 1
+                }
+                soundPitch(0,PitchReal)
+                
+            }else{
+                print("Releasing Brakes")
+            }
+        
+        
+        }elseif(CMD == ".mul"){
+            Mul = Sentence[2,string]:toNumber()
+            hideChat(1)
+            print("Setting Force Multiplier to " + Sentence[2,string])
+        }elseif(CMD == ".maxspeed"){
+            MaxSpeed = Sentence[2,string]:toNumber()
+            hideChat(1)
+            print("Setting Maximum Speed to " + Sentence[2,string])
+        }elseif(CMD == ".superice"){
+            hideChat(1)
+            local Weld = E:isWeldedTo()
+            local Constrained = Weld:getConstraints()
+            Weld:propPhysicalMaterial("gmod_ice")
+            for(N=1,Constrained:count()){
+                Constrained[N,entity]:propPhysicalMaterial("gmod_ice")
+            }
+            print("Consist has been Supericed")
+        }
+    }
+    
+}else{
+    if(~Active){
+        Throttle = NegativeThrottle = V = Spd = MPH = KPH = AccelTo = AccelQ = Braking = 0
+        soundStop(0)
+        soundStop(1)
+        soundStop(2)
+        soundStop(3)
+        soundStop(4)
+        
+    }
+}
+
+
+
+OPS = ops()

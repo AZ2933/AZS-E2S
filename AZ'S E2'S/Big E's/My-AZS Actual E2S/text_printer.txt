@@ -1,9 +1,0 @@
-@name Simple Text Printer V1
-@inputs 
-@outputs 
-@persist 
-@trigger 
-
-#Owner: AZ2933
-
-print("Test")

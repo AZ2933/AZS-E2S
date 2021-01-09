@@ -1,0 +1,257 @@
+    StripeColor1 = vec(220,212,210)
+    StripeColor2 = vec(177,179,64)
+    StripeColor3 = vec(55,50,50)
+    StripeColor4 = vec(255,0,0) * 0.85
+
+    PlowColor = vec(80)        
+    BogieColor =  vec(55,50,50)
+    Paint_Scheme = 4
+    
+    NumColour = vec(243,239,239)
+    NumColourSide = vec(255,0,0) * 0.85
+
+    if(Dynamics)
+    {
+        A = 0
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoModel(A, Dynamic)
+        holoColor(A,StripeColor1)
+        holoPos(A,Entity:toWorld(vec(0,0,0)))
+        holoAng(A,Entity:toWorld(ang(0,0,0)))  
+    }  
+    
+    A = 1
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_base.mdl")
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0))) 
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,0,-39),vec(0,0,1),0) 
+            
+    A = 2
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Body)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))     
+
+    A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Hood)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+    
+    A = 4
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Fans)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 5
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, FuelTank)
+    holoColor(A,StripeColor3)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,0,0),vec(0,0,-1),0) 
+    
+    A = 6
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Battery)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 7
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, SideWindows)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    A = 8
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, Light)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))  
+
+    A = 9
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor1)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_ladders.mdl")
+    holoPos(A,Entity:toWorld(vec(-16,-313.5,26)))
+    holoAng(A,Entity:toWorld(ang(0,145.5,0)))  
+
+    if(Front_Hood_Type == 1) 
+    {   
+        A = 10
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_ladders.mdl")
+        holoPos(A,Entity:toWorld(vec(16,313,26)))
+        holoAng(A,Entity:toWorld(ang(0,-34.5,0)))   
+    }   
+
+    if(!Strip_Engine)
+    {
+        A = 11
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/engine_cabinet_door01.mdl")
+        holoPos(A,Entity:toWorld(vec(34.5,-197.53,4.55)))
+        holoAng(A,Entity:toWorld(ang(0,-120,0))) 
+    }
+    
+    if(Winterzation == 1) 
+    {    
+        A = 12
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, Winterzation_Model)
+        holoPos(A,Entity:toWorld(vec(0,0,0)))
+        holoAng(A,Entity:toWorld(ang(0,0,0))) 
+    } 
+
+    A = 13
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor1)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+    holoPos(A,Entity:toWorld(vec(-26.75,-300,67.5)))
+    holoAng(A,Entity:toWorld(ang(0,126,0)))  
+    
+    A = 14
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoColor(A,StripeColor1)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+    holoPos(A,Entity:toWorld(vec(26.75,-300,67.5)))
+    holoAng(A,Entity:toWorld(ang(180,-126,0)))  
+
+    if(Front_Hood_Type == 1) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,67.5)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,67.5)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    }
+    elseif(Front_Hood_Type == 2 & (Locomotive_Model != 3 & Locomotive_Model != 4)) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,23)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,23)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    }  
+    
+    if(Front_Hood_Type == 2 & Locomotive_Model >= 3) 
+    {   
+        A = 15
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(-26.75,299.5,17)))
+        holoAng(A,Entity:toWorld(ang(180,54,0)))  
+    
+        A = 16
+        holoCreate(A)
+        holoParent(A,Entity)
+        holoColor(A,StripeColor1)
+        holoModel(A, "models/jazzie/trains/locomotives/emd/marker_light.mdl")
+        holoPos(A,Entity:toWorld(vec(26.75,299.5,17)))
+        holoAng(A,Entity:toWorld(ang(0,-54,0))) 
+    } 
+    
+    A = 17
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/sprops/rectangles/size_1_5/rect_6x432x3.mdl")
+    holoMaterial(A,"jazzie/trains/wall01")
+    holoScale(A,vec(1.45,0.8,43.15))
+    holoColor(A,StripeColor2)
+    holoPos(A,Entity:toWorld(vec(0,0,-44)))
+    holoAng(A,Entity:toWorld(ang(0,90,90))) 
+    
+    A = 18
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/gp7-9-18-20/gp7-9-18-20_base.mdl")
+    holoColor(A,StripeColor3)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0))) 
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,0,-39),vec(0,0,-1),0) 
+    
+    A = 19
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, FuelTank)
+    holoColor(A,StripeColor1)
+    holoPos(A,Entity:toWorld(vec(0,0,0)))
+    holoAng(A,Entity:toWorld(ang(0,0,0)))   
+
+    holoClipEnabled(A,1,1)                           
+    holoClip(A,1,vec(0,0,0),vec(0,0,1),0) 
+    
+    A = 20
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoMaterial(A,"decals/kcs3")
+    holoModel(A, "models/holograms/plane.mdl")
+    holoScale(A,vec(12,12,0.1))
+    holoColor(A,StripeColor4)
+    holoAng(A,Entity:toWorld(ang(90,90,90)))   
+    holoPos(A,Entity:toWorld(vec(37,-83,10)))   
+    
+    A = 21
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoMaterial(A,"decals/kcs3")
+    holoModel(A, "models/holograms/plane.mdl")
+    holoScale(A,vec(12,12,0.1))
+    holoColor(A,StripeColor4)
+    holoAng(A,Entity:toWorld(ang(90,-90,90)))   
+    holoPos(A,Entity:toWorld(vec(-37,-83,10)))   

@@ -1,0 +1,33 @@
+@name 1000a_ammeter
+@inputs Traction_Motor_Current
+@outputs 
+@persist Charge_B
+@model models/jazzie/trains/locomotives/emd/cab/1000a_ammeter.mdl
+
+entity():setAlpha(0)
+Scale = vec(35)
+if(first() | dupefinished())
+{   
+    A = 0
+    holoCreate(A)
+    holoParent(A,entity())
+    holoColor(A,vec(212,207,191))
+    holoScale(A, Scale)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/1000a_ammeter.mdl")
+    holoPos(A,entity():toWorld(vec(0,0,0)))
+    holoAng(A,entity():toWorld(ang(0,0,0)))
+     
+    A = 1
+    holoCreate(A)
+    holoParent(A,entity())
+    holoMaterial(A,"wtp/paint_1")
+    holoScale(A, Scale)
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/ammeter_needle.mdl")
+    holoDisableShading(A,1)
+    holoPos(A,entity():toWorld(vec(0,0,0)))
+    holoAng(A,entity():toWorld(ang(-67,0,0)))
+}
+
+interval(80)
+Charge_B = Charge_B + ( Traction_Motor_Current - Charge_B ) /  max( 10, 0 )
+holoAng(1,entity():toWorld(ang(-67+(Charge_B / 7.45),0,0)))

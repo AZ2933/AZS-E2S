@@ -1,0 +1,269 @@
+@name Jazzlok EMD Input
+@inputs Seat:entity LOCOMOTIVE_DATA:array
+@outputs [CONTROLS_OUTPUT SWITCHES_OUTPUT]:array Notch Brake Reverser Transition 
+@persist Notch Brake Reverser Transition Bell Horn Sander Control Fuel_Pump Generator_Field Engine_Run HDLT GYRA Number X Signal_Light_Dimmer HDLT_Dimmer Cab_Light
+@trigger 
+
+Locomotive_Channel = "GlaDOS/init/nertox/.load"
+
+if(first() | dupefinished())
+{
+    dsJoinGroup(Locomotive_Channel)
+    dsSetScope(0)
+}
+    
+Locomotive_Model = LOCOMOTIVE_DATA[3,number] 
+Dynamics_True = LOCOMOTIVE_DATA[6,number] 
+
+interval(100)
+if(Seat:driver() == owner()) 
+{        
+    runOnKeys(owner(),1)       
+                          
+    if(Locomotive_Model == 1)
+    {                               
+        if(((Seat:driver():keyForward() & keyClk(owner())) & Notch < 8) & Transition >= 0) 
+        {
+            Notch++
+        }
+        elseif((Seat:driver():keyBack() & keyClk(owner())) & Notch > 0 & Transition >= 0)
+        {
+            Notch--
+        }
+    }
+    else
+    {
+        if((Seat:driver():keyForward() & keyClk(owner())) & Notch < 8) 
+        {
+            Notch++
+        }
+        elseif((Seat:driver():keyBack() & keyClk(owner())) & Notch > 0)
+        {
+            Notch--
+        }
+    }
+
+    if((Seat:driver():keyLeft() & keyClk(owner())) & Brake < 5) 
+    {
+        Brake++
+    }
+    elseif((Seat:driver():keyRight() & keyClk(owner())) & Brake > 0)
+    {
+        Brake--
+    }
+        
+    if((Seat:driver():keyPressed("UP") & keyClk(owner())) & Reverser < 1) 
+    {
+        Reverser++
+    }
+    elseif((Seat:driver():keyPressed("DOWN") & keyClk(owner())) & Reverser > -1)
+    {
+        Reverser--
+    }   
+
+    if(Dynamics_True)
+    {        
+        if(((Seat:driver():keyPressed("LEFT") & keyClk(owner())) & Transition < 4) & Notch == 0) 
+        {
+            Transition++
+        }
+        elseif(((Seat:driver():keyPressed("RIGHT") & keyClk(owner())) & Transition > -1) & Notch == 0)
+        {
+            Transition--
+        }
+    }
+    else
+    {
+        if(((Seat:driver():keyPressed("LEFT") & keyClk(owner())) & Transition < 4) & Notch == 0) 
+        {
+            Transition++
+        }
+        elseif(((Seat:driver():keyPressed("RIGHT") & keyClk(owner())) & Transition > 0) & Notch == 0)
+        {
+            Transition--
+        }
+    }
+
+    if(Seat:driver():keyPressed("r")) 
+    {
+        Horn = 1
+    }
+    elseif(!Seat:driver():keyPressed("r"))
+    {
+        Horn = 0
+    }
+
+    if(Seat:driver():keyPressed("l") & keyClk(owner())) 
+    {
+        Cab_Light = !Cab_Light
+    }
+    
+    if(Seat:driver():keyPressed("t") & keyClk(owner())) 
+    {
+        Bell = !Bell
+    }
+
+    if(Seat:driver():keyPressed("PAD_0") & keyClk(owner())) 
+    {
+        Control = !Control
+    }
+
+    if(Seat:driver():keyPressed("PAD_1") & keyClk(owner())) 
+    {
+        Fuel_Pump = !Fuel_Pump
+    }
+
+    if(Seat:driver():keyPressed("PAD_2") & keyClk(owner())) 
+    {
+        Generator_Field = !Generator_Field
+    }
+
+    if(Seat:driver():keyPressed("PAD_3") & keyClk(owner())) 
+    {
+        Engine_Run = !Engine_Run
+    }
+
+    if(Seat:driver():keyPressed("PAD_4") & keyClk(owner())) 
+    {
+        HDLT = !HDLT
+    }
+
+    if(Seat:driver():keyPressed("PAD_5") & keyClk(owner())) 
+    {
+        GYRA = !GYRA
+    }
+
+    if(Seat:driver():keyPressed("PAD_6") & keyClk(owner())) 
+    {
+        Number = !Number
+    }
+                                     
+    if((Seat:driver():keyPressed("PAD_PLUS") & !Seat:driver():keyPressed("PAD_ENTER") & keyClk(owner())) & HDLT_Dimmer < 2) 
+    {
+        HDLT_Dimmer++
+    }
+    elseif((Seat:driver():keyPressed("PAD_MINUS") & !Seat:driver():keyPressed("PAD_ENTER") & keyClk(owner())) & HDLT_Dimmer > 0 )
+    {
+        HDLT_Dimmer--
+    }
+
+    if((Seat:driver():keyPressed("PAD_PLUS") & Seat:driver():keyPressed("PAD_ENTER") & keyClk(owner())) & Signal_Light_Dimmer < 2) 
+    {
+        Signal_Light_Dimmer++
+    }
+    elseif((Seat:driver():keyPressed("PAD_MINUS") & Seat:driver():keyPressed("PAD_ENTER") & keyClk(owner())) & Signal_Light_Dimmer > 0 )
+    {
+        Signal_Light_Dimmer--
+    }
+                           
+    CONTROLS_OUTPUT = array(
+    Notch,
+    Brake,
+    Reverser,
+    Transition,
+    Horn,
+    Bell,
+    Sander,
+    Cab_Light
+    )    
+        
+    if(Seat:driver():keyPressed("space") & keyClk(owner())) 
+    {
+        Sander = !Sander
+    }                    
+    
+    SWITCHES_OUTPUT = array(
+    Control,
+    Fuel_Pump,
+    Generator_Field,
+    Engine_Run,
+    HDLT,
+    GYRA,
+    Number,
+    HDLT_Dimmer,
+    Signal_Light_Dimmer
+    )
+    
+    if(changed(Notch)) { dsSend("Notch", Locomotive_Channel, 0, Notch) }   
+    if(changed(Brake)) { dsSend("Brake", Locomotive_Channel, 0, Brake) } 
+    if(changed(Reverser)) { dsSend("Reverser", Locomotive_Channel, 0, Reverser) }   
+    if(changed(Transition)) { dsSend("Transition", Locomotive_Channel, 0, Transition) }       
+    if(changed(Sander)) { dsSend("Sander", Locomotive_Channel, 0, Sander) }                           
+}
+else
+{
+    if(dsClk("Notch")) { Notch = dsGetNumber() }
+    if(dsClk("Brake")) { Brake = dsGetNumber() }
+    if(dsClk("Reverser")) { Reverser = dsGetNumber() }
+    if(dsClk("Transition")) { Transition = dsGetNumber() }
+    if(dsClk("Sander")) { Sander = dsGetNumber() }
+                        
+    CONTROLS_OUTPUT = array(
+    Notch,
+    Brake,
+    Reverser,
+    Transition,
+    Horn,
+    Bell,
+    Sander,
+    Cab_Light
+    )   
+}
+
+
+
+RadioCmd = owner():lastSaid():explode(" ")
+
+if(chatClk(owner()))
+{
+    if(RadioCmd[1,string]=="/n" & RadioCmd[2,string]:toNumber())
+    {
+        hideChat(1)
+        Transition = 3
+        Notch = RadioCmd[2,string]:toNumber()    
+        print("JAZZLOK: Engine Notch: " + Notch:toString())
+    }
+    
+    if(RadioCmd[1,string]=="/n" & RadioCmd[2,string]=="0")
+    {
+        hideChat(1)
+        Notch = 0
+        Transition = 0 
+        print("JAZZLOK: Engine Notch: " + Notch:toString())
+    }
+        
+    if(RadioCmd[1,string]=="/b" & RadioCmd[2,string]:toNumber())
+    {
+        hideChat(1)
+        Brake_Remote = RadioCmd[2,string]:toNumber()
+        print("JAZZLOK: Brake: " + Brake * 20 + " %")
+    }
+ 
+    if(RadioCmd[1,string]=="/b" & RadioCmd[2,string]=="0")
+    {
+        hideChat(1)
+        Brake_Remote = 0 
+        print("JAZZLOK: Brake: " + 0 + " %")
+    }
+       
+    if(RadioCmd[1,string]=="/rf")
+    {
+        hideChat(1)
+        Reverser = 1
+        print("JAZZLOK: Reverser: Forward")
+    }
+    
+    if(RadioCmd[1,string]=="/rn")
+    {
+        hideChat(1)
+        Reverser = 0
+        print("JAZZLOK: Reverser: Neutral")
+    } 
+        
+    if(RadioCmd[1,string]=="/rb")
+    {
+        hideChat(1)
+        Reverser = -1
+        print("JAZZLOK: Reverser: Backward")
+    }                                                                      
+}

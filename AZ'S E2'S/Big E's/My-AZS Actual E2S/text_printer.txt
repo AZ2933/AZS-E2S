@@ -1,4 +1,4 @@
-@name Text Printer
+@name Simple Text Printer V1
 @inputs 
 @outputs 
 @persist 

@@ -1,0 +1,43 @@
+@name RLC Sapphire LOCO Truck
+@inputs [WheelSlip Emergency MPH Load Reverser Dynamics Start]:number
+@outputs On On2
+@persist Base:entity [WheelSlip Emergency MPH Reverser]:number E:entity Angle Speed  Angset Charge_A Traction:string DynaTraction:string Dynamics
+@trigger Load MPH Dynamics
+@model models/magtrains/locobogey2.mdl
+
+if(first()|dupefinished()){
+soundPlay(1,0,"gsgtrainsounds/wheels/tractionmotor1_loud.wav")
+soundPlay(0,0,"_jazzlok/traction_motor/abb_inverter_phase1_low.wav")}
+    
+ 
+E = entity()
+
+On2 = WheelSlip
+if(Emergency&MPH >2){On = 1}else{On=0}
+soundPitch(1,MPH*3.3)
+soundPitch(0,MPH*3.3)
+if(Angle >= 180){Angset = 0}
+else{Angset += Speed / 4}
+Charge_A = Charge_A + ( Angset - Charge_A ) /  max( 50, 0 )     
+holoAng(1,entity():toWorld(ang(0,0,0-Charge_A)))
+holoAng(2,entity():toWorld(ang(0,0,0-Charge_A)))
+holoAng(3,entity():toWorld(ang(0,0,0-Charge_A)))
+if(first()|duped()){
+    E = entity()
+    E:setAlpha(0)
+    
+    holoCreate(0,E:toWorld(vec(0,0,-43)),vec(1),E:angles(),vec(90),"models/jazzie/trains/locomotives/emd/gp9_bogie_nowheels.mdl")
+    holoParent(0,E)
+    holoCreate(2,E:toWorld(vec(0,-55,-24)),vec(1.08,0.99,0.99),E:angles(),vec(255),"models/jazzie/trains/cars/wheelset_36.mdl")
+    holoParent(2,E)
+    holoCreate(3,E:toWorld(vec(0,55,-24)),vec(1.08,0.99,0.99),E:angles(),vec(255),"models/jazzie/trains/cars/wheelset_36.mdl")
+    holoParent(3,E)
+
+}
+if(Load>0){soundVolume(1,Load*0.02)}else{soundVolume(0,Load*-0.02)}
+if(Reverser==-1){Speed = -7*MPH}
+if(Reverser==1){Speed = 7*MPH}
+if(MPH==0){Speed = 0}
+if(Reverser==-1&WheelSlip){Speed = -200*MPH}
+if(Reverser==1&WheelSlip){Speed = 200*MPH}
+interval(70)

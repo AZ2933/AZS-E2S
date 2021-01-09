@@ -1,0 +1,169 @@
+@name RLC Sapphire LOCO Truck Locobogey old version
+@inputs  [RLCSHTrucks]:array
+@outputs On On2
+@persist Base:entity String:string [WheelSlip Emergency MPH Load Reverser Dynamics]:number E:entity Angle Speed Angset Charge_A Traction:string DynaTraction:string Cur Time Time1 On On2
+@trigger Load MPH Dynamics
+@model models/magtrains/locobogey2.mdl
+if(first()|dupefinished()){
+    soundPlay(1,0,"gsgtrainsounds/wheels/tractionmotor1_loud.wav")
+    soundPlay(0,0,"_jazzlok/traction_motor/abb_inverter_phase1_low.wav")
+    E = entity()
+
+    E:setAlpha(0)
+    holoCreate(4)
+    holoParent(4,E)
+    holoMaterial(4,"icegt/loco/ice_trainmetal_white")
+    holoModel(4,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(4,vec(1,1,1))
+    holoAng(4,E:toWorld(ang(90,0,180)))   
+    holoPos(4,E:toWorld(vec(0,0,-5))) 
+    holoColor(4,vec(20))
+    holoCreate(5)
+    holoParent(5,E)
+    holoMaterial(5,"icegt/loco/ice_trainmetal_white")
+    holoModel(5,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(5,vec(1,1,1))
+    holoAng(5,E:toWorld(ang(90,0,0)))   
+    holoPos(5,E:toWorld(vec(0,0,-5))) 
+    holoColor(5,vec(20))
+    holoCreate(6)
+    holoParent(6,E)
+    holoMaterial(6,"icegt/loco/ice_trainmetal_white")
+    holoModel(6,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(6,vec(1,1,1))
+    holoAng(6,E:toWorld(ang(90,0,0)))   
+    holoPos(6,E:toWorld(vec(0,0,-5))) 
+    holoColor(6,vec(20))
+    holoCreate(7)
+    holoParent(7,E)
+    holoMaterial(7,"icegt/loco/ice_trainmetal_white")
+    holoModel(7,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(7,vec(1,1,1))
+    holoAng(7,E:toWorld(ang(90,0,180)))   
+    holoPos(7,E:toWorld(vec(0,0,-15))) 
+    holoColor(7,vec(20))
+    holoCreate(8)
+    holoParent(8,E)
+    holoMaterial(8,"icegt/loco/ice_trainmetal_white")
+    holoModel(8,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(8,vec(1,1,1))
+    holoAng(8,E:toWorld(ang(90,0,180)))   
+    holoPos(8,E:toWorld(vec(0,0,-5))) 
+    holoColor(8,vec(20))
+    holoCreate(9)
+    holoParent(9,E)
+    holoMaterial(9,"icegt/loco/ice_trainmetal_white")
+    holoModel(9,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(9,vec(1,1,1))
+    holoAng(9,E:toWorld(ang(90,0,0)))   
+    holoPos(9,E:toWorld(vec(0,0,-5))) 
+    holoColor(9,vec(20))
+    holoCreate(10)
+    holoParent(10,E)
+    holoMaterial(10,"icegt/loco/ice_trainmetal_white")
+    holoModel(10,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(10,vec(1,1,1))
+    holoAng(10,E:toWorld(ang(90,0,0)))   
+    holoPos(10,E:toWorld(vec(0,0,-5))) 
+    holoColor(10,vec(20))
+    holoCreate(11)
+    holoParent(11,E)
+    holoMaterial(11,"icegt/loco/ice_trainmetal_white")
+    holoModel(11,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(11,vec(1,1,1))
+    holoColor(11,vec(20))
+    holoCreate(12)
+    holoParent(12,E)
+    holoMaterial(12,"icegt/loco/ice_trainmetal_white")
+    holoModel(12,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(12,vec(1,1,1))
+    holoColor(12,vec(20))
+    holoCreate(13)
+    holoParent(13,E)
+    holoMaterial(13,"icegt/loco/ice_trainmetal_white")
+    holoModel(13,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(13,vec(1,1,1))
+    holoColor(13,vec(20))
+    holoCreate(14)
+    holoParent(14,E)
+    holoMaterial(14,"icegt/loco/ice_trainmetal_white")
+    holoModel(14,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(14,vec(1,1,1))
+    holoColor(14,vec(20))
+    holoCreate(15)
+    holoParent(15,E)
+    holoMaterial(15,"icegt/loco/ice_trainmetal_white")
+    holoModel(15,"models/unionslocos/parts/brake_kit_1f.mdl")
+    holoScale(15,vec(1,1,1))
+    holoColor(15,vec(20))
+    
+holoPos(4,E:toWorld(vec(45,-109,-10)))   
+holoPos(5,E:toWorld(vec(-45,-109,-10)))
+holoPos(6,E:toWorld(vec(45,109,-10)))   
+holoPos(7,E:toWorld(vec(-45,109,-10)))  
+holoPos(8,E:toWorld(vec(45,60,-10)))   
+holoPos(9,E:toWorld(vec(-45,60,-10)))
+holoPos(10,E:toWorld(vec(45,-60,-10)))   
+holoPos(11,E:toWorld(vec(-45,-60,-10)))  
+holoPos(12,E:toWorld(vec(45,25,-10)))   
+holoPos(13,E:toWorld(vec(-45,25,-10))) 
+holoPos(14,E:toWorld(vec(45,-25,-10)))   
+holoPos(15,E:toWorld(vec(-45,-25,-10))) 
+  
+    holoCreate(0,E:toWorld(vec(0,0,-49)),vec(1),E:angles(),vec(90),"models/jazzie/trains/locomotives/emd/emd_flexicoil_c_1.mdl")
+    holoParent(0,E)
+    holoCreate(2,E:toWorld(vec(0,-84,-25.02)),vec(1.11,0.99,0.99),E:angles(),vec(255),"models/jazzie/trains/cars/wheelset_36.mdl")
+    holoParent(2,E)
+    holoCreate(3,E:toWorld(vec(0,84,-25.02)),vec(1.11,0.99,0.99),E:angles(),vec(255),"models/jazzie/trains/cars/wheelset_36.mdl")
+    holoParent(3,E)
+    holoCreate(1,E:toWorld(vec(0,0,-25.02)),vec(1.11,0.99,0.99),E:angles(),vec(255),"models/jazzie/trains/cars/wheelset_36.mdl")
+    holoParent(1,E)
+    holoEntity(0):setSubMaterial(6,"null")
+    holoEntity(0):setSubMaterial(7,"null")
+    holoEntity(0):setSubMaterial(8,"null")
+    
+}
+if(WheelSlip){Time1=1}
+if(Time1){Time++}
+if(Time>10){Time1=0 Time=0}
+Load=RLCSHTrucks[1,number] 
+MPH=RLCSHTrucks[2,number]  
+Dynamics=RLCSHTrucks[3,number] 
+WheelSlip=RLCSHTrucks[4,number] 
+Cur=RLCSHTrucks[5,number] 
+Reverser=RLCSHTrucks[6,number] 
+if(MPH<1|Reverser==0){interval(100)}else{interval(10)}
+    holoAng(4,entity():toWorld(ang(0,180,-Cur/3+3)))
+    holoAng(5,entity():toWorld(ang(0,180,-Cur/3+3)))
+    holoAng(6,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(7,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(8,entity():toWorld(ang(0,180,-Cur/3+3)))
+    holoAng(9,entity():toWorld(ang(0,180,-Cur/3+3)))
+    holoAng(10,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(11,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(12,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(13,entity():toWorld(ang(0,0,-Cur/3+3)))
+    holoAng(14,entity():toWorld(ang(0,180,-Cur/3+3)))
+    holoAng(15,entity():toWorld(ang(0,180,-Cur/3+3)))
+
+if(Time1){On2=1}else{On2=0}
+if(Cur==36&MPH >2){On = 1}else{On=0}
+soundPitch(1,MPH*3.3)
+soundPitch(0,MPH*3.3)
+if(Angle >= 180){Angset = 0}
+else{Angset += Speed / 4}
+Charge_A = Charge_A + ( Angset - Charge_A ) /  max( 50, 0 )     
+holoAng(1,entity():toWorld(ang(0,0,0-Charge_A)))
+holoAng(2,entity():toWorld(ang(0,0,0-Charge_A)))
+holoAng(3,entity():toWorld(ang(0,0,0-Charge_A)))
+
+if(Load>0){soundVolume(1,Load*0.02)}else{soundVolume(0,Load*-0.02)}
+if(Reverser==-1){Speed = -7*MPH}
+if(Reverser==1){Speed = 7*MPH}
+if(MPH==0){Speed = 0}
+if(Reverser==-1&WheelSlip){Speed = -200*MPH}
+if(Reverser==1&WheelSlip){Speed = 200*MPH}
+
+#[RLCSHTrucks = array(Load,MPH,Dynamics,WheelSlip,BrakeCyl)]#
+
+

@@ -1,0 +1,28 @@
+@name Tylers Magic Super Bogey Downforce Chip shit thingy fucking i don't know any more
+@inputs On [B1 B2]:entity Ranger
+@persist Force:vector
+@persist DownB DownBrear
+@trigger all
+interval(20)
+if(first())
+#Adjust this to increase downforce on the front and rear wheels
+{
+    DownB = -50  
+    DownBrear = -50 
+}
+    Force = vec()
+if(Ranger > 30)
+{
+if(clk())
+{
+    Force = Force + entity():up() * B1:mass() * DownB * On
+    Force = Force + entity():up() * B2:mass() * DownBrear * On
+    
+}
+}
+
+if(clk())
+{
+    B1:applyForce(Force)
+    B2:applyForce(Force)
+}

@@ -1,0 +1,9 @@
+@name apply down
+@inputs
+@outputs
+@persist Base:entity
+@trigger
+interval(1)
+Base = entity():isWeldedTo()
+Base:applyForce(Base:up()*-1500*Base:mass())
+

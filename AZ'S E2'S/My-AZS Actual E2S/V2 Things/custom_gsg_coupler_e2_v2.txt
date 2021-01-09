@@ -19,7 +19,7 @@ if(Button_Connect){
  
  soundPlay(0,0,"_jazzlok/misc/couple.wav")
 }else{
- 
+print("Its A Simple E2 Coupler! (Made By AZ)")
  soundPlay(0,0,"gsgtrainsounds/misc/uncouple.wav")
 }
 

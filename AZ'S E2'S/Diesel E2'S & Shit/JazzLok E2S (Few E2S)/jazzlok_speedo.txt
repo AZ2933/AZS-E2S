@@ -1,0 +1,101 @@
+@name JazzLok Speedo
+@inputs Entity:entity MaxSpeed
+@outputs A
+@persist Ang Ang2 A1 A2 A3 A4 A
+@trigger 
+@model models/jazzie/trains/locomotives/emd/cab/speedometer_75mph.mdl
+
+
+
+if(first() | dupefinished())
+{    
+    A = 1
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/speedometer_pointer.mdl")
+    holoScale(A,vec(1))
+    holoColor(A,vec(1))
+    holoAng(A,entity():toWorld(ang(0,245,0)))  
+
+    A = 2
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/number_wheel.mdl")
+    holoScale(A,vec(0.075))
+    holoAng(A,entity():toWorld(ang(-108,-90,0)))      
+    holoPos(A,entity():toWorld(vec(-0.95,-5,-1.15)))     
+    
+    A = 3
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/number_wheel.mdl")
+    holoScale(A,vec(0.075))
+    holoAng(A,entity():toWorld(ang(-108,-90,0)))      
+    holoPos(A,entity():toWorld(vec(-0.32,-5,-1.15)))     
+    
+    A = 4
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/number_wheel.mdl")
+    holoScale(A,vec(0.075))
+    holoAng(A,entity():toWorld(ang(-108,-90,0)))      
+    holoPos(A,entity():toWorld(vec(0.32,-5,-1.15)))  
+    
+    A = 5
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/number_wheel.mdl")
+    holoScale(A,vec(0.075))
+    holoAng(A,entity():toWorld(ang(-108,-90,0)))      
+    holoPos(A,entity():toWorld(vec(0.95,-5,-1.15)))   
+
+    A = 6
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/sprops/cuboids/height06/size_1/cube_6x6x6.mdl")
+    holoScale(A,vec(0.3,0.1,0.7))
+    holoAng(A,entity():toWorld(ang(-90,0,0)))      
+    holoPos(A,entity():toWorld(vec(0,-4.25,-0.85)))  
+        
+    A = 7
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/sprops/cuboids/height06/size_1/cube_6x6x6.mdl")
+    holoScale(A,vec(0.3,0.1,0.7))
+    holoAng(A,entity():toWorld(ang(-90,0,0)))      
+    holoPos(A,entity():toWorld(vec(0,-5.75,-0.85))) 
+    
+    A = 8
+    holoCreate(A)
+    holoParent(A,entity())
+    holoModel(A, "models/jazzie/trains/locomotives/emd/cab/speedometer_pointer.mdl")
+    holoScale(A,vec(1))
+    holoColor(A,vec(255,0,0))
+    holoAng(A,entity():toWorld(ang(0,245,0)))   
+    holoPos(A,entity():toWorld(vec(0,0,0.1)))         
+}
+
+interval(100)
+
+Speed = Entity:vel():length() / 23.5 
+Ang = Ang + ( Speed  - Ang ) /  max( 10, 0 ) 
+Ang2 = Ang2 + ( (MaxSpeed / 23.5)  - Ang2 ) /  max( 10, 0 ) 
+
+holoAng(1,entity():toWorld(ang(0,245-(Ang*4),0)))
+holoAng(8,entity():toWorld(ang(0,245-(Ang2*4),0)))
+
+holoAng(5,entity():toWorld(ang(-108+(A1 * 36),-90,0)))
+holoAng(4,entity():toWorld(ang(-108+(A2 * 36),-90,0)))
+holoAng(3,entity():toWorld(ang(-108+(A3 * 36),-90,0)))
+holoAng(2,entity():toWorld(ang(-108+(A4 * 36),-90,0)))
+A+=(Speed/(3600 * 10))
+
+A1 = A1 + ( floor(A - 8) - A1) /  max( 20, 0 ) 
+A2 = A2 + ( floor((A / 10) - 0.8) - A2 ) /  max( 30, 0 ) 
+A3 = A3 + ( floor((A / 100) - 0.08) - A3 ) /  max( 40, 0 ) 
+A4 = A4 + ( floor((A / 1000) - 0.008) - A4 ) /  max( 50, 0 ) 
+
+if(last())
+{
+    reset()
+}

@@ -1,0 +1,66 @@
+@name The 11 PT2s Switches
+@inputs Isolation Isolation2 EngineRun GenField BrakeCutIn EngineStop EmergencyStop Start1 Start2 Prime1 Prime2
+@outputs Isolation1 Isolation2 EngineRun GenField BrakeCutIn Shutdown1 Shutdown2 Start1 Start2 Prime1 Prime2
+@trigger all
+#Created By AZ2933/AZ
+#Originally Have Most And Renamed Inputs
+
+if(Isolation){Isolation1=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Isolation1=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(Isolation2){Isolation2=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Isolation2=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(EngineRun){EngineRun=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{EngineRun=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(GenField){GenField=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{GenField=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(BrakeCutIn){BrakeCutIn=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{BrakeCutIn=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+#####EngineStop = Shutdown1, EmergencyStop = Shutdown2#############################
+
+if(EngineStop){Shutdown1=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Shutdown1=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(EmergencyStop){Shutdown2=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Shutdown2=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+#############################Prime & Start##########################################
+
+if(Start1){Start1=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Start1=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(Start2){Start2=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Start2=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+
+if(Prime1){Prime1=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Prime1=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+
+if(Prime2){Prime2=1
+    
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Prime2=0
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}

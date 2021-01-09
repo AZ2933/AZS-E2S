@@ -1,0 +1,53 @@
+@name AZ'S Light Holo E2 (Public)
+@inputs E:entity Light
+@outputs 
+@persist A E:entity
+@trigger all
+
+
+#Created By AZ2933
+
+if(first() | duped()){
+
+#############################################################################################
+
+A=0
+}
+
+
+    
+    A=1
+    holoCreate(A, E:toWorld(vec(0,0,30)), vec(0,0,0), E:toWorld(ang(0))) #Middle = Forwards & Backwards (< -0) (/\
+    holoAng(A, entity():toWorld(ang(0,-90,0)) ) 
+    holoColor(A, vec(255))                                               #Last = Up And Down (< -0) (/\
+    holoModel(A, "models/sprops/rectangles/size_5/rect_48x480x3.mdl")    #First = Left And Right (< -0) (/\
+    holoAlpha(A,0)
+    holoScale(A, vec(1))
+    holoParent(A, E)
+    holoEntity(A):setSubMaterial(1,"models/props_gulch/gulch_crystal_white")
+    
+
+if(Light & ~Light){
+
+
+holoAlpha(A,255)
+
+}
+
+else{
+
+holoAlpha(A,0)
+
+}
+
+
+
+##########################################################################################
+
+
+
+
+
+
+
+

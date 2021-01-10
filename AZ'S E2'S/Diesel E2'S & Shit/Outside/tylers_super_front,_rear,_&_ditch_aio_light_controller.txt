@@ -1,0 +1,353 @@
+@name Tylers Super Front, Rear, & Ditch AIO Light Controller
+@inputs [Pod]:entity Bellin Starting Prime Yaw Bat On RealNotch [Light1 Light2 Light3 Light4]:wirelink 
+@outputs  Dashlights2 Startupamps WipeSpe Hornout2 RLCSHLightarrayFront:array RLCSHLightarrayRear:array Dashlights [FrontState RearState ClassState]:string Bellout:number W B D E G F H GC J K XB Lamp1 Lamp2 RockLampleft RockLampright Cyclefront Cyclerear ClassCycle CycleRockL 
+@persist [Driver Pod]:entity [LightNormal LightDim]:vector Dashlights2 W V X C D B T F E GB HB GC I J K Air DL Test RockLampright2 Dashlights Cyclefront Cyclerear ClassCycle CycleRockL CycleWL Horn:number Bellin RockLampleft2 Belltoggle [Light Marker FrontRGB DitchRGB1 DitchRGB2 DitchOn RearRGB]:vector RealNotch2 [RearFOV RearDistance RearBrightness Rearlow Rearhigh RearDitch FrontFOV FrontDistance FrontBrightness Frontlow Fronthigh FrontDitch]:number Bell On1:vector Flashing Period FlashDuration ResidualBrightness 
+@trigger 
+if(first()|dupefinished()){
+    
+    LightNormal = vec(255,255,170)
+    LightDim = vec(100,100,90)
+    
+    Marker = vec(255,20,0)
+    D = 0
+    C = 0
+    RGB = vec(0)
+    Frontstate ="Front HeadLamp: Off"
+    RearState = "Rear HeadLamp: Off"
+    setName("Tylers Super Front, Rear, & Ditch AIO Light Controller mk.3.7")
+    On1 = Light #The color of the Lights
+    ResidualBrightness = 0.35 #Value between 0 and 1 (full brightness), the minimum brightness during a flash cycle.
+    Period = 3 #Time, in seconds, for one flash cycle.
+    FlashDuration = 5 #Duration, in seconds, for lights to flash after the horn was used. Real locomotives use 30 seconds.
+    
+    #<!> note <!> if your using this on TS200 no one will remotely seem to give any flying fuck aslong as the ditch lights are white - ish :P
+    #By FRA Standards (Post 1997):
+    #The Ditch Lights should be white;
+    #The Ditch Lights must be on if the locomotive is in motion (and by extension, if the headlight is on);
+    #The Ditch Lights must flash alternately as the locomotive approaches a railroad crossing or any other high-traffic area (so they are often triggered by the horn);
+    #If the headlight is over 80 units (60 inches) above the ditch lights, the ditch lights should be spaced 80 units apart;
+    #Otherwise, if the headlight is less than 80 units above the ditch lights, they should be spaced 48 units (36 inches) apart;
+    #The Flash Period must be between 0.33 and 1.5 seconds (or between 40 and 180 flashes per minute).
+    
+    #If your locomotive is set in a world pre-1997, you can ignore all the above restrictions.
+    
+    
+    Bellout = 0
+    T = 0
+    function number supersine(Min, Max, Theta){
+        local Sin = sin(Theta)
+        return Min + (Sin+1)*(Max-Min)/2
+    }
+
+}
+interval(100)
+    RLCSHLightarrayFront = array(FrontFOV,FrontDistance,FrontBrightness,Frontlow,Fronthigh,FrontDitch,FrontRGB,DitchRGB1,DitchRGB2)
+    RLCSHLightarrayRear = array(RearFOV,RearDistance,RearBrightness,Rearlow,Rearhigh,RearDitch,RearRGB,DitchRGB1,DitchRGB2)
+    Driver = Pod:driver()
+
+	   if(Driver:keyPressed("PAD_1")&Driver:keyPressed("lshift")){Cyclefront=-1}
+    if(Driver:keyPressed("PAD_1")&!Driver:keyPressed("lshift")){Cyclefront=1}
+    if(!Driver:keyPressed("PAD_1")){Cyclefront=0}
+    if(Driver:keyPressed("PAD_2")&Driver:keyPressed("lshift")){Cyclerear=-1}
+    if(Driver:keyPressed("PAD_2")&!Driver:keyPressed("lshift")){Cyclerear=1}
+    if(!Driver:keyPressed("PAD_2")){Cyclerear=0}
+    if(Driver:keyPressed("PAD_3")&Driver:keyPressed("lshift")){ClassCycle =-1}
+    if(Driver:keyPressed("PAD_3")&!Driver:keyPressed("lshift")){ClassCycle =1}
+    if(!Driver:keyPressed("PAD_3")){ClassCycle =0}
+    if(Driver:keyPressed("PAD_0")&Driver:keyPressed("lshift")){CycleRockL =-1}
+    if(Driver:keyPressed("PAD_0")&!Driver:keyPressed("lshift")){CycleRockL =1}
+    if(!Driver:keyPressed("PAD_0")){CycleRockL =0}
+    if(Driver:keyPressed("PAD_.")&Driver:keyPressed("lshift")){CycleWL =-1}
+    if(Driver:keyPressed("PAD_.")&!Driver:keyPressed("lshift")){CycleWL =1}
+    if(!Driver:keyPressed("PAD_.")){CycleWL =0}
+    if(Driver:keyPressed("PAD_4")&Driver:keyPressed("lshift")){DL =-1}
+    if(Driver:keyPressed("PAD_4")&!Driver:keyPressed("lshift")){DL = 1}
+    if(!Driver:keyPressed("PAD_4")){DL =0}
+    if(Driver:keyPressed("PAD_5")&Driver:keyPressed("lshift")){BC =-1}
+    if(Driver:keyPressed("PAD_5")&!Driver:keyPressed("lshift")){BC =1}
+    if(!Driver:keyPressed("PAD_5")){BC =0}
+
+    if(Driver:keyPressed("r")&Driver:keyPressed("lshift")){Horn =1 Hornout2=1}
+    if(Driver:keyPressed("r")&!Driver:keyPressed("lshift")){Horn =1 Hornout2=0}
+    if(!Driver:keyPressed("r")){Horn =0 Hornout2=0}
+    if(!Bat){K=0 J=0 E=0 B=0 D=0 W=0 }
+    if(Starting){RearRGB=LightDim FrontRGB=LightDim V=0
+        Startupamps=100}else{FrontRGB=LightNormal RearRGB=LightNormal
+        Startupamps=0 V=1}
+       
+    
+if(Test==1){
+if(Yaw<-270&Yaw>-355){RockLampright=1}else{RockLampright=0}
+if(Yaw>-90&Yaw<-2){RockLampleft=1}else{RockLampleft=0}
+}else{RockLampright=RockLampright2 
+RockLampleft=RockLampleft2}
+
+  if(CycleRockL==1&K<3){K++}
+  if(CycleRockL==-1&K>0){K--}
+if(K==0){
+       
+RockLampright2=0
+RockLampleft2=0
+Test=0
+} 
+if(K==1){  
+Test=0
+RockLampright2=1
+RockLampleft2=1
+} 
+if(K==1){
+Test=1
+RockLampright2=0
+RockLampleft2=0
+}
+
+  if(CycleWL==1&J<3){J++}
+  if(CycleWL==-1&J>0){J--}
+if(J==0){
+Lamp1=0
+Lamp2=0
+}         
+if(J==1){ 
+Lamp1=1
+Lamp2=0 
+}         
+if(J==2){
+Lamp1=0
+Lamp2=1 
+}
+if(J==3){
+Lamp1=1
+Lamp2=1
+}
+  if(DL==1&!W){W=1}
+  if(DL==-1&W){W=0}
+
+if(W&V){Dashlights=1}else{Dashlights=0}
+if(W){Dashlights2=1}else{Dashlights2=0}
+  if(ClassCycle==1&E<3){E++}
+  if(ClassCycle==-1&E>0){E--}
+if(E==0){
+
+       
+            Light1:entity():setSubMaterial(1," ")
+            Light2:entity():setSubMaterial(1," ")
+            Light3:entity():setSubMaterial(1," ")
+            Light4:entity():setSubMaterial(1," ")
+            Light3:entity():setSubMaterial(3," ")
+            Light4:entity():setSubMaterial(3," ")
+            Light3:entity():setSubMaterial(2," ")
+            Light4:entity():setSubMaterial(2," ")
+            Classstate = "Class Lamps: Off"
+}
+if(E==1){
+            Light1:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_white")
+            Light2:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_white")
+            Light3:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_white")
+            Light4:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_white")
+            Light3:entity():setSubMaterial(3," ")
+            Light4:entity():setSubMaterial(3," ")
+            Light3:entity():setSubMaterial(2," ")
+            Light4:entity():setSubMaterial(2," ")
+            ClassState= "Class Lamps: Unscheduled Train"
+}
+if(E==2){
+    
+    
+ 
+            Light1:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_scarlet")
+            Light2:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_scarlet")
+            Light3:entity():setSubMaterial(4," ")
+            Light4:entity():setSubMaterial(4," ")
+            Light3:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_scarlet")
+            Light4:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_scarlet")
+            Light3:entity():setSubMaterial(2," ")
+            Light4:entity():setSubMaterial(2," ")
+            ClassState = "Class Lamps: Rear of Train"
+}
+if(E==3){
+            Light1:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_green")
+            Light2:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_green")
+            Light3:entity():setSubMaterial(4," ")
+            Light4:entity():setSubMaterial(4," ")
+            Light3:entity():setSubMaterial(3," ")
+            Light4:entity():setSubMaterial(3," ")
+            Light3:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_green")
+            Light4:entity():setSubMaterial(1,"models/props_gulch/gulch_crystal_green")
+            ClassState = "Class Lamps:Extra Train Following"
+            }
+
+
+  if(Cyclerear==1&B<4){B++}
+  if(Cyclerear==-1&B>0){B--}
+if(B==0){
+            
+            RearBrightness = 0
+            RearDistance = 0
+            RearFOV = 90
+            Rearhigh = 0
+            Rearlow = 0
+            RearDitch = 0
+            RearState = "Rear HeadLamp: Off"
+
+}
+if(B==1){
+          
+            RearDistance = 2
+            RearBrightness = 3
+            RearFOV = 90
+            Rearhigh = 1
+            Rearlow = 1
+            RearDitch = 1
+            RearState = "Rear HeadLamp: Day running"
+
+}
+if(B==2){
+       
+            RearDistance = 1500
+            RearBrightness = 0.5
+            RearFOV = 90
+            Rearhigh = 1
+            Rearlow = 1
+            RearDitch = 1
+            RearState = "Rear HeadLamp: Dim"
+
+}
+if(B==3){
+            
+            RearDistance = 2500
+            RearBrightness = 1
+            RearFOV = 90
+            Rearlow = 1
+            Rearhigh = 1
+            RearDitch = 1
+            RearState = "Rear HeadLamp: Mid"
+           
+}
+if(B==4){
+            
+            RearBrightness = 2 
+            RearDistance = 4000
+            RearFOV = 90
+            Rearlow = 1
+            Rearhigh = 1 
+            RearDitch = 1 
+            RearState = "Rear HeadLamp: Highs"
+     
+}
+
+
+
+  if(Cyclefront==1&D<4){D++}
+  if(Cyclefront==-1&D>0){D--}
+if(D==0){
+          
+            FrontBrightness = 0
+            FrontDistance = 0
+            FrontFOV = 90
+            Fronthigh = 0
+            Frontlow = 0
+            FrontDitch = 0
+            FrontState = "Front HeadLamp: Off"
+  
+}
+if(D==1){
+            
+            FrontBrightness = 1.5
+            FrontDistance = 2
+            FrontFOV = 90
+            Fronthigh = 1
+            Frontlow = 1
+            FrontDitch = 1
+            FrontState = "Front HeadLamp: Day Running"
+        
+        }
+if(D==2){
+            
+            FrontBrightness = 0.5
+            FrontDistance = 1300
+            FrontFOV = 90
+            Fronthigh = 1
+            Frontlow = 1
+            FrontDitch = 1
+            FrontState = "Front HeadLamp: Dim"
+         
+}
+if(D==3){
+            
+            FrontBrightness = 1
+            FrontDistance = 2500
+            FrontFOV = 90
+            Fronthigh = 1
+            Frontlow = 1
+            FrontDitch = 1
+            FrontState = "Front HeadLamp: Mid"
+         
+}
+if(D==4){
+            
+            FrontBrightness = 3
+            FrontDistance = 4000        
+            FrontFOV = 90
+            Fronthigh = 1
+            Frontlow = 1
+            FrontDitch = 1
+            FrontState = "Front HeadLamp: High"
+         
+    }
+
+
+
+
+
+if(Horn){
+    Flashing = 1
+    stoptimer("reset")
+    timer("reset",FlashDuration*1000)
+    Bellout = 1
+}
+if(Flashing | Bellout){
+    timer("clk",10)
+    DitchRGB1 =  LightNormal
+    *supersine(ResidualBrightness,1,T)
+    DitchRGB2 =  LightNormal
+    *supersine(ResidualBrightness,1,T+180)
+    T += 18/(Period)
+    if(T > 360){T -= 360}
+}elseif(DitchOn){
+    DitchRGB1 = DitchRGB2 =  LightNormal
+    
+}else{
+    DitchRGB1 = DitchRGB2 = LightNormal
+    
+}
+if(clk("reset")){
+    Flashing = 0
+}
+if(Bellin&~Bellin){
+    C++
+    if(C>1){C=0}
+    switch(C){
+        case 0,
+           Bellout = 0
+            break
+            
+        case 1,
+            Bellout = 1
+            break
+    }
+}
+
+
+
+if(RealNotch*100>GB){GB+=5}
+if(RealNotch*100<GB){GB-=5}
+if(RealNotch*10>HB){HB++}
+if(RealNotch*10<HB){HB--}
+if(On){H=HB+40}else{H=HB} 
+if(On){G=GB+400}else{G=GB} 
+if(On){GC=GB+100}else{GC=GB} 
+if(!On&Prime&X<20){X++}
+if(!On&!Prime&X>0){X-=0.25}
+if(On&RealNotch>X){X+=0.1}
+if(On&RealNotch<X){X-=0.1}
+if(On){XB=25+X*10}else{XB=X}

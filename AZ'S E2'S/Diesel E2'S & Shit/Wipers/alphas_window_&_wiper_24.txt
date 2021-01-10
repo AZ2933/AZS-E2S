@@ -1,0 +1,72 @@
+@name Alphas Window & Wiper 24
+@inputs Speed
+@outputs Setting CurAng A
+@persist Ang CurAng Speed Speed2 A B
+
+if(first()|dupefinished()){
+E=entity()
+
+           #Speed of arm swing
+    Ang = 70                 #Angle of arm swing
+    Arm = vec(1.3,0.01,0.01)     #Length,Width,Height
+    Wiper = vec(0.9,0.03,0.01) #Length,Width,Height
+    Material="sprops_textures/sprops_chrome"     #Material for use
+    Color=vec(0)        #Color for use
+    StartSound = "_jazzlok/switches/windscreen_wiper_01.wav"            #Wiper begin sound
+    StopSound = ""             #Wiper end sound
+            #1_RestRight 0_RestLeft
+
+# DO NOT EDIT BELOW THIS LINE
+holoCreate(1,E:toWorld(vec(0,15,-5.5)),vec(1,1,1),E:toWorld(ang(0,90,0)),vec(0,0,109),"models/jazzie/trains/locomotives/emd/gp7-9-18-20/wiper_middle_window.mdl")
+holoParent(1,E)
+    holoEntity(1):setSubMaterial(1,"models/proppertextures/acrylic")
+
+  B=2
+    holoCreate(B,E:toWorld(vec(-2,15,-4)),vec(1,1,1),E:toWorld(ang(0,-90,90)),vec(255),"models/sprops/cuboids/height06/size_1/cube_6x12x6.mdl")
+    holoParent(B,E)
+  holoMaterial(B,"models/proppertextures/cabmetal_gray")
+      B=3
+    holoCreate(B,E:toWorld(vec(-2,15.5,0)),vec(0.5,0.5,0.3),E:toWorld(ang(0,0,0)),vec(0,0,109),"models/sprops/misc/domes/size_1/dome_12x6.mdl")
+    holoParent(B,E)
+    holoMaterial(B,"models/proppertextures/acrylic")
+  B=5
+    holoCreate(B,E:toWorld(vec(-2,-15,-4)),vec(1,1,1),E:toWorld(ang(0,-90,90)),vec(255),"models/sprops/cuboids/height06/size_1/cube_6x12x6.mdl")
+    holoParent(B,E)
+ holoMaterial(B,"models/proppertextures/cabmetal_gray")
+holoCreate(4,E:toWorld(vec(0,-15,-5.5)),vec(1,1,1),E:toWorld(ang(0,90,0)),vec(0,0,109),"models/jazzie/trains/locomotives/emd/gp7-9-18-20/wiper_middle_window.mdl")
+holoParent(4,E)
+    holoEntity(4):setSubMaterial(1,"models/proppertextures/acrylic")
+      B=6
+    holoCreate(B,E:toWorld(vec(-2,-15.5,0)),vec(0.5,0.5,0.3),E:toWorld(ang(0,0,0)),vec(0,0,109),"models/sprops/misc/domes/size_1/dome_12x6.mdl")
+    holoParent(B,E)
+holoMaterial(B,"models/proppertextures/acrylic")
+
+E:setAlpha(0)
+   CurAng=-30
+    entity():setAlpha(0)
+    holoCreate(7)
+    holoModel(7,"models/sprops/rectangles_thin/size_1_5/rect_6x6x1_5.mdl")
+    holoScale(7,vec(6,10.5,0.4))
+    holoParent(7,entity())
+    holoPos(7,entity():toWorld(vec(15,0,-1)))
+    holoAlpha(7,250)
+    holoColor(7,vec(0))
+
+     holoMaterial(7,"models/shiny")
+     holoClipEnabled(7,1,1)
+    holoClip(7,1,vec(0,0,0.001),vec(0,0,1),0)
+}
+##########################################################################################################
+if(Speed>1){Speed2=Speed}else{Speed2=0}
+if(Speed>0){interval(50)}
+if(A==0){CurAng-=Speed2}
+if(A==1){CurAng+=Speed2}
+    
+if(-30>CurAng&A==0){A=1}
+if(30<CurAng&A==1){A=0}
+
+holoAng(1,entity():toWorld(ang(0,CurAng-90,90)))
+holoAng(4,entity():toWorld(ang(0,CurAng-90,90)))
+
+
+

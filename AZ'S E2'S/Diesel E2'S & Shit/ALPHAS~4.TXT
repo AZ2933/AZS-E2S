@@ -1,0 +1,40 @@
+@name Alphas Start Bitch Switch 
+@inputs Switch On On2
+@outputs Switch2
+@persist C Start 
+@trigger 
+
+if(On2){
+
+    holoDisableShading(1,1)
+}else{  holoDisableShading(1,0)}
+
+
+     holoEntity(1):setSubMaterial(2,"bobsters_trains/base")
+
+    
+if(first() | dupefinished())
+{      E2=entity()
+    E2:setAlpha(0)
+    
+    holoCreate(1, E2:toWorld(vec(-0.1,0,-1)), vec(0.0,0.0,0.0), E2:toWorld(ang(0)))
+    holoColor(1, vec(255,0,0))
+    holoModel(1, "models/monkcabdetailpack/misc/pushbuttonbig.mdl")
+    holoScale(1, vec(0.8))
+    holoParent(1, E2)
+    holoEntity(1):setSubMaterial(1,"magtrains/invisible")
+   
+
+   
+}
+
+      
+
+
+
+if(Switch){Switch2=1
+    holoBodygroup(1,1,0)
+    soundPlay(2,1,"_jazzlok/switches/switch_light_01.wav")}else{Switch2=0
+     holoBodygroup(1,1,1)
+    soundPlay(1,1,"_jazzlok/switches/switch_light_02.wav")}
+

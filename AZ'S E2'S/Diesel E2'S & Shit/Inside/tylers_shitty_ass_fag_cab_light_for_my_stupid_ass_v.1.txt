@@ -1,0 +1,73 @@
+@name tylers shitty ass fag cab light for my stupid ass v.1
+@inputs Cycle:number 
+@outputs On:number RGB:vector
+@persist C 
+@trigger 
+#@model models/sprops/rectangles/size_5/rect_48x48x3.mdl
+#@model models/sprops/rectangles/size_5/rect_48x48x3.mdl
+#@model models/sprops/rectangles_thin/size_1_5/rect_6x6x1_5.mdl
+
+Model = "models/jazzie/trains/locomotives/emd/cab/cab_light.mdl"
+LocalPos = vec(0)
+LocalAng = ang(180,-90,0)
+Scale = vec(1)
+
+Color = vec(255,255,255)
+Alpha = 255
+Material = ""
+Skin = 0
+
+
+
+
+E = entity()
+
+#E:setAlpha(0)
+
+holoCreate(0,E:toWorld(LocalPos),Scale,E:toWorld(LocalAng),Color,Model)
+holoParent(0,E)
+
+holoMaterial(0,Material)
+holoSkin(0,Skin)
+holoAlpha(0,Alpha)
+
+#holoDisableShading(0,1)
+#holoBodygroup(0,1,1)
+#holoAnim(0,"idle")
+#holoClipEnabled(0,1)
+#holoClip(0,vec(0,0,10),vec(0,0,1),0)
+#holoEntity(0):setSubMaterial(2,"models/props_lab/warp_sheet")
+
+
+if(first()|dupefinished()){
+    
+    White = vec(255,255,255)
+    Red = vec(255,0,0)
+    On = 0
+    C = 0
+    Off = vec(0,0,0)
+    RGB = vec(0)
+}
+
+if(Cycle & ~Cycle){
+    soundPlay(0,0,"buttons/lightswitch2.wav")
+    C++
+    if(C>2){C=0}
+    
+    switch(C){
+        case 0,
+            RGB = Off
+            On = 0
+            break
+        case 1,
+            RGB = vec(255,0,0)
+            On = 1
+            break
+        case 2,
+            RGB = vec(109)
+            On = 1
+            break
+    }
+}elseif(!Cycle & ~Cycle){
+    soundStop(0)
+}

@@ -1,0 +1,154 @@
+@name Alphas Start Bitch Switch 6
+@inputs Switch Switch2 On On2 Bat Mu
+@outputs Start SWS PMS
+@persist C Start 
+@trigger 
+
+if(On2){
+    holoMaterial(2,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(3,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(4,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(5,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(6,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(7,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(8,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(9,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(10,"models/props_gulch/gulch_crystal_white")
+    holoMaterial(11,"models/props_gulch/gulch_crystal_white")
+    holoDisableShading(1,1)
+    }else{
+    holoMaterial(2,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(3,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(4,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(5,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(6,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(7,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(8,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(9,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(10,"icegt/loco/ice_trainmetal_white")
+    holoMaterial(11,"icegt/loco/ice_trainmetal_white")
+    holoDisableShading(1,0)}   
+
+
+    
+if(first() | dupefinished())
+{      E2=entity()
+    
+    holoCreate(1, E2:toWorld(vec(0,0,1)), vec(0.0,0.0,0.0), E2:toWorld(ang(0)))
+    holoColor(1, vec(255))
+    holoModel(1, "models/jazzie/trains/locomotives/emd/cab/control_panel_switch1.mdl")
+    holoScale(1, vec(1))
+    holoParent(1, E2)
+
+         A=2              
+    holoCreate(A, E2:toWorld(vec(-1.4,-0.5,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_r.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)  
+             A=3              
+    holoCreate(A, E2:toWorld(vec(-1.4,0,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_i.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)    
+             A=4              
+    holoCreate(A, E2:toWorld(vec(-1.4,0.5,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_m.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)   
+             A=5             
+    holoCreate(A, E2:toWorld(vec(-1.4,1,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_e.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)   
+ A=6             
+    holoCreate(A, E2:toWorld(vec(-1.4,-1,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_p.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)  
+     A=7
+    holoCreate(A, E2:toWorld(vec(1.4,-1.5,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_s.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)
+     A=8
+    holoCreate(A, E2:toWorld(vec(1.4,-1.0,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_t.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)  
+         A=9
+    holoCreate(A, E2:toWorld(vec(1.4,-0.5,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_a.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)
+             A=10
+    holoCreate(A, E2:toWorld(vec(1.4,0,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_r.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)
+             A=11
+    holoCreate(A, E2:toWorld(vec(1.4,0.5,1.15)), vec(1), E2:toWorld(ang(0,-90,90)))
+    holoModel(A, "models/sprops/misc/alphanum/alphanum_t.mdl")
+    holoParent(A, E2)
+    holoScale(A, vec(0.04))    
+    holoColor(A, vec(200))    
+    holoSkin(A,1)
+    
+      
+    holoCreate(33, E2:toWorld(vec(0,0,0.25)), vec(1), E2:toWorld(ang(0,0,0)))
+    holoModel(33, "models/sprops/rectangles/size_1_5/rect_6x6x3.mdl")
+    holoParent(33, E2)
+    holoScale(33, vec(0.8,0.8,0.6))    
+    holoColor(33, vec(255))    
+    holoSkin(33,2)   
+    holoMaterial(33,"models/proppertextures/plastic_black") 
+}
+if(Switch2){Switch=Switch2}
+
+
+if(!Switch&!Mu&C<300){C=0}
+if(Switch&Bat&!On){
+C+=2
+interval(300)}
+
+if(C>5&Bat&!Mu&C<50){PMS=1
+holoAng(1, entity():toWorld(ang(0,-70,0)))
+SWS=1}else{PMS=0
+holoAng(1, entity():toWorld(ang(0,0,0)))
+SWS=0}
+   
+    
+   
+if(C>55){SWS=1
+holoAng(1, entity():toWorld(ang(0,70,0)) )
+}  
+if(C>60&!On){Start=1 
+SWS=1}
+if(On){
+C=0
+Start=0
+holoAng(1, entity():toWorld(ang(0,0,0)) )
+SWS=0}   
+if(C>200){SWS=1}
+if(On&Switch){
+Start=1
+SWS=0
+holoAng(1, entity():toWorld(ang(0,0,0)) )}
+if(!Switch&On==0){Start=0}

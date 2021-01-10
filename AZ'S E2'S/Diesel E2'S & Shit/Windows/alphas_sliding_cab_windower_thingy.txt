@@ -1,0 +1,62 @@
+@name Alphas Sliding cab windower thingy
+@inputs Cycle B 
+@outputs 
+@persist B C D
+@trigger 
+
+if(first()|dupefinished()){
+    
+    holoCreate(0)
+    holoModel(0,"models/sprops/rectangles_thin/size_1_5/rect_6x6x1_5.mdl")
+    holoScale(0,vec(4.5,3,0.4))
+    holoParent(0,entity())
+    holoPos(0,entity():toWorld(vec(0,10,-2)))
+    holoAlpha(0,250)
+    holoColor(0,vec(0))
+    holoMaterial(0,"models/shiny")
+    
+    holoCreate(1)
+    holoModel(1,"models/sprops/rectangles_thin/size_1_5/rect_6x6x1_5.mdl")
+    holoScale(1,vec(4.5,3,0.4))
+    holoParent(1,entity())
+    holoPos(1,entity():toWorld(vec(0,-10,-2)))
+    holoAng(0,entity():toWorld(ang(0,0,180)))
+    holoAng(1,entity():toWorld(ang(0,0,180)))
+    holoAlpha(1,250)
+    holoColor(1,vec(0))
+    holoMaterial(1,"models/shiny")
+
+    holoClipEnabled(0,1,1)
+    holoClip(0,1,vec(0,0,-0.001),vec(0,0,-1),0)
+    holoClipEnabled(1,1,1)
+    holoClip(1,1,vec(0,0,-0.001),vec(0,0,-1),0)
+
+}
+
+
+
+if(Cycle & ~Cycle){
+    soundPlay(0,0,"buttons/lightswitch2.wav")
+    C++
+    if(C>1){C=0}
+    
+    switch(C){
+        case 0,
+   
+        
+            break
+            
+            break
+
+       
+    }
+}
+
+
+
+
+if(C&D<10){D++
+    interval(10)}
+if(!C&D>-10){D--
+    interval(10)}
+holoPos(1,entity():toWorld(vec(0,D,-2)))

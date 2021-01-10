@@ -1,0 +1,21 @@
+@name "Let You Know" Front & Rear Plugs E2 V1
+@inputs Connect Connect_2 
+@outputs Connect Connect_2 
+#@model 
+#@trigger all
+
+#Created By AZ2933
+
+if(Connect){Connect=1
+
+    
+}else{Connect_2=0
+
+}
+
+if(Connect_2){Connect_2=1
+
+    
+}else{Connect_2=0
+
+}

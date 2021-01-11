@@ -1,4 +1,4 @@
-@name Holo Skin 4
+@name Holo Skin 
 @inputs E:entity
 @outputs 
 @persist 

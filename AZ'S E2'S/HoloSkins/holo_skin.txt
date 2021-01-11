@@ -1,0 +1,83 @@
+@name Holo Skin 4
+@inputs E:entity
+@outputs 
+@persist 
+@trigger 
+if(first() | dupefinished()){
+
+    #TOP BLACK STRIPE
+    A=1 #<---- TELLS THE E2 TO CONVERT THE 1,2,3... TO A AND A++
+    holoCreate(A) #<---- THIS TELLS THE E2 TO CREATE A HOLO!
+    holoModel(A, "") #<---- THE MODEL PATH (SELECT A MODEL FROM THE ADDON, RIGHT CLICK IT AND CLICK "COPY TO CLIPBOARD" THEN PASTE IT IN HERE!
+    holoPos(A, E:toWorld(vec(0,0,0))) #<---- POSITION OF THE HOLO (ONLY FOR HOLOBUILDING)!
+    holoAng(A, E:toWorld(ang(0,0,0))) #<---- ANGLE THE HOLO USES (ASWELL AS FOR ONLY HOLOBUILDING)!
+    holoScale(A, vec(1)) #<---- THE SIZE OF THE HOLO
+    holoColor(A, vec(0)) #<----THIS IS THE COLOR!
+    holoMaterial(A, "1") #<---- THE MATERIAL PATH! DONT CHANGE THIS UNLESS YOU WANT TO CHANGE THE WHOLE BODY TO A DIFFERENT MATERIAL!
+    holoParent(A, E) #<---- THIS IS NEEDED TO PARENT THE HOLO TO THE LOCOMOTIVE BODY!
+    holoClipEnabled(A,1,1) #<---- THIS TELLS THE HOLO TO ACTIVATE A "HOLOCLIP! A IS THE HOLO, 1 IS THE FIRST CLIP AND THE OTHER 1 IS NOT IMPORTANT FOR NOW!
+    holoClip(A,1,vec(0,0,90),vec(0,0,1),0) #<---- THE VALUE OF "WHERE TO CLIP" THE 1 STANDS FOR THE CLIPPING ANGLE AND THE 90 FOR WHERE IT STOPS/STARTS. -1 FOR START AND 1 FOR STOP!
+    
+    #GREY STRIPE No.1
+    A++ #<---- A++ FOR ANOTHER HOLO SO YOU DONT HAVE TO WRITE 2 OR B
+    holoCreate(A)
+    holoModel(A, "")
+    holoPos(A, E:toWorld(vec(0,0,0)))
+    holoAng(A, E:toWorld(ang(0,0,0)))
+    holoScale(A, vec(1))
+    holoColor(A, vec(0))
+    holoMaterial(A, "1")
+    holoParent(A, E)
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,90),vec(0,0,-1),0)
+    holoClipEnabled(A,2,1)
+    holoClip(A,2,vec(0,0,68),vec(0,0,1),0)
+    
+    #RED STRIPE
+    A++
+    holoCreate(A)
+    holoModel(A, "")
+    holoPos(A, E:toWorld(vec(0,0,0)))
+    holoAng(A, E:toWorld(ang(0,0,0)))
+    holoScale(A, vec(1))
+    holoColor(A, vec(0))
+    holoMaterial(A, "1")
+    holoParent(A, E)
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,68),vec(0,0,-1),0)
+    holoClipEnabled(A,2,1)
+    holoClip(A,2,vec(0,0,58),vec(0,0,1),0)
+    
+    #WHITE STRIPE
+    A++
+    holoCreate(A)
+    holoModel(A, "")
+    holoPos(A, E:toWorld(vec(0,0,0)))
+    holoAng(A, E:toWorld(ang(0,0,0)))
+    holoScale(A, vec(1))
+    holoColor(A, vec(0))
+    holoMaterial(A, "1")
+    holoParent(A, E)
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,58),vec(0,0,-1),0)
+    holoClipEnabled(A,2,1)
+    holoClip(A,2,vec(0,0,17),vec(0,0,1),0)
+    
+    
+    #LOWER BLACK STRIPE
+    A++
+    holoCreate(A)
+    holoModel(A, "")
+    holoPos(A, E:toWorld(vec(0,0,1)))
+    holoAng(A, E:toWorld(ang(0,0,0)))
+    holoScale(A, vec(1))
+    holoColor(A, vec(0))
+    holoMaterial(A, "1")
+    holoParent(A, E)
+    holoClipEnabled(A,1,1)
+    holoClip(A,1,vec(0,0,16),vec(0,0,-1),0)
+    holoClipEnabled(A,2,1)
+    holoClip(A,2,vec(0,0,-40),vec(0,0,0),0)
+    
+  
+}

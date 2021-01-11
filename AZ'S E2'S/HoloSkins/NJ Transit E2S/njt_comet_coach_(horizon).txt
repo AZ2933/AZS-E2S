@@ -1,0 +1,463 @@
+@name NJT Comet Coach (Horizon)
+@inputs [Entity]:entity 
+@persist A
+@model models/beer/wiremod/gate_e2.mdl      
+StripeColor1 = vec(200)    #----Grey
+StripeColor2 = vec(30) #----Black
+StripeColor3 = vec(0,40,201)    #----Color 3
+StripeColor4 = vec(150,0,150)
+StripeColor5 = vec(255,137,79)
+StripeColor6 = vec(230)
+CarModel = "models/techtrains/horizon_1.mdl"               
+Logo = "decals/icg2"
+ClipAngle = 80
+Entity:setAlpha(0) 
+timer("spawn",99100)
+
+#Skin By SPDaylight4449
+#use the Horizion coack from Tech's pack
+    
+#----Ends
+    A = 1
+   # holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)          
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,465,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+    
+    
+    A = 2
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)          
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-465,0),vec(0,-1,0),0) 
+   # holoBodygroup(A,1,1)
+#all the other stuff
+    A = 3
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)          
+    holoClip(A,1,vec(0,0,30),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+   # holoClip(A,3,vec(0,-465,0),vec(0,-1,0),0) 
+   # holoBodygroup(A,1,1)
+
+A = 4
+   # holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor2)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+   # holoClip(A,3,vec(0,350,0),vec(0,-1,1),0) 
+    holoClip(A,4,vec(0,-350,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+   # holoBodygroup(A,1,1)
+
+
+    A = 5
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor2)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,350,0),vec(0,-1,1),0) 
+    holoClip(A,4,vec(0,-350,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 6
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,350,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,355,0),vec(0,-1,1),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 7
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor3)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,355,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,366,0),vec(0,-1,1),0) 
+   # holoBodygroup(A,1,1)
+
+    A = 8
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor4)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,366,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,377,0),vec(0,-1,1),0) 
+    
+    
+    A = 9
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor5)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,377,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,388,0),vec(0,-1,1),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 10
+   # holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,388,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,488,0),vec(0,-1,1),0) 
+   # holoBodygroup(A,1,1)
+
+    
+    A = 11
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,388,0),vec(0,1,-1),0) 
+    holoClip(A,4,vec(0,465,0),vec(0,-1,0),0) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    A = 12 
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor2)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-350,0),vec(0,1,1),0) 
+    holoClip(A,4,vec(0,0,0),vec(0,-1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+
+    A = 13
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-350,0),vec(0,-1,-1),0) 
+    holoClip(A,4,vec(0,-355,0),vec(0,1,1),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 14
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor3)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-355,0),vec(0,-1,-1),0) 
+    holoClip(A,4,vec(0,-366,0),vec(0,1,1),0) 
+   # holoBodygroup(A,1,1)
+
+    A = 15
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor4)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-366,0),vec(0,-1,-1),0) 
+    holoClip(A,4,vec(0,-377,0),vec(0,1,1),0) 
+   # holoBodygroup(A,1,1)
+
+    A = 16
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor5)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-377,0),vec(0,-1,-1),0) 
+    holoClip(A,4,vec(0,-388,0),vec(0,1,1),0) 
+   # holoBodygroup(A,1,1)
+
+    A = 17
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)     
+    holoClipEnabled(A,4,1)     
+    holoClip(A,1,vec(0,0,75),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,30),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,-388,0),vec(0,-1,-1),0) 
+    holoClip(A,4,vec(0,-465,0),vec(0,1,0),0) 
+    
+    
+    A = 18
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1)          
+    holoClip(A,1,vec(0,0,130),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,75),vec(0,0,1),0) 
+   # holoClip(A,3,vec(0,-465,0),vec(0,-1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+
+
+
+
+    A = 19
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)          
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(50,0,0),vec(1,0,0),0) 
+    holoClip(A,4,vec(0,475,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 20
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)          
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(0,465,0),vec(0,1,0),0) 
+    holoClip(A,4,vec(0,485,0),vec(0,-1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+    A = 21
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)          
+    holoClip(A,1,vec(0,0,45),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    #holoClip(A,3,vec(50,0,0),vec(1,0,0),0) 
+    holoClip(A,4,vec(0,475,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+
+    A = 22
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)          
+    holoClip(A,1,vec(0,0,145),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,70),vec(0,0,1),0) 
+    #holoClip(A,3,vec(50,0,0),vec(1,0,0),0) 
+    holoClip(A,4,vec(0,475,0),vec(0,1,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+
+    A = 23
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)
+    holoClipEnabled(A,5,1)            
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(28,0,0),vec(-1,0,0),0) 
+    holoClip(A,4,vec(0,475,0),vec(0,1,0),0) 
+    holoClip(A,5,vec(-50,0,0),vec(-1,0,0),0) 
+   # holoBodygroup(A,1,1)
+
+
+
+    A = 24
+    holoCreate(A)
+    holoParent(A,Entity)
+    holoModel(A, CarModel)
+    holoColor(A,StripeColor1)
+    holoAng(A,Entity:toWorld(ang(0,0,0)))
+    holoPos(A,Entity:toWorld(vec(0,0,0)))    
+    holoClipEnabled(A,1,1)    
+    holoClipEnabled(A,2,1)     
+    holoClipEnabled(A,3,1) 
+    holoClipEnabled(A,4,1)
+    holoClipEnabled(A,5,1)            
+    holoClip(A,1,vec(0,0,150),vec(0,0,-1),0)     
+    holoClip(A,2,vec(0,0,-150),vec(0,0,1),0) 
+    holoClip(A,3,vec(28,0,0),vec(-1,0,0),0) 
+    holoClip(A,4,vec(0,475,0),vec(0,1,0),0) 
+    holoClip(A,5,vec(-28,0,0),vec(1,0,0),0) 
+   # holoBodygroup(A,1,1)

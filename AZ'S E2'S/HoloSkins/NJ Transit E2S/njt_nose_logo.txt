@@ -1,0 +1,35 @@
+@name NJT Nose logo
+@persist Base:entity
+
+Color = vec(255,223,127) #---Color
+
+Scale = vec(2, 7, 36) #---Logo Scale
+
+Decal = "logos/reallogos/njtlogo" #----The decal
+
+Bendangle = 0 #Angle of the bend
+
+if(dupefinished()) { reset() }
+if(first() | duped()){
+Baseentity = entity()
+
+A = 1
+holoCreate(A, Baseentity:toWorld(vec(-6,30,17.9)), vec(4), Baseentity:toWorld(ang(0,0,Bendangle)))
+holoModel(A, "plane")
+holoScale(A, Scale) 
+holoMaterial(A, Decal) holoColor(A, Color) 
+holoParent(A, Baseentity)
+holoClipEnabled(A, 1, 1) 
+holoClip(A,1,vec(0,-33,0),vec(0,-1,0),0)
+
+A++
+holoCreate(A, Baseentity:toWorld(vec(-6,30,-10)), vec(4), Baseentity:toWorld(ang(0,0,-Bendangle)))
+holoModel(A, "plane")
+holoScale(A, Scale) 
+holoMaterial(A, Decal) holoColor(A, Color) 
+holoParent(A, Baseentity)
+holoClipEnabled(A, 1, 1) 
+holoClip(A,1,vec(0,-33,0),vec(0,1,0),0)
+holoClipEnabled(A, 2, 1) 
+holoClip(A,2,vec(0,-24,0),vec(0,-1,0),0)
+}

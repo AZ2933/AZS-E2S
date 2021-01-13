@@ -1,0 +1,68 @@
+@name RLC Control Stand Fullauto
+@inputs Active Reverser Notch Brake Dynamics Horn MPH Toggle1 Toggle2
+@outputs CONSTANT Toggle1_Out Toggle2_Out
+@trigger 
+@persist CS:entity CONSTANT Toggle1_Out Toggle2_Out DISABLEHORN
+@model models/magtrains/controlstand.mdl
+if(first()|duped()){
+    
+    DISABLEHORN = 0 #Disables the Horn lever in case you want to use a pull cord or something
+    
+    CONSTANT=1
+    Toggle1_Out = Toggle2_Out = 0
+    entity():setMass(1000)
+}
+if(Active){
+    
+    CS = entity()
+    
+    if(~Active){
+        CS:setBodygroup(1,1)
+    }
+    
+    if(~Reverser){
+        CS:setBodygroup(1,Reverser+1)
+    }
+    if(~Brake){
+        CS:setBodygroup(4,Brake)
+    }
+    if(~Horn & !DISABLEHORN){
+        CS:setBodygroup(6,Horn)
+    }elseif(DISABLEHORN){
+        CS:setBodygroup(6,2)
+    }
+    if(Dynamics){
+        if(~Notch){
+            CS:setBodygroup(2,0)
+            CS:setBodygroup(3,Notch)
+        }
+    }else{
+        if(~Notch){
+            CS:setBodygroup(3,0)
+            CS:setBodygroup(2,Notch)
+        }
+    }
+    
+    if(Toggle1 & ~Toggle1){Toggle1_Out = !Toggle1_Out}
+    if(Toggle2 & ~Toggle2){Toggle2_Out = !Toggle2_Out}
+    
+}else{
+    if(~Active){
+        CS:setBodygroup(1,1)
+        CS:setBodygroup(2,0)
+        CS:setBodygroup(3,0)
+        CS:setBodygroup(4,0)
+        CS:setBodygroup(6,DISABLEHORN ? 3 : 0)
+    }
+}
+
+if(~Active){
+    CS:setBodygroup(5,!Active)
+}
+
+R = Reverser==1 ? "Forward" : Reverser==-1 ? "Reverse" : "Neutral"
+N = Notch:toString()
+D = Dynamics ? "Engaged" : "Disengaged"
+B = Brake ? "Engaged" : "Disengaged"
+M = floor(MPH):toString()
+setName("Reverser: "+R+"\nNotch: "+N+"/8\nDynamic Brakes: "+D+"\nAirbrakes: "+B+"\nSpeed: "+M+" MPH")

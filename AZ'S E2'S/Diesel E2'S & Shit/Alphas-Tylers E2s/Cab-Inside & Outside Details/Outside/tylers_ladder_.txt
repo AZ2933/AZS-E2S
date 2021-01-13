@@ -1,0 +1,40 @@
+@name Tylers ladder 
+@inputs 
+@outputs 
+@persist 
+@trigger 
+#@model models/sprops/rectangles/size_5/rect_48x48x3.mdl
+#@model models/sprops/rectangles/size_5/rect_48x48x3.mdl
+#@model models/jazzie/trains/locomotives/emd/gp28-35/turbo_exhaust.mdl
+
+Model = "models/gsgtrainprops/parts/exhausts/emdmodern.mdl"
+LocalPos = vec(0)
+LocalAng = ang(0,0,0)
+Scale = vec(0.8,0.8,1.5)
+
+Color = vec(0)
+Alpha = 255
+Material = ""
+Skin = 1
+
+
+
+
+E = entity()
+
+#E:setAlpha(0)
+
+holoCreate(0,E:toWorld(LocalPos),Scale,E:toWorld(LocalAng),Color,Model)
+holoParent(0,E)
+
+holoMaterial(0,Material)
+holoSkin(0,Skin)
+holoAlpha(0,Alpha)
+
+#holoDisableShading(0,1)
+#holoBodygroup(0,1,1)
+#holoAnim(0,"idle")
+#holoClipEnabled(0,1)
+#holoClip(0,vec(0,0,10),vec(0,0,1),0)
+#holoEntity(0):setSubMaterial(2,"models/props_lab/warp_sheet")
+

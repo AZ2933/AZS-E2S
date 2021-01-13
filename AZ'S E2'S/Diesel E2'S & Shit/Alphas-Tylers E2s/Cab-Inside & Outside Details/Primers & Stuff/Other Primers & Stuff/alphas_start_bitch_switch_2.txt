@@ -1,0 +1,58 @@
+@name Alphas Start Bitch Switch 2
+@inputs Switch Switch2 On On2 Bat Mu
+@outputs Start SWS PMS
+@persist C Start 
+@trigger 
+
+if(On2){
+
+    holoDisableShading(1,1)
+    }else{
+
+    holoDisableShading(1,0)}   
+
+
+    
+if(first() | dupefinished())
+{      E2=entity()
+    E2:setAlpha(0)
+    holoCreate(1, E2:toWorld(vec(0,0,1)), vec(0.0,0.0,0.0), E2:toWorld(ang(0,90,0)))
+    holoColor(1, vec(255))
+    holoModel(1, "models/jazzie/trains/locomotives/emd/cab/control_panel_switch1.mdl")
+    holoScale(1, vec(1))
+    holoParent(1, E2)
+
+  
+}
+if(Switch2){Switch=Switch2}
+
+
+if(!Switch&!Mu&C<300){C=0}
+if(Switch&Bat&!On){
+C+=2
+interval(300)}
+
+if(C>5&Bat&!Mu&C<50){PMS=1
+holoAng(1, entity():toWorld(ang(0,-50,0)))
+SWS=1}else{PMS=0
+holoAng(1, entity():toWorld(ang(0,-90,0)))
+SWS=0}
+   
+    
+   
+if(C>55){SWS=1
+holoAng(1, entity():toWorld(ang(0,-150,0)) )
+}  
+if(C>60&!On){Start=1 
+SWS=1}
+if(On){
+C=0
+Start=0
+holoAng(1, entity():toWorld(ang(0,-90,0)) )
+SWS=0}   
+if(C>200){SWS=1}
+if(On&Switch){
+Start=1
+SWS=0
+holoAng(1, entity():toWorld(ang(0,90,0)) )}
+if(!Switch&On==0){Start=0}

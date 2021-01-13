@@ -1,0 +1,53 @@
+@name Alphas NOT A FUCKING DILLDO DON'T ASK power Antenna
+@inputs On
+@outputs 
+@persist Anti
+@trigger 
+if(first()|dupefinished()){
+    
+    holoCreate(1)
+    holoModel(1,"models/sprops/cylinders/size_1/cylinder_1_5x3.mdl")
+   
+    holoParent(1,entity())
+    holoAlpha(1,255)
+    holoColor(1,vec(109))
+    holoMaterial(1,"models/shiny")
+    holoScale(1,vec(0.4,0.4,0.5))
+    holoPos(1,entity():toWorld(vec(0,0,1.5)))
+    holoCreate(2,entity():toWorld(vec(0,0,2.5)),vec(0.01),entity():toWorld(ang(0,0,0)),vec(0,0,109),"models/gsgtrainprops/trains/propper/mlw_m420.mdl")
+    holoParent(2,entity())
+    holoCreate(3,entity():toWorld(vec(2.2,0,2.3)),vec(0.01),entity():toWorld(ang(0,90,0)),vec(255),"models/gsgtrainprops/trains/propper/trucks/dofasco_zwt_broadgauge.mdl")
+    holoParent(3,holoEntity(2) )
+    holoCreate(4,entity():toWorld(vec(-2.2,0,2.3)),vec(0.01),entity():toWorld(ang(0,90,0)),vec(255),"models/gsgtrainprops/trains/propper/trucks/dofasco_zwt_broadgauge.mdl")
+    holoParent(4,holoEntity(2) )
+    }
+
+
+    if(On & ~On){soundPlay(2,0, " ")
+        soundStop(1)}
+soundPitch(2,90+10*Anti)
+
+
+
+if(!On & ~On){
+    soundPlay(1,0," ")
+    soundStop(2)
+}
+
+if(On==1&Anti<15){Anti+=0.1
+    interval(50)
+     holoScale(1,vec(0.4,0.4,Anti))
+holoPos(1,entity():toWorld(vec(0,0,Anti)))
+holoPos(2,entity():toWorld(vec(0,0,Anti*2.5)))}
+if(On==0&Anti>1.5){Anti-=0.2
+    interval(50)
+     holoScale(1,vec(0.4,0.4,Anti))
+holoPos(1,entity():toWorld(vec(0,0,Anti)))
+holoPos(2,entity():toWorld(vec(0,0,Anti*2.5)))}
+E = entity()
+
+E:setAlpha(0)
+
+holoCreate(0,E:toWorld(vec(0,0,0.3)),vec(0.6),E:toWorld(ang(0)),vec(109),"models/sprops/misc/fittings/cred_3_1_5_short.mdl")
+holoParent(0,E)
+holoMaterial(0,"models/shiny")

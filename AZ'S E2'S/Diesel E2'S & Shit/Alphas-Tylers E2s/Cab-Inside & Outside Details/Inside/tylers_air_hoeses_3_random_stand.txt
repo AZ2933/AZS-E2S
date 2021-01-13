@@ -1,0 +1,24 @@
+@name Tylers Air Hoeses 3
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#@model models/sprops/rectangles/size_5/rect_48x48x3.mdl
+#@model models/jazzie/trains/locomotives/emd/gp28-35/turbo_exhaust.mdl
+
+E = entity()
+
+#E:setAlpha(0)
+if(first()|dupefinished()){
+
+holoCreate(0,E:toWorld(vec(5,0,5)),vec(1,1,1),E:toWorld(ang(0,90,0)),vec(255),"models/sprops/cylinders/size_1/cylinder_1_5x42.mdl")
+holoParent(0,E)
+holoMaterial(0,"jazzie/trains/wall01")
+holoCreate(1,E:toWorld(vec(-5,0,5)),vec(1,1,1),E:toWorld(ang(0,90,0)),vec(255),"models/sprops/cylinders/size_1/cylinder_1_5x42.mdl")
+holoParent(1,E)
+holoMaterial(1,"jazzie/trains/wall01")
+
+
+}
+

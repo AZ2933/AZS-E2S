@@ -1,0 +1,65 @@
+@name Alphas Window & Wiper 1 MLW right (the front version)
+@inputs Speed
+@outputs 
+@persist Ang1 Ang2 CurAng Speed Speed2 A B
+
+if(first()|dupefinished()){
+    E=entity()
+
+           #Speed of arm swing
+    Ang1 = -20  
+    Ang2 = 20     
+ 
+
+   
+
+
+   
+    A=0
+    holoCreate(A,E:toWorld(vec(-3,0,2)),vec(0.9),E:toWorld(ang(0,-90,90)),vec(0,0,255),"models/jazzie/trains/locomotives/emd/cab/cab_wiper_bar_reversed.mdl")
+    holoParent(A,E)
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/acrylic")
+    A=1
+    holoCreate(A,E:toWorld(vec(15,0.7,2)),vec(0.9),E:toWorld(ang(0,-90,90)),vec(0,0,255),"models/jazzie/trains/locomotives/emd/cab/cab_wiper.mdl")
+    holoParent(A,holoEntity(0))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/acrylic")
+    A=2
+    holoCreate(A,E:toWorld(vec(-3.0,0,-1.5)),vec(1,0.8,0.8),E:toWorld(ang(0,-90,90)),vec(255),"models/sprops/cuboids/height06/size_1/cube_6x12x6.mdl")
+    holoParent(A,E)
+    holoMaterial(A,"models/proppertextures/cabmetal_gray")
+    A=3
+    holoCreate(A,E:toWorld(vec(-2,1,1)),vec(0.5,0.5,0.3),E:toWorld(ang(0,0,0)),vec(0,0,255),"models/sprops/misc/domes/size_1/dome_12x6.mdl")
+    holoParent(A,E) 
+    holoMaterial(A,"models/proppertextures/acrylic")
+
+    CurAng=20
+    entity():setAlpha(0)
+    holoCreate(4)
+    holoModel(4,"models/sprops/rectangles_thin/size_1_5/rect_6x6x1_5.mdl")
+    holoScale(4,vec(6,3,0.4))
+    holoParent(4,entity())
+    holoPos(4,entity():toWorld(vec(15,0,1)))
+    holoAlpha(4,255)
+    holoColor(4,vec(0))
+    holoMaterial(4,"models/shiny")
+    holoClipEnabled(4,1,1)
+    holoClip(4,1,vec(0,0,0.001),vec(0,0,1),0)
+
+
+  
+
+}
+##########################################################################################################
+if(Speed>1){Speed2=Speed}else{Speed2=0}
+if(Speed>0){interval(50)}
+if(B==0){CurAng-=Speed2}
+if(B==1){CurAng+=Speed2}
+    
+if(CurAng<Ang1&B==0){B=1}
+if(CurAng>Ang2&B==1){B=0}
+
+holoAng(0,entity():toWorld(ang(0,-90-CurAng,90)))
+holoAng(1,entity():toWorld(ang(0,-90,90)))
+
+
+

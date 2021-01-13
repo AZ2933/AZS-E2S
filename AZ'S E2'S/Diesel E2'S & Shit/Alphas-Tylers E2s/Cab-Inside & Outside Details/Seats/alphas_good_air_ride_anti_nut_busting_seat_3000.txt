@@ -1,0 +1,61 @@
+@name Alphas good Air Ride Anti Nut Busting Seat 3000
+@inputs Active Prop:entity MPH Ye
+@outputs 
+@persist C Tick E:entity Model:string Prop:entity Time Active POS2 POS Ye MV POS3 POST
+@trigger all
+if(first()|dupefinished()){
+E=entity()
+E:setAlpha(0)
+holoCreate(0)
+holoCreate(1)
+holoAlpha(1,0)
+holoParent(1,holoEntity(0))
+holoModel(0,"models/magtrainslocos/cabseats/cabseat_emd.mdl")
+holoColor(0,vec(255))
+holoPos(1,entity():toWorld(vec(0,0,0)))
+holoAng(1,entity():toWorld(ang(0,0,0)))
+holoParent(0,E)
+holoScale(0,vec(1))
+holoEntity(0):setSubMaterial(1,"models/proppertextures/plastic_gray")
+holoEntity(0):setSubMaterial(3,"bobsters_trains/br_pullman_brown")
+holoAng(0,entity():toWorld(ang(0,180,0)))
+
+holoBodygroup(0,2,3)
+Prop:parentTo(holoEntity(1))
+Prop:setAlpha(0)
+POS2=0
+POS=0
+POST=1
+}
+
+
+
+
+
+
+
+if(POST==2){
+holoPos(0,entity():toWorld(vec(0-POS,-POS3-POS,-13-POS)))
+holoPos(1,entity():toWorld(vec(0-POS,-POS3-POS,-POS)))
+}else{
+holoPos(0,entity():toWorld(vec(0+POS,-POS3+POS,-13+POS)))
+holoPos(1,entity():toWorld(vec(0+POS,-POS3+POS,POS)))
+}
+interval(100)
+Time++ 
+if(MPH>=5&POS>-0.3&POST==1){POS-=0.05}
+if(MPH>=5&POS<0.3&POST==2){POS+=0.05}
+if(MPH<4){POS=0}
+if(POS==0.2){POST=1}
+if(POS==-0.2){POST=2}
+if(Ye==1&POS2<40){POS2+=10
+}
+if(Ye==0&POS2>0){POS2-=10
+}
+holoAng(1,E:toWorld(ang(0+POS2,180,0)))
+if(Active){holoBodygroup(0,1,1)
+    MV=1}else{holoBodygroup(0,1,2)
+    MV=0}
+    
+if(MV&POS3<20){POS3+=0.5}
+if(!MV&POS3>0){POS3-=0.5}

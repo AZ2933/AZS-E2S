@@ -1,0 +1,20 @@
+@name Tylers Cab Rattle
+@inputs Load
+@outputs 
+@persist T Time N
+@trigger 
+if(first() | duped()){Time = 4}
+if(Load > 10){On = 1}
+else{On = 0}
+interval(Time*1000)
+
+if(On==1){
+    
+    N = randint(1,5)
+
+    Sound = select(N,"_jazzlok/misc/cab_rattle01.wav","_jazzlok/misc/cab_rattle06.wav","_jazzlok/misc/cab_rattle03.wav","_jazzlok/misc/cab_rattle05.wav5","_jazzlok/misc/cab_rattle02.wav5")
+
+    entity():soundPlay(0,Time-1,Sound)
+}else{
+    soundStop(0)
+}

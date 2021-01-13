@@ -1,0 +1,64 @@
+@name Alphas good Air Ride Anti Nut Busting Seat 3004
+@inputs Active [Prop Pod]:entity MPH
+@outputs A Aout Bout
+@persist C Tick E:entity Model:string Prop:entity Time Active POS2 POS Ye MV POS3 POST Cha ADJ
+@trigger all
+if(first()|dupefinished()){
+E=entity()
+E:setAlpha(0)
+holoCreate(0)
+holoCreate(1)
+holoAlpha(1,0)
+holoParent(1,holoEntity(0))
+holoModel(0,"models/magtrainslocos/cabseats/cabseat_emd.mdl")
+holoColor(0,vec(255))
+holoPos(1,entity():toWorld(vec(0,0,0)))
+holoAng(1,entity():toWorld(ang(0,0,0)))
+holoParent(0,E)
+holoScale(0,vec(1))
+
+holoEntity(0):setSubMaterial(1,"models/proppertextures/plastic_gray")
+holoEntity(0):setSubMaterial(4,"models/proppertextures/plastic_gray")
+holoAng(0,entity():toWorld(ang(0,180,0)))
+
+holoBodygroup(0,2,3)
+Prop:parentTo(holoEntity(1))
+Prop:setAlpha(0)
+POS2=0
+POS=0
+POS3=0
+
+}
+Driver = Pod:driver()
+if(Driver:keyPressed("PAD_0")&!Driver:keyPressed("lshift")&POS3>-3){ 
+if(changed(Driver:keyPressed("PAD_0")&ADJ==1)){A=1}else{A=0}
+
+ADJ=1
+POS3-=0.2
+}
+if(Driver:keyPressed("PAD_0")&Driver:keyPressed("lshift")&POS3<3){
+POS3+=0.2  
+ADJ=1
+}
+
+holoPos(0,entity():toWorld(vec(0,POS3,POS-15)))
+holoPos(1,entity():toWorld(vec(0,POS3,POS-0)))
+
+if(Active){timer("run",80)}else{POS3=0 POS2=0 POS=0}
+
+if(MPH>1&Cha==1){POS+=0.1}
+if(MPH>1&Cha==0){POS-=0.1}
+if(POS>0.5){Cha=0}
+if(POS<-0.5){Cha=1}
+
+if(Driver:keyPressed("space")&POS2<40){POS2+=10 
+}
+if(!Driver:keyPressed("space")&POS2>0){POS2-=10 
+}
+holoAng(1,E:toWorld(ang(0+POS2,180,0)))
+if(Active){holoBodygroup(0,1,1)
+    MV=1}else{holoBodygroup(0,1,2)
+    MV=0}
+    
+if(Driver:keyPressed("PAD_9")&!Driver:keyPressed("lshift")){Aout=1}else{Aout=0}
+if(Driver:keyPressed("PAD_9")&Driver:keyPressed("lshift")){Bout=1}else{Bout=0}

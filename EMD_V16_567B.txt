@@ -6,7 +6,7 @@ EngineType = "EMD 567B (V16)" #What is the name of the Prime Mover?
 
 Startup_Hi = "gsgtrainsounds/emd567/startup.wav" #Startup Sound to put the engine in High (Normal) Idle.
 Startup_Lo = "" #Startup Sound to put the engine in Low Idle.
-Startup_Mode = 1 #0 for Low, 1 for High
+Startup_Mode = 0 #0 for Low, 1 for High
 
 Shutdown_Hi = "gsgtrainsounds/emd567/shutdown.wav" #Shutdown Sound from High Idle.
 Shutdown_Lo = "" #Shutdown Sound from Low Idle.

@@ -3,3 +3,4 @@ hi im AZ/AZ2933, im new in github, and i have e2s that people might not have (fr
 
 
 Just giving out away e2s, Maybe dupes if i see people want me to giveaway dupes (that are obviously public) or i will add it myself
+(oh wait its in this page > https://github.com/AZ2933/AZS-Dupes)

@@ -79,8 +79,8 @@ CompressorOff = "gsgtrainsounds/misc/compressors/gd_wbo_end.wav"
 DynamicsOn = "gsgtrainsounds/misc/delco_dynfan_loop.wav"
 DynamicsOff = "gsgtrainsounds/misc/delco_dynfan_end.wav"
 
-PrimeOn = "monkssounds/fuel pumps/fuelpump2.wav"
-PrimeOff = "monkssounds/fuel pumps/fuelpump2end.wav"
+PrimeOn = "soldotensoundportspublic/misc/567_primer.wav"
+PrimeOff = "soldotensoundportspublic/misc/567_primer_end.wav"
 
 PrimerDuration = randint(10,15)
 

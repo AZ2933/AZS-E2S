@@ -1,0 +1,31 @@
+@name AZ's Simple Cablight 
+@inputs On
+@outputs RGB:vector On
+@persist A
+
+if(first()|dupefinished()){
+
+#Created By AZ/AZ2933
+#The output "On" can be for the lamp, but its ur choice of which output to wire
+#Github: https://github.com/AZ2933/AZS-E2S
+#Github: https://github.com/AZ2933/AZS-Dupes
+#Steam Link: https://steamcommunity.com/profiles/76561198819798405/
+#Discord: az2933#8263
+#This E2 Will Be Updated If The "Connections (^)" Changed Or Other Crap.
+#Made In 1/17/21
+}
+
+if(On){On=1
+
+soundPlay(A,1,"_jazzlok/switches/rotary_switch.wav")
+    
+RGB=vec(255)
+    
+}else{On=0
+
+soundPlay(A,1,"_jazzlok/switches/rotary_switch.wav")
+
+RGB=vec(50,50,50)
+
+}
+

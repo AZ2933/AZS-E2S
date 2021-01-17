@@ -1,0 +1,9 @@
+@name Text Printer V2 (Chat Version)
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#Owner: AZ2933
+
+chatPrint("hi (test)")

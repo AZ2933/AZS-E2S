@@ -1,9 +1,0 @@
-@name Text Printer
-@inputs 
-@outputs 
-@persist 
-@trigger 
-
-#Owner: AZ2933
-
-print("Test")

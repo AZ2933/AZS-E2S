@@ -1,0 +1,36 @@
+@name "Let You Know" Front & Rear Plugs E2 V2
+@inputs Connect Connect_2 Connect_Sound_1 Connect_Sound_2
+@outputs Connect Connect_2 Connect_Sound_1 Connect_Sound_2
+#@model 
+#@trigger all
+
+#Created By AZ2933
+#Connect (Input) Connect_Sound_1 to the (output) Connect_Sound_1 and do the same thing to the _2
+#Off Sound Takes About 2 Seconds.
+
+if(Connect){Connect=1
+soundPlay(0,0,"_jazzlok/switches/fuse_in.wav")
+
+    
+}else{Connect=0
+soundPlay(0,0,"_jazzlok/switches/fuse_out.wav")
+}
+
+if(Connect_Sound_1){Connect_Sound_1=1
+soundPlay(1,1,"_jazzlok/switches/hum.wav")
+}else{Connect_Sound_1=0
+}
+
+if(Connect_2){Connect_2=1
+soundPlay(0,0,"_jazzlok/switches/fuse_in.wav")
+
+    
+}else{Connect_2=0
+soundPlay(0,0,"_jazzlok/switches/fuse_out.wav")
+}
+
+if(Connect_2){Connect_Sound_2=1
+soundPlay(1,1,"gsgtrainsounds/other/electric_hum_loud.wav")
+}else{Connect_Sound_2=0
+}
+

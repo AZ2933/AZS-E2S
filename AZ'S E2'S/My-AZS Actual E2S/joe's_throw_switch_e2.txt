@@ -1,0 +1,29 @@
+@name Joe's Throw Switch E2
+@inputs Connect ButtonEntity:entity
+@outputs Connect
+@persist A
+@model models/joe/jtp/throw/harpstand_2_pos.mdl
+
+#Created By AZ2933
+
+ButtonEntity:setAlpha(0)
+Switch = entity()
+
+if(Connect){
+    soundPlay(A,1,"buttons/lever6.wav")
+    A++
+    if(A>1){
+     A=0
+    }
+}
+
+if(A==0){
+ Switch:setBodygroup(1,0)
+}elseif(A==1){
+ Switch:setBodygroup(1,1)
+}
+
+
+
+
+

@@ -1,0 +1,9 @@
+@name Disabled Collisions E2
+@inputs 
+@outputs 
+@persist 
+@trigger 
+
+#Created By AZ 
+#(eeeh)
+noCollideAll(entity(),0)

@@ -1,0 +1,27 @@
+@name AZ'S Simple Engine Prime Sound E2
+@inputs Connect ButtonEntity:entity
+@outputs Connect1
+@model models/magtrainslocos/rotaryswitches/headlight_emd.mdl
+
+#Created By AZ2933
+
+##########################
+ButtonEntity:setAlpha(0)
+Switch = entity()
+Base = entity()
+Base:setBodygroup(2,1)
+##########################
+if(Connect){
+ Switch:setBodygroup(1,2)
+ soundPlay(0,0,"gsgtrainsounds/misc/alarmbell_loop.wav") #Ik there not engine sound primes, but come on man its a-#
+}else{#-SIMPLE E2 what do u expect...?
+ Switch:setBodygroup(1,0)
+ soundPlay(0,0,"gsgtrainsounds/misc/alarmbell_end.wav")
+}
+if(Connect){Connect1=1
+
+
+
+}else{Connect1=0
+
+}

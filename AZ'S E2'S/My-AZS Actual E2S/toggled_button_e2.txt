@@ -1,0 +1,19 @@
+@name Toggled Button E2
+@inputs Toggle_In ButtonEntity:entity
+@outputs Toggle_Out
+@persist
+#@model 
+
+#Created By AZ2933
+
+ButtonEntity:setAlpha(0)
+
+
+if(Toggle_In){
+
+if(Toggle_Out){Toggle_Out=0
+}else{Toggle_Out=1
+} #Toggled Out End
+
+} #Toggled In End
+

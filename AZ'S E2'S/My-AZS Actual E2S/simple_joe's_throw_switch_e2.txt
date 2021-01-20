@@ -1,0 +1,18 @@
+@name Simple Joe's Throw Switch E2
+@inputs Connect ButtonEntity:entity
+@outputs 
+@persist
+@trigger
+@model models/joe/jtp/throw/harpstand_2_pos.mdl
+
+#Created By AZ2933
+
+ButtonEntity:setAlpha(0)
+Switch = entity()
+if(Connect){
+ Switch:setBodygroup(1,1)
+}else{
+ Switch:setBodygroup(1,0)
+}
+
+

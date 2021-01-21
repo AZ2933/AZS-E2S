@@ -4,7 +4,8 @@
 @persist A
 @trigger all
 #Created By AZ2933
-#This Ligit Took About (2)An Hour(s) To Make :/
+#This Ligit Took About An Hour To Make :/
+#And Obviously Public
 if(first() | dupefinished()){
 #FRONT LIGHT
     A++

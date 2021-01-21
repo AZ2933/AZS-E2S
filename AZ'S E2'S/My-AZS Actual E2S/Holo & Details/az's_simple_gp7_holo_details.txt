@@ -46,7 +46,6 @@ if(first() | dupefinished()){
     holoScale(A,vec(1,1,1))
     holoAng(A,Entity:toWorld(ang(0,-90,0)))   
     holoPos(A,Entity:toWorld(vec(-0.4,-350.3,-4.7))) 
-    #holoBodygroup(A,1,4)
     holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
 #BACK COUPLER
     A++
@@ -57,7 +56,6 @@ if(first() | dupefinished()){
     holoScale(A,vec(1,1,1))
     holoAng(A,Entity:toWorld(ang(0,90,0)))   
     holoPos(A,Entity:toWorld(vec(0.4,350.3,-4.7))) 
-    #holoBodygroup(A,1,4)
     holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
 #PLOW FRONT
     A++
@@ -68,7 +66,6 @@ if(first() | dupefinished()){
     holoScale(A,vec(1,1,1))
     holoAng(A,Entity:toWorld(ang(0,-90,0)))   
     holoPos(A,Entity:toWorld(vec(0,-346,-5))) 
-    #holoBodygroup(A,1,4)
     holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
 
 #PLOW BACK
@@ -80,11 +77,5 @@ if(first() | dupefinished()){
     holoScale(A,vec(1,1,1))
     holoAng(A,Entity:toWorld(ang(0,90,0)))   
     holoPos(A,Entity:toWorld(vec(0,346,-5))) 
-    #holoBodygroup(A,1,4)
     holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
-
-
-
-
-
 }

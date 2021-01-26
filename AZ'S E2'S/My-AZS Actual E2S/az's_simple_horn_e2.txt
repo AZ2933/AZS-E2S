@@ -1,0 +1,17 @@
+@name AZ'S Simple Horn E2
+@inputs R
+@outputs 
+@persist 
+@trigger 
+
+#Most People Uses R So Imma Use That Key On This E2
+
+#Diesels. Put It Around The Top Of The Middle Or Front
+#Steamers. (Same Thing As This ^)
+
+
+if (R){R=1
+soundPlay(0,0,"scotttrains/whistles/usa/generic_loop.wav")    
+}else{R=0
+soundPlay(0,0,"scotttrains/whistles/usa/generic_end.wav")
+}

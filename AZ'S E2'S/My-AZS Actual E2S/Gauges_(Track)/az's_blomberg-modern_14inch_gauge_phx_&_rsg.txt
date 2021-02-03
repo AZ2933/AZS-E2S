@@ -1,0 +1,34 @@
+@name AZ'S Blomberg-Modern 14inch Gauge PHX & RSG
+@inputs [PHX]:entity [RSG]:entity 
+@persist E:entity A
+@trigger 
+@model
+
+#Edited By AZ2933
+
+Phx = PHX
+hint("Look In The E2 To Get The Pack!",5)
+#https://steamcommunity.com/sharedfiles/filedetails/?id=2370393604
+Rsg = RSG
+
+
+#PHX
+
+A++
+holoCreate(A,Phx:toWorld(+vec(0.00,0,15.4)),vec(0.5),Phx:toWorld(+ang(0,0,0)))
+holoModel(A,"models/magtrainslocos/trucks/blomberg_b_phx.mdl")
+holoScale(A,vec(0.16,0.30,0.30))
+holoColor(A,vec(255))
+holoParent(A,Phx)
+holoAng(A,Phx:toWorld(ang(0,90,0)))
+
+
+#RSG
+
+A++
+holoCreate(A,Rsg:toWorld(+vec(0.00,0,15.4)),vec(0.5),Rsg:toWorld(+ang(0,0,0)))
+holoModel(A,"models/magtrainslocos/trucks/blomberg_b_rsg.mdl")
+holoScale(A,vec(0.23,0.30,0.30))
+holoColor(A,vec(255))
+holoParent(A,Rsg)
+holoAng(A,Rsg:toWorld(ang(0,90,0)))

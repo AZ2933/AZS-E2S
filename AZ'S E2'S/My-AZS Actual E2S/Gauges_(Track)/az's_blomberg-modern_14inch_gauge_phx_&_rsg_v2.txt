@@ -1,0 +1,36 @@
+@name AZ'S Blomberg-Modern 14inch Gauge PHX & RSG V2
+@inputs BOGEY:entity
+@persist E:entity A
+@trigger 
+@model
+
+#Edited/Created By AZ2933
+
+
+Bogey = BOGEY
+hint("Look In The E2 To Get The Pack!",5)
+#https://steamcommunity.com/sharedfiles/filedetails/?id=2370393604
+Gauge = 0
+#If you do 1 (phx) then go to 0 (nothing) and go to 2 (rsg) if u wanna change models
+
+#PHX
+
+if(Gauge >= 1){A++
+holoCreate(A,Bogey:toWorld(+vec(0.00,0,15.4)),vec(0.5),Bogey:toWorld(+ang(0,0,0)))
+holoModel(A,"models/magtrainslocos/trucks/blomberg_b_phx.mdl")
+holoScale(A,vec(0.16,0.30,0.30))
+holoColor(A,vec(255))
+holoParent(A,Bogey)
+holoAng(A,Bogey:toWorld(ang(0,90,0)))
+}
+
+#RSG
+
+if(Gauge >= 2){A++
+holoCreate(A,Bogey:toWorld(+vec(0.00,0,15.4)),vec(0.5),Bogey:toWorld(+ang(0,0,0)))
+holoModel(A,"models/magtrainslocos/trucks/blomberg_b_rsg.mdl")
+holoScale(A,vec(0.23,0.30,0.30))
+holoColor(A,vec(255))
+holoParent(A,Bogey)
+holoAng(A,Bogey:toWorld(ang(0,90,0)))
+}

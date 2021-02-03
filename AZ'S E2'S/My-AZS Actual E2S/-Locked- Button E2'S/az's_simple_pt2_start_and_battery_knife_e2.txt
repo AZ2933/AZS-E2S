@@ -1,0 +1,21 @@
+@name AZ'S Simple PT2 Start And Battery Knife E2
+@inputs Battery_Knife Start1_Button
+@outputs Start1
+@persist 
+@trigger 
+
+#Created By AZ2933
+#Like The "Locked Button E2"
+
+Battery_Knife_Open = "_jazzlok/switches/knife_switch_open.wav"
+Battery_Knife_Close = "_jazzlok/switches/knife_switch_close.wav"
+
+if(Battery_Knife & Start1_Button >= 1){
+    Start1 = 1
+    soundPlay(0,0,Battery_Knife_Open)
+    
+    }else{
+    Start1 = 0
+    soundPlay(0,0,Battery_Knife_Close)
+    
+}

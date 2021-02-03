@@ -1,0 +1,32 @@
+@name "Locked" Button E2
+@inputs Unlock Open ButtonEntity:entity
+@outputs Enter
+@persist
+#@model 
+if(first()|dupefinished()){
+#Created By AZ2933
+#Step 1. Spawn In 2 Buttons
+#Step 2. Wire Unlock To The First Button
+#Step 3. Wire Open To The Second Button
+#Step 4 Warning. (To Make The E2 Work Then If You Try The Second Button Then It Wont Work)
+#Step 4. Then Turn On The First Button (So it will work for the second button)
+#Step 5. Then Turn On The Second Button (So It Works If u Do Tat)
+#Step 5 Check. Then Try To See If The E2 Works Or If It "Opens"
+#And Then Were Done! I Hope This Help!
+
+#Github: https://github.com/AZ2933/AZS-E2S
+#Github2: https://github.com/AZ2933/AZS-Dupes
+#Discord: az2933#8263
+#Steam: https://steamcommunity.com/profiles/76561198819798405/
+
+}
+
+ButtonEntity:setAlpha(0)
+
+if(Open & Unlock >= 1){
+    Enter = 1
+    
+    }else{
+    Enter = 0
+    
+}

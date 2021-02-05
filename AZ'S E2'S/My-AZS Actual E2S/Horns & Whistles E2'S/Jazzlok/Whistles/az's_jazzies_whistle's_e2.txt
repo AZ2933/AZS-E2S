@@ -1,0 +1,80 @@
+@name AZ'S Jazzies Whistle's E2
+@inputs R 
+@outputs Blowed_The_Whistle
+@persist A E:entity
+@model models/props_bennjo/bigboy_whistle.mdl
+
+#Welcome To One Of My Horn E2S!, Choose Which Whistle You Want At Line 11
+#Make The E2 Invisible In Line 12
+
+#4:55PM - 4:57PM EST (Of Simple Time To Create)
+#4:55PM - 6:08PM EST (Actual Time)
+
+WhistleChoice = 0
+MakeE2Invisible = 0
+
+#"Each Class Of Engine Had Its Own Whistle Hooter"
+
+#From Jazzlok \/
+
+#1 = Texas And Pacific (T&P?) Whistle
+#2 = Hooter Whistle
+#3 = Big Boy 4018 Whistle
+#4 = Union Terminal 7 Spot Whistle
+#Video Link: https://www.youtube.com/watch?v=TU7DNkZtG1I
+
+if(WhistleChoice == 1){
+if(R){
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_1.wav")
+setName("Texas And Pacific (T&P?) Whistle On")
+}else{
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_1_end.wav")
+setName("Texas And Pacific (T&P?) Whistle Off")
+}
+}
+
+if(WhistleChoice == 2){
+if(R){
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_2.wav")
+setName("Hooter Whistle On")
+}else{
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_2_end.wav")
+setName("Hooter Whistle Off")
+}
+}
+
+if(WhistleChoice == 3){
+if(R){
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_3.wav")
+setName("Big Boy 4018 Whistle On")
+}else{
+setName("Big Boy 4018 Whistle Off")
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_3_end.wav")
+}
+}
+
+if(WhistleChoice == 4){
+if(R){
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_4.wav")
+setName("Union Terminal 7 Spot Whistle On")
+}else{
+setName("Union Terminal 7 Spot Whistle Off")
+soundPlay(0,0,"_jazzlok/horns/steamtrain_horn_4_end.wav")
+}
+}
+
+################################EXTRAS###########################
+
+if(R){Honked = 1
+Honked = 1
+}else{
+Honked = 0
+}
+
+E = entity()
+
+if(MakeE2Invisible == 1){
+E:setAlpha(0) #Invisible
+}else{
+E:setAlpha(255) #Visible
+}
